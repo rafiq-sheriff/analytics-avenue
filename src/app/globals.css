@@ -91,3 +91,13 @@ p {
 .tech-logo-loop--pause-on-hover:hover .tech-logo-track {
   animation-play-state: paused;
 }
+
+/* Team marquee: hide scrollbar but keep overflow scroll for grab / wheel (see team.tsx). */
+.team-marquee-scroll {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.team-marquee-scroll::-webkit-scrollbar {
+  display: none;
+}
