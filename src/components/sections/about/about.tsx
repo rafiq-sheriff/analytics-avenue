@@ -5,57 +5,6 @@ import { useEffect, useRef, useState } from "react";
 
 const primary = "#2563EB";
 
-const features = [
-  {
-    title: "Intelligent Decision-Making",
-    description:
-      "Make faster, data-backed decisions with real-time insights and predictive intelligence.",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" className="h-6 w-6" aria-hidden>
-        <path
-          d="M4 19V5M4 19H20M4 19L8 15M20 19L16 15M8 9L12 5L16 9M12 5V15"
-          stroke="currentColor"
-          strokeWidth="1.75"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-    ),
-  },
-  {
-    title: "Scalable Data Systems",
-    description:
-      "Build data pipelines and AI systems that scale with your business growth.",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" className="h-6 w-6" aria-hidden>
-        <path
-          d="M4 7H20M4 12H20M4 17H20M8 7V5M16 7V5M12 12V10M8 17V15M16 17V15"
-          stroke="currentColor"
-          strokeWidth="1.75"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-    ),
-  },
-  {
-    title: "End-to-End Automation",
-    description:
-      "Automate workflows and processes with AI-powered systems.",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" className="h-6 w-6" aria-hidden>
-        <path
-          d="M13 2L3 14H12L11 22L21 10H12L13 2Z"
-          stroke="currentColor"
-          strokeWidth="1.75"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-    ),
-  },
-] as const;
-
 function useSectionReveal() {
   const ref = useRef<HTMLElement | null>(null);
   const [visible, setVisible] = useState(false);
@@ -72,169 +21,252 @@ function useSectionReveal() {
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+
     const obs = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) setVisible(true);
       },
-      { threshold: 0.12, rootMargin: "0px 0px -6% 0px" },
+      { threshold: 0.14, rootMargin: "0px 0px -5% 0px" },
     );
+
     obs.observe(el);
     return () => obs.disconnect();
   }, []);
 
-  const revealed = reduceMotion || visible;
-
-  return { ref, visible: revealed, reduceMotion };
+  return { ref, visible: reduceMotion || visible, reduceMotion };
 }
 
 const About = () => {
   const { ref, visible, reduceMotion } = useSectionReveal();
 
-  const reveal = (delayMs: number) => {
-    const on = visible;
-    return {
-      opacity: on ? 1 : 0,
-      transform: on ? "translateY(0)" : "translateY(1.5rem)",
-      transition: reduceMotion
-        ? "none"
-        : `opacity 0.65s ease, transform 0.65s ease`,
-      transitionDelay: reduceMotion ? "0ms" : `${delayMs}ms`,
-    } as const;
-  };
+  const reveal = (delay: number) => ({
+    opacity: visible ? 1 : 0,
+    transform: visible ? "translateY(0)" : "translateY(1rem)",
+    transition: reduceMotion
+      ? "none"
+      : `opacity 0.6s ease, transform 0.6s ease ${delay}ms`,
+  });
 
   return (
     <section
       ref={ref}
       id="about"
-      aria-labelledby="about-heading"
-      className="bg-white px-6 "
+      aria-labelledby="about-title"
+      className="bg-white px-6 pb-20 pt-12 sm:pb-28 sm:pt-16"
     >
-
       <div className="mx-auto w-full max-w-7xl">
-      <div className="mx-auto w-full max-w-7xl text-center mb-10">
-       <h2
-                  id="about-heading"
-                  className=" text-3xl font-bold leading-tight text-slate-900 sm:text-[2.2rem]"
-                >
-                  Transforming Data Into Real Business Impact
-                </h2>
-       </div>
-        <div
-          className="overflow-hidden rounded-[2rem] border border-slate-100 bg-[#f8fbff] p-4 shadow-[0_24px_70px_-35px_rgba(15,23,42,0.35)] sm:p-6 lg:p-8"
+        <h2
+          id="about-title"
+          className="mb-8 text-center text-3xl font-extrabold leading-tight text-slate-900 sm:mb-10 sm:text-4xl"
           style={reveal(0)}
         >
-          <div className="grid items-stretch gap-5 lg:grid-cols-[1.06fr_1fr]">
-            <div className="relative min-h-[360px] overflow-hidden rounded-[1.5rem] sm:min-h-[460px]">
+          Transforming Data Into{" "}
+          <span
+            className="rounded-sm px-2 py-0.5 text-white"
+            style={{ backgroundColor: primary }}
+          >
+            Real Business Impact
+          </span>
+        </h2>
+
+        <div
+          className="grid gap-5 rounded-3xl border border-slate-100 bg-[#f7fbff] p-4 shadow-[0_18px_55px_-30px_rgba(15,23,42,0.35)] sm:p-6 lg:grid-cols-[1.03fr_1fr] lg:p-8"
+          style={reveal(90)}
+        >
+          <div className="relative min-h-[340px] sm:min-h-[470px]">
+            <div className="relative h-full overflow-hidden rounded-[1.4rem]">
               <Image
                 src="/assets/images/Subramani.jpg"
-                alt="Analytics and AI consulting professionals collaborating"
+                alt="Analytics Avenue leadership and consulting"
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"
                 className="object-cover object-center"
                 priority={false}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/25 via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/20 via-transparent to-transparent" />
+            </div>
 
-              <div
-                className="absolute bottom-4 left-4 sm:bottom-6 sm:left-6"
-                style={
-                  reduceMotion
-                    ? undefined
-                    : { animation: "kpi-float 4s ease-in-out infinite" }
-                }
-              >
-                <div className="max-w-[220px] rounded-xl border border-white/70 bg-white/95 px-3.5 py-3 shadow-[0_12px_30px_-12px_rgba(37,99,235,0.35)] backdrop-blur-md">
-                  <p className="text-sm font-semibold leading-snug text-slate-900">
-                    Trusted by{" "}
-                    <span style={{ color: primary }}>2000+</span> professionals
-                    worldwide
-                  </p>
-                </div>
+            <div className="kpi-float absolute -left-3 top-10 hidden w-56 items-center gap-3 rounded-2xl border border-slate-200 bg-white/95 p-3 shadow-lg backdrop-blur sm:flex">
+              <div className="rounded-full bg-[#1A73E8]/10 p-2.5">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M13 2L3 14H12L11 22L21 10H12L13 2Z"
+                    stroke="#1A73E8"
+                    strokeWidth={2}
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </div>
+              <div>
+                <p className="text-xs font-semibold text-slate-800">
+                  Trusted by 2000+
+                </p>
+                <p className="text-[11px] text-slate-500">
+                  Professionals worldwide
+                </p>
               </div>
             </div>
 
-            <div className="rounded-[1.5rem] bg-white p-6 shadow-[0_10px_30px_-20px_rgba(15,23,42,0.3)] sm:p-8">
-              <div style={reveal(80)}>
-                <p
-                  className="text-xs font-semibold uppercase tracking-[0.18em]"
-                  style={{ color: primary }}
+            <div
+              className="kpi-float kpi-float-delay absolute -right-3 top-1/2 hidden w-52 -translate-y-1/2 items-center gap-3 rounded-2xl border border-slate-200 bg-white/95 p-3 shadow-lg backdrop-blur sm:flex"
+              style={
+                reduceMotion
+                  ? undefined
+                  : { animation: "kpi-float 4s ease-in-out infinite" }
+              }
+            >
+              <div className="rounded-full bg-emerald-50 p-2.5">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
-                  About Analytics Avenue
-                </p>
+                  <polyline
+                    points="22 7 13.5 15.5 8.5 10.5 2 17"
+                    stroke="#16A34A"
+                    strokeWidth={2}
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <polyline
+                    points="16 7 22 7 22 13"
+                    stroke="#16A34A"
+                    strokeWidth={2}
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </div>
+              <div>
+                <p className="text-xs font-bold text-emerald-600">1000+ Learners</p>
+                <p className="text-[11px] text-slate-500">Career-focused training</p>
+              </div>
+            </div>
 
-                <h2
-                  id="about-heading"
-                  className="mt-3 text-3xl font-bold leading-tight text-slate-900 sm:text-[2.2rem]"
+            <div className="kpi-float absolute -left-3 bottom-6 hidden w-56 items-center gap-3 rounded-2xl border border-slate-200 bg-white/95 p-3 shadow-lg backdrop-blur sm:flex">
+              <div className="rounded-full bg-violet-50 p-2.5">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
-                  Transforming Data Into Real Business Impact
-                </h2>
-
-                <p className="mt-4 max-w-xl text-base leading-relaxed text-slate-600 sm:text-lg">
-                  At Analytics Avenue, we go beyond dashboards — we build
-                  intelligent systems that help businesses grow smarter, faster,
-                  and more efficiently.
-                </p>
-
-                <div className="mt-7">
-                  <a
-                    href="#about-features"
-                    className="group inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-600/35 transition hover:-translate-y-0.5 hover:shadow-xl hover:shadow-blue-600/30 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2563EB]"
-                    style={{ backgroundColor: primary }}
-                  >
-                    Explore Our Approach
-                    <span
-                      aria-hidden
-                      className="transition-transform group-hover:translate-x-0.5"
-                    >
-                      →
-                    </span>
-                  </a>
-                </div>
+                  <path
+                    d="M3 12L8 17L21 4"
+                    stroke="#7C3AED"
+                    strokeWidth={2}
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
               </div>
-
-              <div
-                id="about-features"
-                className="mt-7 grid gap-3.5 sm:grid-cols-2"
-              >
-                {features.slice(0, 2).map((item, i) => (
-                  <article
-                    key={item.title}
-                    className="group rounded-xl border border-slate-100 bg-[#fbfdff] p-4 shadow-[0_8px_22px_-16px_rgba(15,23,42,0.35)] transition duration-300 hover:-translate-y-1 hover:border-blue-100 hover:shadow-[0_16px_36px_-16px_rgba(37,99,235,0.22)] motion-reduce:hover:translate-y-0"
-                    style={reveal(140 + i * 90)}
-                  >
-                    <div
-                      className="mb-3 inline-flex rounded-lg bg-blue-50 p-2 text-[#2563EB] transition group-hover:bg-blue-100"
-                      aria-hidden
-                    >
-                      {item.icon}
-                    </div>
-                    <h3 className="text-base font-bold text-slate-900">
-                      {item.title}
-                    </h3>
-                    <p className="mt-1.5 text-sm leading-relaxed text-slate-600">
-                      {item.description}
-                    </p>
-                  </article>
-                ))}
+              <div>
+                <p className="text-xs font-semibold text-slate-800">50+ Solutions</p>
+                <p className="text-[11px] text-slate-500">Industry-ready delivery</p>
               </div>
+            </div>
+          </div>
 
-              <article
-                className="group mt-3.5 rounded-xl border border-slate-100 bg-[#fbfdff] p-4 shadow-[0_8px_22px_-16px_rgba(15,23,42,0.35)] transition duration-300 hover:-translate-y-1 hover:border-blue-100 hover:shadow-[0_16px_36px_-16px_rgba(37,99,235,0.22)] motion-reduce:hover:translate-y-0"
-                style={reveal(290)}
+          <div className="rounded-[1.4rem] bg-white p-5 shadow-[0_10px_30px_-18px_rgba(15,23,42,0.28)] sm:p-7">
+            <p
+              className="text-xs font-semibold uppercase tracking-[0.15em]"
+              style={{ color: primary, ...reveal(140) }}
+            >
+              About Analytics Avenue
+            </p>
+
+            <p
+              className="mt-3 text-lg leading-relaxed text-slate-600 sm:text-[1.2rem] sm:leading-[1.3]"
+              style={reveal(180)}
+            >
+              At Analytics Avenue, we empower professionals and businesses
+              through impactful learning and real-world data solutions, backed
+              by experts across multiple industries.
+            </p>
+
+            <div className="mt-6" style={reveal(230)}>
+              <a
+                href="#approach"
+                className="inline-flex items-center gap-2 rounded-xl bg-[#1A73E8] px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-[#1A73E8]/40 transition hover:bg-[#155ec1] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2563EB]"
               >
-                <div
-                  className="mb-3 inline-flex rounded-lg bg-blue-50 p-2 text-[#2563EB] transition group-hover:bg-blue-100"
+                Explore Our Approach
+                <svg
+                  viewBox="0 0 15 15"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-4 w-4"
                   aria-hidden
                 >
-                  {features[2].icon}
-                </div>
-                <h3 className="text-base font-bold text-slate-900">
-                  {features[2].title}
+                  <path
+                    d="M8.5 3.5L12 7.5L8.5 11.5M3 7.5H12"
+                    stroke="white"
+                    strokeWidth="1.75"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </a>
+            </div>
+
+            <div id="approach" className="mt-7" style={reveal(280)}>
+              <div className="mb-3 flex items-center gap-3">
+                <h3
+                  className="shrink-0 text-xs font-semibold uppercase tracking-[0.14em]"
+                  style={{ color: primary }}
+                >
+                  Leadership Excellence
                 </h3>
-                <p className="mt-1.5 text-sm leading-relaxed text-slate-600">
-                  {features[2].description}
-                </p>
-              </article>
+                <span className="h-px w-full bg-blue-200" />
+              </div>
+
+              <ul className="space-y-2.5 text-base leading-relaxed text-slate-600">
+                <li className="flex items-start gap-2.5">
+                  <span className="mt-1 text-sm font-bold text-[#2563EB]" aria-hidden>
+                    ✓
+                  </span>
+                  <span>
+                  Worked with 15+ global brands, delivering data-driven
+                  strategies and intelligent solutions.
+                  </span>
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <span className="mt-1 text-sm font-bold text-[#2563EB]" aria-hidden>
+                    ✓
+                  </span>
+                  <span>
+                  Recognized as a leading AI speaker for contributions to AI
+                  education and industry adoption.
+                  </span>
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <span className="mt-1 text-sm font-bold text-[#2563EB]" aria-hidden>
+                    ✓
+                  </span>
+                  <span>
+                  Empowered 1,000+ students through focused data and analytics
+                  initiatives.
+                  </span>
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <span className="mt-1 text-sm font-bold text-[#2563EB]" aria-hidden>
+                    ✓
+                  </span>
+                  <span>
+                  Driving efforts to bridge academia and industry by building
+                  future-ready AI talent.
+                  </span>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
