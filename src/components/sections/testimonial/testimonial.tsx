@@ -255,18 +255,18 @@ const Testimonial = () => {
     <section className="bg-[#f5f7fb] px-6 py-14 sm:py-20" aria-labelledby="testimonial-title">
       <div className="mx-auto w-full max-w-7xl">
         <header className="mx-auto mb-10 max-w-3xl text-center sm:mb-14">
-          <div className="mx-auto inline-flex items-center gap-2 rounded-full bg-slate-900 px-4 py-2 text-xs font-semibold text-white shadow-[0_18px_40px_-25px_rgba(2,6,23,0.55)]">
-            <span className="grid h-6 w-6 place-items-center rounded-full bg-[#1A73E8] text-white">
-              <StarIcon className="h-4 w-4" />
-            </span>
-            <span className={fontBody}>Rated 4/5 by over 1 Lakh users</span>
-          </div>
+          
 
           <h2
             id="testimonial-title"
             className={`${fontHeading} mt-6 text-4xl font-extrabold leading-[1.05] text-slate-900 sm:text-5xl`}
           >
-            Voices That Reflect Our Work
+            Voices That Reflect <span
+            className="rounded-sm px-2 py-0.5 text-[#ffffff] bg-[#1A73E8]"
+            
+          >
+            Our Work
+          </span>
           </h2>
         </header>
 

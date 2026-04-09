@@ -7,10 +7,12 @@ import Challenges from "@/components/sections/challenges/challenges";
 import CoreTechnology from "@/components/sections/core-technology/core-technology";
 import Testimonial from "@/components/sections/testimonial/testimonial";
 import Footer from "@/components/scaffolds/footer/footer";
+import Navbar from "@/components/scaffolds/navbar/navbar";
 
 export default function Home() {
   return (
     <div className="bg-white">
+      <Navbar />
       <Hero />
       <Technology />  
       <About />

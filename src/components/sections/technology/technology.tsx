@@ -51,7 +51,7 @@ const LogoLoop = ({
         {[...logos, ...logos].map((logo, index) => (
           <div
             key={`${logo.name}-${index}`}
-            className="logo-item flex shrink-0 items-center justify-center px-5 py-4 transition-transform duration-300 hover:scale-105"
+            className="logo-item flex shrink-0 items-center justify-center px-3 py-3 transition-transform duration-300 hover:scale-105"
             style={{ height: `${logoHeight + 22}px` }}
             title={logo.name}
           >
@@ -59,7 +59,7 @@ const LogoLoop = ({
               src={logo.src}
               alt={logo.name}
               style={{ height: `${logoHeight}px`, width: "auto" }}
-              className="pointer-events-none select-none object-contain"
+              className="select-none object-contain grayscale opacity-60 transition duration-300 hover:grayscale-0 hover:opacity-100"
               loading="lazy"
               decoding="async"
             />
@@ -91,7 +91,7 @@ const Technology = () => {
     <section className="bg-[#ffffff] px-6 py-8">
       <div className="mx-auto w-full max-w-7xl">
         
-        <LogoLoop logos={logos} speed={100} hoverSpeed={0} logoHeight={60} gap={60} />
+        <LogoLoop logos={logos} speed={100} hoverSpeed={0} logoHeight={50} gap={36} />
       </div>
     </section>
   );

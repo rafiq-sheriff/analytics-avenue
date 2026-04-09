@@ -1,13 +1,117 @@
+"use client";
+
+import { useLayoutEffect, useRef } from "react";
+import gsap from "gsap";
 import Image from "next/image";
+import RotatingText from "./rotating-text";
+
+const rotatingIndustries = [
+  "Startups",
+  "Enterprises",
+  "E-Commerce",
+  "Healthcare",
+  "FinTech",
+  "EdTech",
+  "SaaS",
+];
+
+const rotatingAiCapabilities = [
+  "AI Agents",
+  "Data Analytics",
+  "Automation",
+  "Predictive Models",
+  "Business Intelligence",
+  "Data Pipelines",
+  "GenAI Solutions",
+];
 
 const Hero = () => {
+  const rotatingIndustriesLoop = [...rotatingIndustries, rotatingIndustries[0]];
+  const listRef = useRef<HTMLUListElement | null>(null);
+
+  useLayoutEffect(() => {
+    const list = listRef.current;
+    if (!list) {
+      return;
+    }
+
+    const slides = list.querySelectorAll<HTMLLIElement>("[data-v-slide]");
+    const duration = 0.3;
+    const lineHeight = 50;
+
+    const timeline = gsap.timeline({ repeat: -1 });
+
+    slides.forEach((slide, index) => {
+      if (index === 0) {
+        return;
+      }
+
+      const label = `slide-${index}`;
+      timeline.add(label);
+      timeline.to(
+        list,
+        {
+          duration,
+          y: index * -1 * lineHeight,
+          ease: "power1.inOut",
+        },
+        label,
+      );
+
+      const letters = slide.querySelectorAll<HTMLElement>("[data-v-char]");
+      timeline.from(
+        letters,
+        {
+          duration,
+          y: lineHeight,
+          opacity: 0,
+          stagger: duration / 10,
+          ease: "power2.out",
+        },
+        label,
+      );
+
+      timeline.to(letters, {
+        duration,
+        y: -lineHeight,
+        opacity: 0,
+        stagger: duration / 10,
+        ease: "power2.in",
+      }, "+=1");
+    });
+
+    return () => {
+      timeline.kill();
+    };
+  }, []);
+
   return (
     <section className="bg-[#f5f7fb] px-6 py-14 sm:py-20">
       <div className="mx-auto grid w-full max-w-7xl items-center gap-10 lg:grid-cols-2 lg:gap-14">
         <div className="max-w-xl">
           <div className="mb-10 flex items-center gap-3 text-base font-semibold text-slate-900 sm:text-xl">
-            <span >AI Business Partner For</span>
-            <span className="text-[#1A73E8]">Ed-Tech</span>
+            <span>AI Business Partner For</span>
+            <span className="inline-block h-[50px] min-w-[11ch] overflow-hidden align-middle text-[#1A73E8]">
+              <ul ref={listRef} className="m-0 list-none p-0">
+                {rotatingIndustriesLoop.map((industry, index) => (
+                  <li
+                    key={`${industry}-${index}`}
+                    className="h-[50px] text-[24px] leading-[50px]"
+                    data-v-slide
+                  >
+                    {industry.split("").map((char, charIndex) => (
+                      <span
+                        key={`${industry}-${index}-${charIndex}`}
+                        className="inline-block"
+                        data-v-char
+                      >
+                        {char === " " ? "\u00A0" : char}
+                      </span>
+                    ))}
+                  </li>
+                ))}
+              </ul>
+            </span>
           </div>
 
           <h1 className="text-5xl font-extrabold leading-[1.08] text-slate-900 sm:text-6xl lg:text-5xl">
@@ -16,8 +120,15 @@ const Hero = () => {
             Sales and Marketing
           </h1>
 
-          <h2 className="mt-12 text-4xl font-bold leading-tight text-slate-900 sm:text-4xl">
-            <span className="text-[#1A73E8]">AI agents</span> in one platform
+          <h2 className="mt-12 flex flex-wrap items-baseline gap-x-2 text-4xl font-bold leading-tight text-slate-900 sm:text-3xl">
+            <RotatingText
+              text={rotatingAiCapabilities}
+              duration={2200}
+              y={12}
+              containerClassName="align-middle"
+              textClassName="text-[#1A73E8]"
+            />
+            in one platform
           </h2>
 
           <p className="mt-6 max-w-lg text-base leading-8 text-slate-600 sm:text-xl">
