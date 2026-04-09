@@ -165,18 +165,8 @@ const Solution = () => {
                   </div>
                 ))}
               </div>
-              <div className="relative mx-auto mt-8 flex h-16 w-16 items-center justify-center rounded-full border border-[#93c5fd] bg-white shadow-[0_0_28px_rgba(37,99,235,0.35)]">
-                <span className="solution-ai-core-ring absolute inset-[-8px] rounded-full border border-[#7dd3fc]/60" />
-                <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#1d4ed8]">AI Core</span>
-              </div>
             </motion.article>
           </div>
-        </div>
-      </div>
-
-      <div className="mx-auto mt-10 max-w-6xl px-4 sm:px-6 lg:px-10">
-        <div className="rounded-2xl border border-[#dbeafe] bg-[#f8fbff] px-5 py-3 text-center text-xs font-medium uppercase tracking-[0.2em] text-[#64748b]">
-          Vertical storytelling flow enabled
         </div>
       </div>
     </section>

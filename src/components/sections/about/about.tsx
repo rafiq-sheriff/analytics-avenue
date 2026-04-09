@@ -2,8 +2,11 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-
 const primary = "var(--aa-primary)";
+
+// https://www.youtube.com/watch?v=TouJOS07xNU&t=2s
+const ABOUT_VIDEO_EMBED =
+  "https://www.youtube.com/embed/TouJOS07xNU?autoplay=1&start=2&rel=0";
 
 function useSectionReveal() {
   const ref = useRef<HTMLElement | null>(null);
@@ -38,6 +41,7 @@ function useSectionReveal() {
 
 const About = () => {
   const { ref, visible, reduceMotion } = useSectionReveal();
+  const [aboutVideoOpen, setAboutVideoOpen] = useState(false);
 
   const reveal = (delay: number) => ({
     opacity: visible ? 1 : 0,
@@ -70,114 +74,83 @@ const About = () => {
         </h2>
 
         <div
-          className="grid gap-5 rounded-3xl border border-slate-100 bg-[#f7fbff] p-4 shadow-[0_18px_55px_-30px_rgba(15,23,42,0.35)] sm:p-6 lg:grid-cols-[1.03fr_1fr] lg:p-8"
+          className="flex flex-col gap-5 rounded-3xl border border-slate-100 bg-[#f7fbff] p-4 shadow-[0_18px_55px_-30px_rgba(15,23,42,0.35)] sm:p-6 lg:flex-row lg:items-stretch lg:p-8"
           style={reveal(90)}
         >
-          <div className="relative min-h-[340px] sm:min-h-[470px]">
-            <div className="relative h-full overflow-hidden rounded-[1.4rem]">
-              <Image
-                src="/assets/images/Subramani.jpg"
-                alt="Analytics Avenue leadership and consulting"
-                fill
-                sizes="(max-width: 1024px) 100vw, 50vw"
-                className="object-cover object-center"
-                priority={false}
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/20 via-transparent to-transparent" />
-            </div>
-
-            <div className="kpi-float absolute -left-3 top-10 hidden w-56 items-center gap-3 rounded-2xl border border-slate-200 bg-white/95 p-3 shadow-lg backdrop-blur sm:flex">
-              <div className="rounded-full bg-[#1A73E8]/10 p-2.5">
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M13 2L3 14H12L11 22L21 10H12L13 2Z"
-                    stroke="#1A73E8"
-                    strokeWidth={2}
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
+          <div className="relative min-h-[340px] min-w-0 sm:min-h-[470px] lg:flex-[2]">
+            <div className="relative h-full min-h-[340px] rounded-[1.4rem] sm:min-h-[470px]">
+              {!aboutVideoOpen ? (
+                <>
+                  <div className="absolute inset-0 overflow-hidden rounded-[1.4rem]">
+                    <Image
+                      src="/assets/images/about/image.png"
+                      alt="Video cover: LinkedIn profile of Subramani — Data Scientist, AI guest speaker, and Analytics Avenue"
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 50vw"
+                      className="object-cover object-center"
+                      priority={false}
+                    />
+                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950/25 via-slate-950/5 to-transparent" />
+                  </div>
+                  <div className="absolute inset-0 flex items-center justify-center p-4">
+                    <div className="relative flex h-16 w-16 items-center justify-center sm:h-[72px] sm:w-[72px]">
+                      {!reduceMotion && (
+                        <span
+                          className="absolute inset-0 z-0 animate-ping rounded-full bg-[var(--aa-primary)] opacity-35"
+                          aria-hidden
+                        />
+                      )}
+                      <button
+                        type="button"
+                        onClick={() => setAboutVideoOpen(true)}
+                        className="group relative z-10 flex h-full w-full items-center justify-center rounded-full bg-[var(--aa-primary)] text-white shadow-lg shadow-blue-500/40 ring-4 ring-white/95 transition-all duration-300 hover:scale-[1.06] hover:bg-[var(--aa-primary-hover)] hover:shadow-xl hover:shadow-blue-500/50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--aa-primary)] motion-reduce:transition-colors motion-reduce:hover:scale-100"
+                        aria-label="Play introduction video"
+                      >
+                        <svg
+                          viewBox="0 0 24 24"
+                          fill="currentColor"
+                          className="ml-1 h-8 w-8 transition-transform duration-300 group-hover:translate-x-0.5 sm:h-9 sm:w-9 motion-reduce:group-hover:translate-x-0"
+                          aria-hidden
+                        >
+                          <path d="M8 5v14l11-7z" />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <div className="absolute inset-0 overflow-hidden rounded-[1.4rem]">
+                  <iframe
+                    title="Analytics Avenue introduction video"
+                    src={ABOUT_VIDEO_EMBED}
+                    className="absolute inset-0 h-full w-full border-0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowFullScreen
                   />
-                </svg>
-              </div>
-              <div>
-                <p className="text-xs font-semibold text-slate-800">
-                  Trusted by 2000+
-                </p>
-                <p className="text-[11px] text-slate-500">
-                  Professionals worldwide
-                </p>
-              </div>
-            </div>
-
-            <div
-              className="kpi-float kpi-float-delay absolute -right-3 top-1/2 hidden w-52 -translate-y-1/2 items-center gap-3 rounded-2xl border border-slate-200 bg-white/95 p-3 shadow-lg backdrop-blur sm:flex"
-              style={
-                reduceMotion
-                  ? undefined
-                  : { animation: "kpi-float 4s ease-in-out infinite" }
-              }
-            >
-              <div className="rounded-full bg-emerald-50 p-2.5">
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <polyline
-                    points="22 7 13.5 15.5 8.5 10.5 2 17"
-                    stroke="#16A34A"
-                    strokeWidth={2}
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                  <polyline
-                    points="16 7 22 7 22 13"
-                    stroke="#16A34A"
-                    strokeWidth={2}
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </div>
-              <div>
-                <p className="text-xs font-bold text-emerald-600">1000+ Learners</p>
-                <p className="text-[11px] text-slate-500">Career-focused training</p>
-              </div>
-            </div>
-
-            <div className="kpi-float absolute -left-3 bottom-6 hidden w-56 items-center gap-3 rounded-2xl border border-slate-200 bg-white/95 p-3 shadow-lg backdrop-blur sm:flex">
-              <div className="rounded-full bg-violet-50 p-2.5">
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M3 12L8 17L21 4"
-                    stroke="#7C3AED"
-                    strokeWidth={2}
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </div>
-              <div>
-                <p className="text-xs font-semibold text-slate-800">50+ Solutions</p>
-                <p className="text-[11px] text-slate-500">Industry-ready delivery</p>
-              </div>
+                  <button
+                    type="button"
+                    onClick={() => setAboutVideoOpen(false)}
+                    className="absolute right-2 top-2 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-black/60 text-white backdrop-blur-sm transition hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:right-3 sm:top-3"
+                    aria-label="Close video and show cover image"
+                  >
+                    <svg
+                      viewBox="0 0 24 24"
+                      width="20"
+                      height="20"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      aria-hidden
+                    >
+                      <path d="M18 6L6 18M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
+              )}
             </div>
           </div>
 
-          <div className="rounded-[1.4rem] bg-white p-5 shadow-[0_10px_30px_-18px_rgba(15,23,42,0.28)] sm:p-7">
+          <div className="min-w-0 rounded-[1.4rem] bg-white p-5 shadow-[0_10px_30px_-18px_rgba(15,23,42,0.28)] sm:p-7 lg:flex-[3]">
             <p
               className="text-xs font-semibold uppercase tracking-[0.15em]"
               style={{ color: primary, ...reveal(140) }}
@@ -268,6 +241,7 @@ const About = () => {
                 </li>
               </ul>
             </div>
+            
           </div>
         </div>
       </div>

@@ -53,13 +53,13 @@ const Navbar = () => {
         <div className="hidden items-center gap-3 md:flex">
           <a
             href="#about"
-            className="aa-btn-secondary rounded-lg px-4 py-2 text-sm"
+            className="aa-btn-secondary px-4 py-2 text-sm"
           >
             EDTech Solutions
           </a>
           <a
             href="#cta"
-            className="aa-btn-primary rounded-lg px-4 py-2 text-sm shadow-md shadow-blue-300/40"
+            className="aa-btn-primary px-4 py-2 text-sm shadow-md shadow-blue-300/40"
           >
             Free Consultation
           </a>
@@ -117,14 +117,14 @@ const Navbar = () => {
               <a
                 href="#about"
                 onClick={closeMenu}
-                className="aa-btn-secondary rounded-lg px-4 py-2 text-center text-sm"
+                className="aa-btn-secondary px-4 py-2 text-center text-sm"
               >
                 EDTech Solutions
               </a>
               <a
                 href="#cta"
                 onClick={closeMenu}
-                className="aa-btn-primary rounded-lg px-4 py-2 text-center text-sm"
+                className="aa-btn-primary px-4 py-2 text-center text-sm"
               >
                 Free Consultation
               </a>

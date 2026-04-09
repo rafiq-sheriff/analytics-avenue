@@ -77,7 +77,7 @@ function ArrowUpRightIcon({ className }: { className?: string }) {
 const CoreTechnology = () => {
   return (
     <section
-      className="aa-section bg-[var(--aa-surface-soft)]"
+      className="bg-[var(--aa-surface-soft)] pb-8 sm:pb-15"
       aria-labelledby="core-technology-heading"
     >
       <div className="aa-container">

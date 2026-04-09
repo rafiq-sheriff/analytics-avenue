@@ -252,14 +252,17 @@ const Testimonial = () => {
   const bottomRow = testimonials.slice(Math.ceil(testimonials.length / 2));
 
   return (
-    <section className="aa-section bg-[var(--aa-surface-soft)]" aria-labelledby="testimonial-title">
+    <section
+      className="aa-section bg-[var(--aa-surface-soft)] pt-8 sm:pt-10"
+      aria-labelledby="testimonial-title"
+    >
       <div className="aa-container">
         <header className="mx-auto mb-10 max-w-3xl text-center sm:mb-14">
           
 
           <h2
             id="testimonial-title"
-            className={`${fontHeading} mt-6 text-4xl font-extrabold leading-[1.05] text-slate-900 sm:text-5xl`}
+            className={`${fontHeading} text-4xl font-extrabold leading-[1.05] text-slate-900 sm:text-5xl`}
           >
             Voices That Reflect <span
             className="rounded-sm bg-[var(--aa-primary)] px-2 py-0.5 text-[#ffffff]"

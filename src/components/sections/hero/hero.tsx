@@ -120,13 +120,13 @@ const Hero = () => {
             </span>
           </div>
 
-          <h1 className="text-5xl font-extrabold leading-[1.08] text-slate-900 sm:text-6xl lg:text-5xl">
+          <h1 className="font-[family-name:var(--font-heading)] text-5xl font-extrabold leading-[1.08] text-slate-900 sm:text-6xl lg:text-5xl">
             AI Workforce for
             <br />
             Sales and Marketing
           </h1>
 
-          <h2 className="mt-12 flex flex-wrap items-baseline gap-x-2 text-4xl font-bold leading-tight text-slate-900 sm:text-3xl">
+          <h2 className="font-[family-name:var(--font-heading)] mt-12 flex flex-wrap items-baseline gap-x-2 text-4xl font-bold leading-tight text-slate-900 sm:text-3xl">
             <RotatingText
               text={rotatingAiCapabilities}
               duration={2200}
@@ -222,7 +222,7 @@ const Hero = () => {
             />
           </div>
 
-          <div className="kpi-float absolute -left-4 bottom-6 hidden w-56 items-center gap-3 rounded-2xl border border-slate-200 bg-white/95 p-3 shadow-lg backdrop-blur sm:flex">
+          <div className="kpi-float absolute -left-4 top-10 hidden w-56 items-center gap-3 rounded-2xl border border-slate-200 bg-white/95 p-3 shadow-lg backdrop-blur sm:flex">
             <div className="rounded-full bg-[#1A73E8]/10 p-2.5">
               <svg
                 width="16"
@@ -230,6 +230,7 @@ const Hero = () => {
                 viewBox="0 0 24 24"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
+                aria-hidden
               >
                 <path
                   d="M13 2L3 14H12L11 22L21 10H12L13 2Z"
@@ -241,12 +242,12 @@ const Hero = () => {
               </svg>
             </div>
             <div>
-              <p className="text-xs font-semibold text-slate-800">AI Pipeline Active</p>
-              <p className="text-[11px] text-slate-500">Processing 2.4M rows/sec</p>
+              <p className="text-xs font-semibold text-slate-800">Trusted by 2000+</p>
+              <p className="text-[11px] text-slate-500">Professionals worldwide</p>
             </div>
           </div>
 
-          <div className="kpi-float kpi-float-delay absolute -right-4 top-6 hidden w-44 items-center gap-3 rounded-2xl border border-slate-200 bg-white/95 p-3 shadow-lg backdrop-blur sm:flex">
+          <div className="kpi-float kpi-float-delay absolute -right-4 top-1/2 hidden w-52 -translate-y-1/2 items-center gap-3 rounded-2xl border border-slate-200 bg-white/95 p-3 shadow-lg backdrop-blur sm:flex">
             <div className="rounded-full bg-emerald-50 p-2.5">
               <svg
                 width="16"
@@ -254,6 +255,7 @@ const Hero = () => {
                 viewBox="0 0 24 24"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
+                aria-hidden
               >
                 <polyline
                   points="22 7 13.5 15.5 8.5 10.5 2 17"
@@ -272,8 +274,33 @@ const Hero = () => {
               </svg>
             </div>
             <div>
-              <p className="text-xs font-bold text-emerald-600">+38% ROI</p>
-              <p className="text-[11px] text-slate-500">This quarter</p>
+              <p className="text-xs font-bold text-emerald-600">1000+ Learners</p>
+              <p className="text-[11px] text-slate-500">Career-focused training</p>
+            </div>
+          </div>
+
+          <div className="kpi-float absolute -left-4 bottom-6 hidden w-56 items-center gap-3 rounded-2xl border border-slate-200 bg-white/95 p-3 shadow-lg backdrop-blur sm:flex">
+            <div className="rounded-full bg-violet-50 p-2.5">
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden
+              >
+                <path
+                  d="M3 12L8 17L21 4"
+                  stroke="#7C3AED"
+                  strokeWidth={2}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </div>
+            <div>
+              <p className="text-xs font-semibold text-slate-800">50+ Solutions</p>
+              <p className="text-[11px] text-slate-500">Industry-ready delivery</p>
             </div>
           </div>
         </div>

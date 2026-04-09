@@ -88,7 +88,7 @@ const logos: LogoItem[] = [
 
 const Technology = () => {
   return (
-    <section className="aa-section bg-white py-8 sm:py-10">
+    <section className=" bg-white pt-8 sm:pt-10">
       <div className="aa-container">
         
         <LogoLoop logos={logos} speed={100} hoverSpeed={0} logoHeight={50} gap={36} />

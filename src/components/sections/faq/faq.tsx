@@ -105,7 +105,7 @@ const Faq = () => {
       ref={ref}
       id="faq"
       aria-labelledby="faq-title"
-      className="aa-section relative overflow-hidden bg-[var(--aa-surface-soft)] pb-20 pt-12 sm:pb-28 sm:pt-16"
+      className="aa-section relative overflow-hidden bg-[var(--aa-surface-soft)] pb-10 pt-12 sm:pb-12 sm:pt-16"
     >
       <div
         className="pointer-events-none absolute inset-0 opacity-90"

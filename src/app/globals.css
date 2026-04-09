@@ -113,10 +113,17 @@ a {
   font-weight: 600;
   color: #fff;
   box-shadow: 0 12px 30px -16px rgba(26, 115, 232, 0.6);
+  transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
 
 .aa-btn-primary:hover {
   background: var(--aa-primary-hover);
+}
+
+.aa-btn-primary:focus-visible {
+  outline: none;
+  box-shadow: 0 12px 30px -16px rgba(26, 115, 232, 0.6),
+    0 0 0 2px #fff, 0 0 0 4px var(--aa-primary);
 }
 
 .aa-btn-secondary {
@@ -132,10 +139,16 @@ a {
   font-size: 0.875rem;
   font-weight: 600;
   color: var(--aa-primary);
+  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
 }
 
 .aa-btn-secondary:hover {
   background: color-mix(in srgb, var(--aa-primary) 5%, #ffffff);
+}
+
+.aa-btn-secondary:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--aa-primary);
 }
 
 .aa-card {
@@ -245,17 +258,6 @@ a {
   }
 }
 
-@keyframes solution-ring-expand {
-  0% {
-    opacity: 0.9;
-    transform: scale(1);
-  }
-  100% {
-    opacity: 0;
-    transform: scale(1.32);
-  }
-}
-
 @keyframes solution-pulse-dot {
   0%,
   100% {
@@ -298,16 +300,11 @@ a {
   box-shadow: 0 0 20px rgba(79, 142, 255, 0.9);
 }
 
-.solution-ai-core-ring {
-  animation: solution-ring-expand 2.6s ease-out infinite;
-}
-
 @media (prefers-reduced-motion: reduce) {
   .solution-story-track,
   .solution-scene,
   .solution-pulse-dot,
-  .solution-data-particle,
-  .solution-ai-core-ring {
+  .solution-data-particle {
     animation: none !important;
   }
 }

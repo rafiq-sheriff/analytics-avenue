@@ -1,3 +1,5 @@
+import NewsletterForm from "@/components/scaffolds/footer/newsletter-form";
+
 const fontHeading = "font-[family-name:var(--font-heading)]";
 const fontBody = "font-[family-name:var(--font-body)]";
 
@@ -61,20 +63,7 @@ const Footer = () => {
             analytics solutions, and accelerate measurable business outcomes.
           </p>
 
-          <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
-            <a
-              href="#about"
-            className={`${fontBody} inline-flex items-center justify-center rounded-xl bg-white px-6 py-3 text-sm font-semibold text-[var(--aa-primary)] shadow-lg shadow-white/30 transition hover:-translate-y-0.5 hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--aa-primary)]`}
-            >
-              Book a Free Strategy Call
-            </a>
-            <a
-              href="#services"
-              className={`${fontBody} inline-flex items-center justify-center rounded-xl border border-white/90 px-5 py-3 text-sm font-medium text-white transition hover:text-white focus-visible:outline-none hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-white/70`}
-            >
-              Explore Services
-            </a>
-          </div>
+          <NewsletterForm />
         </section>
 
         <div className="relative mt-12 border-t border-slate-200/80 pt-10">

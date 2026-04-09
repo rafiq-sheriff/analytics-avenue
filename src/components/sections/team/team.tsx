@@ -219,6 +219,7 @@ function MemberColumn({
 function TeamMarquee() {
   const sizes = useColumnSizes();
   const loop = [...TEAM, ...TEAM];
+  const marqueeContainerRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const loopWidthRef = useRef(0);
   const rafRef = useRef<number | null>(null);
@@ -353,16 +354,27 @@ function TeamMarquee() {
     }
     draggingRef.current = false;
     setIsGrabbing(false);
+
+    // While pointer capture is active, mouse/pointer leave on the outer wrapper
+    // may not fire; sync hover pause from the pointer position after release.
+    const container = marqueeContainerRef.current;
+    if (container) {
+      const r = container.getBoundingClientRect();
+      const { clientX: x, clientY: y } = e;
+      hoverPauseRef.current =
+        x >= r.left && x <= r.right && y >= r.top && y <= r.bottom;
+    }
   }, []);
 
   return (
     <div
+      ref={marqueeContainerRef}
       className="team-marquee group relative w-full max-w-[100vw] overflow-hidden"
       aria-label="Team members"
-      onMouseEnter={() => {
+      onPointerEnter={() => {
         hoverPauseRef.current = true;
       }}
-      onMouseLeave={() => {
+      onPointerLeave={() => {
         hoverPauseRef.current = false;
       }}
     >
