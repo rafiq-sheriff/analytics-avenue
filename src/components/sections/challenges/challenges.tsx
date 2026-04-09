@@ -256,9 +256,9 @@ const Challenges = () => {
     <section
       id="challenges"
       aria-labelledby="challenges-title"
-      className="bg-[#f5f7fb] px-6 py-14 sm:py-20"
+      className="aa-section bg-[var(--aa-surface-soft)]"
     >
-      <div className="mx-auto w-full max-w-7xl">
+      <div className="aa-container">
         <header className="mb-10 text-center sm:mb-12">
           <h2
             id="challenges-title"

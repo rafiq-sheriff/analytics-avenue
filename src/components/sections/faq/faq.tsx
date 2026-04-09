@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
-const accent = "#1A73E8";
+const accent = "var(--aa-primary)";
 
 const FAQ_ITEMS = [
   {
@@ -105,7 +105,7 @@ const Faq = () => {
       ref={ref}
       id="faq"
       aria-labelledby="faq-title"
-      className="relative overflow-hidden bg-[#f5f7fb] px-6 pb-20 pt-12 sm:pb-28 sm:pt-16"
+      className="aa-section relative overflow-hidden bg-[var(--aa-surface-soft)] pb-20 pt-12 sm:pb-28 sm:pt-16"
     >
       <div
         className="pointer-events-none absolute inset-0 opacity-90"
@@ -116,7 +116,7 @@ const Faq = () => {
         }}
       />
 
-      <div className="relative mx-auto w-full max-w-7xl">
+      <div className="aa-container relative">
         <div className="grid gap-10 lg:grid-cols-[minmax(0,35%)_minmax(0,65%)] lg:gap-14 lg:items-start">
           <div style={reveal(0)}>
             <div className="mb-4 flex items-center gap-2.5">
@@ -125,8 +125,8 @@ const Faq = () => {
                 style={{ backgroundColor: accent }}
                 aria-hidden
               />
-              <span className="text-sm font-semibold tracking-wide text-slate-600">
-                <span className="text-[#1A73E8]">FAQs</span>
+                <span className="text-sm font-semibold tracking-wide text-slate-600">
+                <span className="text-[var(--aa-primary)]">FAQs</span>
               </span>
             </div>
 
@@ -135,7 +135,7 @@ const Faq = () => {
               className="text-3xl font-extrabold leading-tight tracking-tight text-slate-900 sm:text-5xl"
             >
               Program Details <br /> &amp; <span
-            className="rounded-sm px-2 py-0.5 text-white bg-[#1A73E8]"
+            className="rounded-sm bg-[var(--aa-primary)] px-2 py-0.5 text-white"
           >
             FAQs
           </span>
@@ -163,7 +163,7 @@ const Faq = () => {
               <div className="mt-6 flex justify-start">
                 <a
                   href="#cta"
-                  className="inline-flex w-full  items-center justify-center rounded-xl bg-[#1A73E8] px-5 py-3.5 text-sm font-semibold text-white shadow-lg shadow-[#1A73E8]/35 transition hover:bg-[#155ec1] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1A73E8]"
+                  className="aa-btn-primary w-full shadow-lg shadow-blue-300/40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--aa-primary)]"
                 >
                   Book a Free Call
                 </a>
@@ -247,7 +247,7 @@ const Faq = () => {
                         {item.bullets.map((line) => (
                           <li key={line} className="flex gap-2.5">
                             <span
-                              className="mt-0.5 shrink-0 text-[#1A73E8]"
+                              className="mt-0.5 shrink-0 text-[var(--aa-primary)]"
                               aria-hidden
                             >
                               ✓

@@ -165,7 +165,7 @@ function TestimonialCard({ item }: { item: TestimonialItem }) {
       aria-label={`Review by ${item.name}`}
     >
       <div className="flex items-start">
-        <QuoteIcon className="h-5 w-8 text-[#2563EB]" />
+        <QuoteIcon className="h-5 w-8 text-[var(--aa-primary)]" />
       </div>
 
       <p
@@ -175,11 +175,11 @@ function TestimonialCard({ item }: { item: TestimonialItem }) {
       </p>
 
       <div className="mt-4 flex items-center gap-3">
-        <div className="grid h-9 w-9 place-items-center rounded-full bg-[#1A73E8]/10 text-xs font-semibold text-[#1A73E8] ring-1 ring-[#1A73E8]/20">
+        <div className="grid h-9 w-9 place-items-center rounded-full bg-[var(--aa-primary)]/10 text-xs font-semibold text-[var(--aa-primary)] ring-1 ring-[var(--aa-primary)]/20">
           {initials(item.name)}
         </div>
         <div className="min-w-0">
-          <p className={`${fontHeading} truncate text-xs font-bold text-[#1A73E8] sm:text-sm`}>
+          <p className={`${fontHeading} truncate text-xs font-bold text-[var(--aa-primary)] sm:text-sm`}>
             {item.name}
           </p>
           <p className={`${fontBody} truncate text-xs text-slate-500`}>{item.role}</p>
@@ -252,8 +252,8 @@ const Testimonial = () => {
   const bottomRow = testimonials.slice(Math.ceil(testimonials.length / 2));
 
   return (
-    <section className="bg-[#f5f7fb] px-6 py-14 sm:py-20" aria-labelledby="testimonial-title">
-      <div className="mx-auto w-full max-w-7xl">
+    <section className="aa-section bg-[var(--aa-surface-soft)]" aria-labelledby="testimonial-title">
+      <div className="aa-container">
         <header className="mx-auto mb-10 max-w-3xl text-center sm:mb-14">
           
 
@@ -262,7 +262,7 @@ const Testimonial = () => {
             className={`${fontHeading} mt-6 text-4xl font-extrabold leading-[1.05] text-slate-900 sm:text-5xl`}
           >
             Voices That Reflect <span
-            className="rounded-sm px-2 py-0.5 text-[#ffffff] bg-[#1A73E8]"
+            className="rounded-sm bg-[var(--aa-primary)] px-2 py-0.5 text-[#ffffff]"
             
           >
             Our Work

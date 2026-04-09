@@ -86,12 +86,18 @@ const Hero = () => {
   }, []);
 
   return (
-    <section className="bg-[#f5f7fb] px-6 py-14 sm:py-20">
-      <div className="mx-auto grid w-full max-w-7xl items-center gap-10 lg:grid-cols-2 lg:gap-14">
+    <section className="aa-section relative overflow-hidden bg-[var(--aa-surface-soft)]">
+      <div className="pointer-events-none absolute inset-0 -z-0">
+        <div className="absolute -left-24 top-[-140px] h-[360px] w-[360px] rounded-full bg-[radial-gradient(circle_at_center,rgba(26,115,232,0.28),rgba(26,115,232,0))] blur-3xl" />
+        <div className="absolute -right-20 bottom-[-160px] h-[420px] w-[420px] rounded-full bg-[radial-gradient(circle_at_center,rgba(56,189,248,0.22),rgba(56,189,248,0))] blur-3xl" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(15,23,42,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(15,23,42,0.06)_1px,transparent_1px)] bg-[size:44px_44px] [mask-image:radial-gradient(circle_at_50%_40%,black,transparent_75%)]" />
+      </div>
+
+      <div className="aa-container relative z-10 grid items-center gap-10 lg:grid-cols-2 lg:gap-14">
         <div className="max-w-xl">
           <div className="mb-10 flex items-center gap-3 text-base font-semibold text-slate-900 sm:text-xl">
             <span>AI Business Partner For</span>
-            <span className="inline-block h-[50px] min-w-[11ch] overflow-hidden align-middle text-[#1A73E8]">
+            <span className="inline-block h-[50px] min-w-[11ch] overflow-hidden align-middle text-[var(--aa-primary)]">
               <ul ref={listRef} className="m-0 list-none p-0">
                 {rotatingIndustriesLoop.map((industry, index) => (
                   <li
@@ -126,7 +132,7 @@ const Hero = () => {
               duration={2200}
               y={12}
               containerClassName="align-middle"
-              textClassName="text-[#1A73E8]"
+              textClassName="text-[var(--aa-primary)]"
             />
             in one platform
           </h2>
@@ -136,10 +142,7 @@ const Hero = () => {
           </p>
 
           <div className="mt-9 flex flex-wrap items-center gap-3">
-            <a
-              href="#cta"
-              className="inline-flex items-center gap-2 rounded-xl bg-[#1A73E8] px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-[#1A73E8]/40 transition hover:bg-[#155ec1]"
-            >
+            <a href="#cta" className="aa-btn-primary shadow-lg shadow-blue-300/40">
               Get Started Free
               <svg
                 viewBox="0 0 15 15"
@@ -157,10 +160,7 @@ const Hero = () => {
               </svg>
             </a>
 
-            <a
-              href="#services"
-              className="inline-flex items-center gap-2 rounded-xl border border-[#1A73E8]/25 bg-white px-6 py-3.5 text-sm font-semibold text-[#1A73E8] transition hover:bg-[#1A73E8]/5"
-            >
+            <a href="#services" className="aa-btn-secondary">
               Explore Services
               <svg
                 viewBox="0 0 15 15"
@@ -186,7 +186,7 @@ const Hero = () => {
                   key={name}
                   className={`inline-flex h-9 w-9 items-center justify-center rounded-full border-2 border-white text-[11px] font-bold text-white ${
                     index === 0
-                      ? "bg-[#1A73E8]"
+                      ? "bg-[var(--aa-primary)]"
                       : index === 1
                         ? "bg-sky-500"
                         : index === 2
@@ -211,7 +211,7 @@ const Hero = () => {
       
 
         <div className="relative mx-auto w-full max-w-xl lg:max-w-2xl">
-          <div className="overflow-hidden rounded-3xl border border-[#1A73E8]/20 bg-white p-2 shadow-xl shadow-slate-300/40">
+          <div className="overflow-hidden rounded-3xl border border-blue-200/70 bg-white p-2 shadow-xl shadow-slate-300/40">
             <Image
               src="/assets/images/Subramani.jpg"
               alt="Subramani"

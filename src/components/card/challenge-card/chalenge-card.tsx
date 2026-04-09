@@ -2,8 +2,8 @@ import Image from "next/image";
 import { forwardRef } from "react";
 
 /** Site primary — matches Hero / CTAs */
-export const PRIMARY = "#1A73E8";
-export const PRIMARY_HOVER = "#155ec1";
+export const PRIMARY = "var(--aa-primary)";
+export const PRIMARY_HOVER = "var(--aa-primary-hover)";
 
 /** @deprecated use PRIMARY */
 export const CHALLENGE_BRAND = PRIMARY;
@@ -64,7 +64,7 @@ const ChallengeCard = forwardRef<HTMLElement, ChallengeCardProps>(
     return (
       <article
         ref={ref}
-        className={`grid grid-cols-1 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-[0_8px_30px_-12px_rgba(15,23,42,0.12)] md:grid-cols-[40%_60%] md:h-[340px] ${className}`}
+      className={`grid grid-cols-1 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_8px_30px_-12px_rgba(15,23,42,0.12)] md:grid-cols-[40%_60%] md:h-[340px] ${className}`}
       >
         <div className="relative h-[180px] overflow-hidden bg-[#f7fbff] sm:h-[200px] md:h-full md:min-h-0">
           <Image
@@ -130,7 +130,7 @@ const ChallengeCard = forwardRef<HTMLElement, ChallengeCardProps>(
           <div>
             <a
               href="#cta"
-              className={`${fontBody} group inline-flex min-h-[48px] cursor-pointer items-center justify-center gap-1.5 rounded-lg bg-[#1A73E8] px-4 py-2 text-[14px] font-bold text-white shadow-lg shadow-[#1A73E8]/40 outline-none transition hover:bg-[#155ec1] hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1A73E8] focus-visible:ring-offset-2 sm:text-[16px]`}
+              className={`${fontBody} aa-btn-primary group min-h-[48px] cursor-pointer rounded-lg px-4 py-2 text-[14px] font-bold shadow-lg shadow-blue-300/40 outline-none hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--aa-primary)] focus-visible:ring-offset-2 sm:text-[16px]`}
             >
               Get Started
               <svg

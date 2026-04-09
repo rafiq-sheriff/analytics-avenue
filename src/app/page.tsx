@@ -8,6 +8,7 @@ import CoreTechnology from "@/components/sections/core-technology/core-technolog
 import Testimonial from "@/components/sections/testimonial/testimonial";
 import Footer from "@/components/scaffolds/footer/footer";
 import Navbar from "@/components/scaffolds/navbar/navbar";
+import Solution from "@/components/sections/solution/solution";
 
 export default function Home() {
   return (
@@ -16,6 +17,7 @@ export default function Home() {
       <Hero />
       <Technology />  
       <About />
+      <Solution />
       <Challenges />
       <CoreTechnology />
       <Team />

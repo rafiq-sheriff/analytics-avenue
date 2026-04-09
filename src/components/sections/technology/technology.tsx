@@ -67,8 +67,8 @@ const LogoLoop = ({
         ))}
       </div>
 
-      <div className="pointer-events-none absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-[#ffffff] to-transparent" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-[#ffffff] to-transparent" />
+      <div className="pointer-events-none absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-white to-transparent" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-white to-transparent" />
     </div>
   );
 };
@@ -88,8 +88,8 @@ const logos: LogoItem[] = [
 
 const Technology = () => {
   return (
-    <section className="bg-[#ffffff] px-6 py-8">
-      <div className="mx-auto w-full max-w-7xl">
+    <section className="aa-section bg-white py-8 sm:py-10">
+      <div className="aa-container">
         
         <LogoLoop logos={logos} speed={100} hoverSpeed={0} logoHeight={50} gap={36} />
       </div>

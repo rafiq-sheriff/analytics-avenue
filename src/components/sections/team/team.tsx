@@ -405,11 +405,8 @@ function TeamMarquee() {
 
 const Team = () => {
   return (
-    <section
-      className="overflow-x-hidden bg-white px-3 py-10 sm:px-6 sm:py-14 lg:py-16 max-w-7xl mx-auto"
-      aria-labelledby="team-heading"
-    >
-      <div className="mx-auto mb-6 w-full max-w-7xl sm:mb-10 lg:mb-12">
+    <section className="aa-section overflow-x-hidden bg-white" aria-labelledby="team-heading">
+      <div className="aa-container mb-6 sm:mb-10 lg:mb-12">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div className="flex w-full flex-col items-center justify-center gap-2">
             <h2
@@ -431,7 +428,7 @@ const Team = () => {
         </div>
       </div>
 
-      <div className="w-full">
+      <div className="aa-container w-full">
         <TeamMarquee />
       </div>
     </section>

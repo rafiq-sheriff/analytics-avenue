@@ -77,13 +77,13 @@ function ArrowUpRightIcon({ className }: { className?: string }) {
 const CoreTechnology = () => {
   return (
     <section
-      className="bg-[#f5f7fb] px-6 py-14 sm:py-20"
+      className="aa-section bg-[var(--aa-surface-soft)]"
       aria-labelledby="core-technology-heading"
     >
-      <div className="mx-auto w-full max-w-7xl">
+      <div className="aa-container">
         <header className="mb-10 text-center sm:mb-14">
         <h2
-            id="challenges-title"
+            id="core-technology-heading"
             className={`${fontHeading} text-3xl font-extrabold leading-tight text-slate-900 sm:text-4xl`}
           >
             Our{" "}

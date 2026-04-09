@@ -23,18 +23,18 @@ const Navbar = () => {
   };
 
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-200/70 bg-white/90 backdrop-blur-md">
-      <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-6 py-4">
+    <header className="sticky top-0 z-50 border-b border-slate-200/70 bg-white/92 backdrop-blur-md">
+      <div className="aa-container flex items-center justify-between px-6 py-4">
         <a
           href="/"
           className="inline-flex items-center gap-2 text-lg font-extrabold tracking-tight text-slate-900 sm:text-xl"
           aria-label="Analytics Avenue home"
         >
-          <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-[#1A73E8] text-sm font-bold text-white">
+          <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-[var(--aa-primary)] text-sm font-bold text-white">
             AA
           </span>
           <span>
-            Analytics <span className="text-[#1A73E8]">Avenue</span>
+            Analytics <span className="text-[var(--aa-primary)]">Avenue</span>
           </span>
         </a>
 
@@ -43,7 +43,7 @@ const Navbar = () => {
             <a
               key={link.label}
               href={link.href}
-              className="text-sm font-medium text-slate-600 transition hover:text-[#1A73E8]"
+              className="text-sm font-medium text-slate-600 transition hover:text-[var(--aa-primary)]"
             >
               {link.label}
             </a>
@@ -53,13 +53,13 @@ const Navbar = () => {
         <div className="hidden items-center gap-3 md:flex">
           <a
             href="#about"
-            className="rounded-lg border border-[#1A73E8]/25 px-4 py-2 text-sm font-semibold text-[#1A73E8] transition hover:bg-[#1A73E8]/5"
+            className="aa-btn-secondary rounded-lg px-4 py-2 text-sm"
           >
             EDTech Solutions
           </a>
           <a
             href="#cta"
-            className="rounded-lg bg-[#1A73E8] px-4 py-2 text-sm font-semibold text-white shadow-md shadow-[#1A73E8]/30 transition hover:bg-[#155ec1]"
+            className="aa-btn-primary rounded-lg px-4 py-2 text-sm shadow-md shadow-blue-300/40"
           >
             Free Consultation
           </a>
@@ -107,7 +107,7 @@ const Navbar = () => {
               <a
                 key={link.label}
                 href={link.href}
-                className="text-sm font-medium text-slate-700 transition hover:text-[#1A73E8]"
+                className="text-sm font-medium text-slate-700 transition hover:text-[var(--aa-primary)]"
                 onClick={closeMenu}
               >
                 {link.label}
@@ -117,14 +117,14 @@ const Navbar = () => {
               <a
                 href="#about"
                 onClick={closeMenu}
-                className="rounded-lg border border-[#1A73E8]/25 px-4 py-2 text-center text-sm font-semibold text-[#1A73E8] transition hover:bg-[#1A73E8]/5"
+                className="aa-btn-secondary rounded-lg px-4 py-2 text-center text-sm"
               >
                 EDTech Solutions
               </a>
               <a
                 href="#cta"
                 onClick={closeMenu}
-                className="rounded-lg bg-[#1A73E8] px-4 py-2 text-center text-sm font-semibold text-white transition hover:bg-[#155ec1]"
+                className="aa-btn-primary rounded-lg px-4 py-2 text-center text-sm"
               >
                 Free Consultation
               </a>

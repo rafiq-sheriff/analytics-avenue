@@ -46,8 +46,8 @@ const footerColumns = [
 
 const Footer = () => {
   return (
-    <footer id="cta" className="relative overflow-hidden bg-[#ffffff] px-6 pb-8 pt-10 sm:pt-14">
-      <div className="mx-auto w-full max-w-7xl">
+    <footer id="cta" className="aa-section relative overflow-hidden bg-[#ffffff] pb-8 pt-10 sm:pt-14">
+      <div className="aa-container">
         <section className="rounded-[28px] border border-[#1A73E8]/20 bg-gradient-to-br from-[#1A73E8] via-[#5A8EF3] to-[#7F86FF] px-6 py-10 text-center  sm:px-10 sm:py-14">
           <h2
             className={`${fontHeading} text-3xl font-extrabold leading-tight text-white sm:text-5xl`}
@@ -64,7 +64,7 @@ const Footer = () => {
           <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
             <a
               href="#about"
-              className={`${fontBody} inline-flex items-center justify-center rounded-xl bg-white px-6 py-3 text-sm font-semibold text-[#1A73E8] shadow-lg shadow-white/30 transition hover:-translate-y-0.5 hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#1A73E8]`}
+            className={`${fontBody} inline-flex items-center justify-center rounded-xl bg-white px-6 py-3 text-sm font-semibold text-[var(--aa-primary)] shadow-lg shadow-white/30 transition hover:-translate-y-0.5 hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--aa-primary)]`}
             >
               Book a Free Strategy Call
             </a>
@@ -80,7 +80,7 @@ const Footer = () => {
         <div className="relative mt-12 border-t border-slate-200/80 pt-10">
           <div className="grid gap-10 lg:grid-cols-[1.25fr_2.75fr] lg:gap-12">
             <div>
-              <p className={`${fontHeading} text-4xl font-black text-[#1A73E8]`}>
+              <p className={`${fontHeading} text-4xl font-black text-[var(--aa-primary)]`}>
                 Analytics Avenue
               </p>
               <p className={`${fontBody} mt-4 max-w-sm text-sm leading-relaxed text-slate-600`}>
@@ -100,7 +100,7 @@ const Footer = () => {
                       <li key={link.label}>
                         <a
                           href={link.href}
-                          className={`${fontBody} text-xs text-slate-500 transition hover:text-[#1A73E8] sm:text-sm`}
+                          className={`${fontBody} text-xs text-slate-500 transition hover:text-[var(--aa-primary)] sm:text-sm`}
                         >
                           {link.label}
                         </a>
@@ -117,10 +117,10 @@ const Footer = () => {
               © {new Date().getFullYear()} Analytics Avenue. All rights reserved.
             </p>
             <div className={`${fontBody} flex items-center gap-5`}>
-              <a href="#" className="transition hover:text-[#1A73E8]">
+              <a href="#" className="transition hover:text-[var(--aa-primary)]">
                 Terms & Conditions
               </a>
-              <a href="#" className="transition hover:text-[#1A73E8]">
+              <a href="#" className="transition hover:text-[var(--aa-primary)]">
                 Privacy Policy
               </a>
             </div>

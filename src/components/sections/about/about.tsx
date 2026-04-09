@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
-const primary = "#2563EB";
+const primary = "var(--aa-primary)";
 
 function useSectionReveal() {
   const ref = useRef<HTMLElement | null>(null);
@@ -52,9 +52,9 @@ const About = () => {
       ref={ref}
       id="about"
       aria-labelledby="about-title"
-      className="bg-white px-6 pb-20 pt-12 sm:pb-28 sm:pt-16"
+      className="aa-section bg-white pb-20 pt-12 sm:pb-28 sm:pt-16"
     >
-      <div className="mx-auto w-full max-w-7xl">
+      <div className="aa-container">
         <h2
           id="about-title"
           className="mb-8 text-center text-3xl font-extrabold leading-tight text-slate-900 sm:mb-10 sm:text-4xl"
@@ -197,7 +197,7 @@ const About = () => {
             <div className="mt-6" style={reveal(230)}>
               <a
                 href="#approach"
-                className="inline-flex items-center gap-2 rounded-xl bg-[#1A73E8] px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-[#1A73E8]/40 transition hover:bg-[#155ec1] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2563EB]"
+            className="aa-btn-primary shadow-lg shadow-blue-300/40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--aa-primary)]"
               >
                 Explore Our Approach
                 <svg
@@ -231,7 +231,7 @@ const About = () => {
 
               <ul className="space-y-2.5 text-base leading-relaxed text-slate-600">
                 <li className="flex items-start gap-2.5">
-                  <span className="mt-1 text-sm font-bold text-[#2563EB]" aria-hidden>
+                  <span className="mt-1 text-sm font-bold text-[var(--aa-primary)]" aria-hidden>
                     ✓
                   </span>
                   <span>
@@ -240,7 +240,7 @@ const About = () => {
                   </span>
                 </li>
                 <li className="flex items-start gap-2.5">
-                  <span className="mt-1 text-sm font-bold text-[#2563EB]" aria-hidden>
+                  <span className="mt-1 text-sm font-bold text-[var(--aa-primary)]" aria-hidden>
                     ✓
                   </span>
                   <span>
@@ -249,7 +249,7 @@ const About = () => {
                   </span>
                 </li>
                 <li className="flex items-start gap-2.5">
-                  <span className="mt-1 text-sm font-bold text-[#2563EB]" aria-hidden>
+                  <span className="mt-1 text-sm font-bold text-[var(--aa-primary)]" aria-hidden>
                     ✓
                   </span>
                   <span>
@@ -258,7 +258,7 @@ const About = () => {
                   </span>
                 </li>
                 <li className="flex items-start gap-2.5">
-                  <span className="mt-1 text-sm font-bold text-[#2563EB]" aria-hidden>
+                  <span className="mt-1 text-sm font-bold text-[var(--aa-primary)]" aria-hidden>
                     ✓
                   </span>
                   <span>
