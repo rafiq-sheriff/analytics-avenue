@@ -5,6 +5,8 @@ import Faq from "@/components/sections/faq/faq";
 import Team from "@/components/sections/team/team";
 import Challenges from "@/components/sections/challenges/challenges";
 import CoreTechnology from "@/components/sections/core-technology/core-technology";
+import Testimonial from "@/components/sections/testimonial/testimonial";
+import Footer from "@/components/scaffolds/footer/footer";
 
 export default function Home() {
   return (
@@ -16,6 +18,8 @@ export default function Home() {
       <CoreTechnology />
       <Team />
       <Faq />
+      <Testimonial />
+      <Footer />
     </div>
   );
 }

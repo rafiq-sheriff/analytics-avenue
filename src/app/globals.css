@@ -84,6 +84,10 @@ p {
   will-change: transform;
 }
 
+.tech-logo-track--reverse {
+  animation-direction: reverse;
+}
+
 .tech-logo-loop--slow-on-hover:hover .tech-logo-track {
   animation-duration: var(--hover-loop-duration);
 }
