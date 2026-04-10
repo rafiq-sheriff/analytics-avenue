@@ -162,7 +162,6 @@ const challenges: ChallengeItem[] = [
     ],
     imageSrc: "/assets/images/challenges/genai.png",
     imageAlt: "AI and automation illustration",
-    featured: true,
   },
 ];
 
