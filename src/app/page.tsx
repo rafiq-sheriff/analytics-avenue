@@ -10,6 +10,10 @@ import Footer from "@/components/scaffolds/footer/footer";
 import Navbar from "@/components/scaffolds/navbar/navbar";
 import Solution from "@/components/sections/solution/solution";
 import Gallery from "@/components/sections/gallery/gallery";
+import NewTeam from "@/components/sections/newteam/newteam";
+import Reasons from "@/components/sections/reasons/reasons";
+import Impact from "@/components/sections/impact/impact";
+import NewFaq from "@/components/sections/newfaq/newfaq";
 
 export default function Home() {
   return (
@@ -18,11 +22,15 @@ export default function Home() {
       <Hero />
       <Technology />  
       <About />
+      <Reasons />
       <Solution />
+      <Impact />
       <Challenges />
       <CoreTechnology />
-      <Team />
-      <Faq />
+      {/* <Team /> */}
+      <NewTeam />
+      {/* <Faq /> */}
+      <NewFaq />
       <Gallery />
       <Testimonial />
       <Footer />

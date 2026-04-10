@@ -25,6 +25,85 @@ const rotatingAiCapabilities = [
   "GenAI Solutions",
 ];
 
+function IconBrain(props: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" className={props.className} aria-hidden>
+      <path
+        d="M12 5a3 3 0 0 1 3 3v1h1a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-1v1a3 3 0 1 1-6 0v-1H7a2 2 0 0 1-2-2v-2a2 2 0 0 1 2-2h1V8a3 3 0 0 1 3-3Z"
+        stroke="currentColor"
+        strokeWidth="1.75"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M9.5 10.5h5M10 13.5h4"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+function IconStopwatch(props: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" className={props.className} aria-hidden>
+      <circle cx="12" cy="14" r="8" stroke="currentColor" strokeWidth="1.75" />
+      <path
+        d="M12 10v4l2.5 1.5M9 5h6M12 5V3"
+        stroke="currentColor"
+        strokeWidth="1.75"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+function IconLightning(props: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" className={props.className} aria-hidden>
+      <path
+        d="M13 2L3 14h8l-1 8 10-12h-8l1-8z"
+        stroke="currentColor"
+        strokeWidth="1.75"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+const heroValueChain = [
+  "Unify your data",
+  "Activate AI agents",
+  "One integrated platform",
+];
+
+const heroStats = [
+  {
+    value: "2000+",
+    label: "Professionals worldwide",
+    sublabel: "Trust our training & platform",
+    Icon: IconBrain,
+  },
+  {
+    value: "1000+",
+    label: "Learners upskilled",
+    sublabel: "Career-focused programs",
+    Icon: IconStopwatch,
+  },
+  {
+    value: "50+",
+    label: "Solutions delivered",
+    sublabel: "Industry-ready implementations",
+    Icon: IconLightning,
+  },
+] as const;
+
+const heroTrustSignals = [
+  "No credit card to start",
+  "Guided onboarding included",
+  "Enterprise-grade security",
+];
+
 const Hero = () => {
   const rotatingIndustriesLoop = [...rotatingIndustries, rotatingIndustries[0]];
   const listRef = useRef<HTMLUListElement | null>(null);
@@ -182,32 +261,62 @@ const Hero = () => {
             </a>
           </div>
 
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
-            <div className="-space-x-2 shrink-0">
-              {["RK", "AM", "PS", "SJ"].map((name, index) => (
-                <span
-                  key={name}
-                  className={`inline-flex h-9 w-9 items-center justify-center rounded-full border-2 border-white text-[11px] font-bold text-white ${
-                    index === 0
-                      ? "bg-[var(--aa-primary)]"
-                      : index === 1
-                        ? "bg-sky-500"
-                        : index === 2
-                          ? "bg-indigo-500"
-                          : "bg-violet-500"
-                  }`}
-                >
-                  {name}
+          <div className="mt-9 space-y-8 sm:mt-10">
+            <p
+              className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[13px] leading-snug text-slate-600 sm:text-sm"
+              aria-label={heroValueChain.join(". ")}
+            >
+              {heroValueChain.map((phrase, index) => (
+                <span key={phrase} className="inline-flex items-center gap-x-2">
+                  {index > 0 && (
+                    <span className="text-slate-400" aria-hidden>
+                      &gt;
+                    </span>
+                  )}
+                  <span>{phrase}</span>
                 </span>
               ))}
+            </p>
+
+            <div className="grid gap-6 sm:grid-cols-3 sm:gap-4">
+              {heroStats.map(({ value, label, sublabel, Icon }) => (
+                <div
+                  key={value}
+                  className="flex min-w-0 items-start gap-3"
+                >
+                  <div
+                    className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[color-mix(in_srgb,var(--aa-primary)_14%,transparent)] text-[var(--aa-primary)]"
+                    aria-hidden
+                  >
+                    <Icon className="h-5 w-5" />
+                  </div>
+                  <div className="min-w-0">
+                    <p className="font-[family-name:var(--font-heading)] text-2xl font-extrabold tracking-tight text-slate-900 sm:text-[1.65rem]">
+                      {value}
+                    </p>
+                    <p className="mt-0.5 text-[13px] leading-snug text-slate-600 sm:text-sm">
+                      <span className="block">{label}</span>
+                      <span className="block text-slate-500">{sublabel}</span>
+                    </p>
+                  </div>
+                </div>
+              ))}
             </div>
-            <p className="text-pretty text-sm leading-6 text-slate-600">
-              <strong className="font-semibold text-slate-800">
-                500+ students placed
-              </strong>{" "}
-              in top data roles
-              <br />
-              4.9/5 average client satisfaction score
+
+            <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[13px] text-slate-600 sm:text-sm">
+              {heroTrustSignals.map((signal, index) => (
+                <span key={signal} className="inline-flex items-center gap-x-2">
+                  {index > 0 && (
+                    <span className="text-slate-300" aria-hidden>
+                      |
+                    </span>
+                  )}
+                  <span className="text-emerald-600" aria-hidden>
+                    ✓
+                  </span>
+                  <span>{signal}</span>
+                </span>
+              ))}
             </p>
           </div>
         </div>

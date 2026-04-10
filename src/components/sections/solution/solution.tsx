@@ -1,7 +1,24 @@
 "use client";
 
-import { motion, useMotionValueEvent, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import {
+  motion,
+  useMotionValueEvent,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+} from "framer-motion";
 import { useRef, useState } from "react";
+
+/**
+ * Step index from section scroll (0–1). Boundaries are staggered so the next
+ * step only activates after the timeline has advanced — avoids the next card
+ * highlighting before the line reaches the current step.
+ */
+function activeStepFromScroll(v: number): number {
+  if (v < 0.4) return 0;
+  if (v < 0.72) return 1;
+  return 2;
+}
 
 const sourcePlatforms = ["Shopify", "Salesforce", "Google Analytics", "Meta Ads", "HubSpot", "Stripe"] as const;
 const sourceLabels = ["Structured", "Semi-Structured", "Unstructured", "Real-Time", "Batch"] as const;
@@ -36,11 +53,19 @@ const Solution = () => {
   });
 
   useMotionValueEvent(scrollYProgress, "change", (v) => {
-    const next = v < 0.33 ? 0 : v < 0.66 ? 1 : 2;
+    const next = activeStepFromScroll(v);
     setActiveStep((prev) => (prev === next ? prev : next));
   });
 
   const progressHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+
+  /** Card reveals follow the same scroll progress as the vertical line (no whileInView early pop-in). */
+  const c0Opacity = useTransform(scrollYProgress, [0, 0.1], [0, 1], { clamp: true });
+  const c0Y = useTransform(scrollYProgress, [0, 0.1], [28, 0], { clamp: true });
+  const c1Opacity = useTransform(scrollYProgress, [0.4, 0.52], [0, 1], { clamp: true });
+  const c1Y = useTransform(scrollYProgress, [0.4, 0.52], [28, 0], { clamp: true });
+  const c2Opacity = useTransform(scrollYProgress, [0.72, 0.84], [0, 1], { clamp: true });
+  const c2Y = useTransform(scrollYProgress, [0.72, 0.84], [28, 0], { clamp: true });
 
   return (
     <section id="solution" className="aa-section relative overflow-x-hidden bg-gradient-to-b from-[#f6faff] to-white py-20">
@@ -61,10 +86,11 @@ const Solution = () => {
 
           <div className="space-y-6 sm:space-y-10">
             <motion.article
-              initial={reduceMotion ? false : { opacity: 0, y: 24 }}
-              whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.45 }}
+              style={
+                reduceMotion
+                  ? undefined
+                  : { opacity: c0Opacity, y: c0Y }
+              }
               className="relative rounded-[26px] border border-[#dbeafe] bg-white/75 p-6 shadow-[0_20px_50px_rgba(37,99,235,0.08)] backdrop-blur-xl sm:ml-14 sm:p-8"
             >
               <span
@@ -97,10 +123,11 @@ const Solution = () => {
             </motion.article>
 
             <motion.article
-              initial={reduceMotion ? false : { opacity: 0, y: 24 }}
-              whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.45, delay: 0.05 }}
+              style={
+                reduceMotion
+                  ? undefined
+                  : { opacity: c1Opacity, y: c1Y }
+              }
               className="relative rounded-[26px] border border-[#dbeafe] bg-white/75 p-6 shadow-[0_20px_50px_rgba(37,99,235,0.08)] backdrop-blur-xl sm:ml-14 sm:p-8"
             >
               <span
@@ -138,10 +165,11 @@ const Solution = () => {
             </motion.article>
 
             <motion.article
-              initial={reduceMotion ? false : { opacity: 0, y: 24 }}
-              whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.45, delay: 0.1 }}
+              style={
+                reduceMotion
+                  ? undefined
+                  : { opacity: c2Opacity, y: c2Y }
+              }
               className="relative rounded-[26px] border border-[#dbeafe] bg-white/75 p-6 shadow-[0_20px_50px_rgba(37,99,235,0.08)] backdrop-blur-xl sm:ml-14 sm:p-8"
             >
               <span

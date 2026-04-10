@@ -1,0 +1,610 @@
+"use client";
+
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+} from "framer-motion";
+import type { MotionValue } from "framer-motion";
+import { useCallback, useId, useLayoutEffect, useRef, useState } from "react";
+
+const fontHeading = "font-[family-name:var(--font-heading)]";
+
+const COLS = 3;
+
+/** Fade length along section scroll (shared with FlowNode). */
+const REVEAL_FADE = 0.038;
+/** Minimum extra scroll after node i before node i+1 can start (prevents overlap). */
+const SEQUENTIAL_REVEAL_GAP = REVEAL_FADE + 0.018;
+/**
+ * Map section scroll 0→1 onto reveal progress so the timeline finishes before
+ * the section end — avoids late nodes still blurring when the next section is visible.
+ */
+const REVEAL_SCROLL_COMPRESSION = 0.82;
+/** Upper bound for path-based reveal thresholds so last node reaches full opacity before progress hits 1. */
+const REVEAL_AT_MAX = 1 - REVEAL_FADE - 0.02;
+
+/** Ensures each step’s reveal only after the previous step’s fade can finish. */
+function enforceSequentialRevealThresholds(
+  raw: number[],
+  minGap: number,
+): number[] {
+  if (raw.length === 0) return raw;
+  const out: number[] = [raw[0]];
+  for (let i = 1; i < raw.length; i++) {
+    out.push(Math.min(1, Math.max(raw[i], out[i - 1] + minGap)));
+  }
+  return out;
+}
+
+/** Exact copy — order preserved (includes duplicate line). */
+const REASONS = [
+  "Business process automation",
+  "Data-Driven business strategy",
+  "Human error reduction",
+  "Cost Reduction",
+  "Digital transformation",
+  "Brand awareness",
+  "Optimized data-driven models",
+  "Data-Driven business strategy",
+  "Forecasted data-driven decision",
+  "Demand forecasting",
+  "Brand health monitoring",
+  "Streamlined Security",
+  "Customer churn retention",
+  "Improved ROI",
+] as const;
+
+const ICONS = [
+  function IconFlow({ className }: { className?: string }) {
+    return (
+      <svg viewBox="0 0 24 24" fill="none" className={className} aria-hidden>
+        <path
+          d="M4 12h4l2-6 4 12 2-6h4"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    );
+  },
+  function IconChart({ className }: { className?: string }) {
+    return (
+      <svg viewBox="0 0 24 24" fill="none" className={className} aria-hidden>
+        <path
+          d="M4 19V5M9 19v-6M14 19V9M19 19v-9"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+        />
+      </svg>
+    );
+  },
+  function IconShield({ className }: { className?: string }) {
+    return (
+      <svg viewBox="0 0 24 24" fill="none" className={className} aria-hidden>
+        <path
+          d="M12 3 5 6v5c0 5 3.5 9 7 10 3.5-1 7-5 7-10V6l-7-3Z"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinejoin="round"
+        />
+      </svg>
+    );
+  },
+  function IconSpark({ className }: { className?: string }) {
+    return (
+      <svg viewBox="0 0 24 24" fill="none" className={className} aria-hidden>
+        <path
+          d="M12 2v3M12 19v3M4.93 4.93l2.12 2.12M16.95 16.95l2.12 2.12M2 12h3M19 12h3M4.93 19.07l2.12-2.12M16.95 7.05l2.12-2.12"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+        />
+        <circle cx="12" cy="12" r="3" stroke="currentColor" strokeWidth="2" />
+      </svg>
+    );
+  },
+] as const;
+
+/** Row-major snake: even rows L→R, odd rows R→L (grid placement). */
+function snakeCell(index: number, cols: number): { row: number; col: number } {
+  const row = Math.floor(index / cols);
+  const mod = index % cols;
+  const col = row % 2 === 0 ? mod : cols - 1 - mod;
+  return { row, col };
+}
+
+type Point = { x: number; y: number };
+
+/**
+ * Catmull-Rom–style smooth curve through all points (cubic segments).
+ * Produces flowing S-curves instead of sharp polyline corners.
+ */
+function buildSmoothPathD(points: Point[]): string {
+  const n = points.length;
+  if (n === 0) return "";
+  if (n === 1) return `M ${points[0].x} ${points[0].y}`;
+  if (n === 2) {
+    return `M ${points[0].x} ${points[0].y} L ${points[1].x} ${points[1].y}`;
+  }
+
+  let d = `M ${points[0].x} ${points[0].y}`;
+  for (let i = 0; i < n - 1; i++) {
+    const p0 = points[Math.max(0, i - 1)];
+    const p1 = points[i];
+    const p2 = points[i + 1];
+    const p3 = points[Math.min(n - 1, i + 2)];
+    const cp1x = p1.x + (p2.x - p0.x) / 6;
+    const cp1y = p1.y + (p2.y - p0.y) / 6;
+    const cp2x = p2.x - (p3.x - p1.x) / 6;
+    const cp2y = p2.y - (p3.y - p1.y) / 6;
+    d += ` C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${p2.x} ${p2.y}`;
+  }
+  return d;
+}
+
+/** Distance along `path` (0…pathLen) closest to node center (px, py) in SVG coords. */
+function distanceAlongPathToPoint(
+  path: SVGPathElement,
+  pathLen: number,
+  px: number,
+  py: number,
+): number {
+  if (pathLen <= 0) return 0;
+  const steps = 96;
+  let bestD = 0;
+  let bestDist = Infinity;
+  for (let k = 0; k <= steps; k++) {
+    const d = (k / steps) * pathLen;
+    const pt = path.getPointAtLength(d);
+    const dist = Math.hypot(pt.x - px, pt.y - py);
+    if (dist < bestDist) {
+      bestDist = dist;
+      bestD = d;
+    }
+  }
+  let lo = Math.max(0, bestD - pathLen / steps);
+  let hi = Math.min(pathLen, bestD + pathLen / steps);
+  for (let i = 0; i < 14; i++) {
+    const m1 = lo + (hi - lo) / 3;
+    const m2 = hi - (hi - lo) / 3;
+    const p1 = path.getPointAtLength(m1);
+    const p2 = path.getPointAtLength(m2);
+    const d1 = Math.hypot(p1.x - px, p1.y - py);
+    const d2 = Math.hypot(p2.x - px, p2.y - py);
+    if (d1 < d2) hi = m2;
+    else lo = m1;
+  }
+  return (lo + hi) / 2;
+}
+
+function useConnectorPath(count: number) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const dotRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const [svg, setSvg] = useState<{
+    d: string;
+    w: number;
+    h: number;
+    points: Point[];
+  }>({ d: "", w: 0, h: 0, points: [] });
+
+  const setDotRef = useCallback((i: number) => (el: HTMLDivElement | null) => {
+    dotRefs.current[i] = el;
+  }, []);
+
+  useLayoutEffect(() => {
+    const measure = () => {
+      const wrap = containerRef.current;
+      if (!wrap) return;
+
+      const cr = wrap.getBoundingClientRect();
+      if (cr.width < 8 || cr.height < 8) return;
+
+      const pts: Point[] = [];
+      for (let i = 0; i < count; i++) {
+        const el = dotRefs.current[i];
+        if (!el) return;
+        const r = el.getBoundingClientRect();
+        pts.push({
+          x: r.left + r.width / 2 - cr.left,
+          y: r.top + r.height / 2 - cr.top,
+        });
+      }
+      if (pts.length !== count) return;
+
+      setSvg({
+        d: buildSmoothPathD(pts),
+        w: cr.width,
+        h: cr.height,
+        points: pts,
+      });
+    };
+
+    measure();
+    const ro = new ResizeObserver(measure);
+    if (containerRef.current) ro.observe(containerRef.current);
+    window.addEventListener("resize", measure);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("resize", measure);
+    };
+  }, [count]);
+
+  return { containerRef, setDotRef, svg };
+}
+
+function CurvedTimelinePath({
+  svg,
+  scrollYProgress,
+  reduceMotion,
+  onRevealThresholds,
+}: {
+  svg: { d: string; w: number; h: number; points: Point[] };
+  scrollYProgress: MotionValue<number>;
+  reduceMotion: boolean;
+  onRevealThresholds: (normalized: number[]) => void;
+}) {
+  const pathRef = useRef<SVGPathElement>(null);
+  const revealCbRef = useRef(onRevealThresholds);
+  revealCbRef.current = onRevealThresholds;
+  const [pathLen, setPathLen] = useState(0);
+  const gradId = `reasons-path-${useId().replace(/:/g, "")}`;
+
+  useLayoutEffect(() => {
+    const el = pathRef.current;
+    if (!el || !svg.d) return;
+    const len = el.getTotalLength();
+    setPathLen(len);
+  }, [svg.d, svg.w, svg.h]);
+
+  /** Map each node to scroll progress (0–1) when the drawn stroke reaches that point on the path. */
+  useLayoutEffect(() => {
+    const path = pathRef.current;
+    if (!path || pathLen <= 0 || svg.points.length === 0) return;
+    if (reduceMotion) {
+      revealCbRef.current(svg.points.map(() => 0));
+      return;
+    }
+    const raw = svg.points.map((p) =>
+      Math.min(1, distanceAlongPathToPoint(path, pathLen, p.x, p.y) / pathLen),
+    );
+    const normalized = enforceSequentialRevealThresholds(
+      raw,
+      SEQUENTIAL_REVEAL_GAP,
+    );
+    const maxN = Math.max(...normalized, 1e-9);
+    const scaled = normalized.map((t) => (t / maxN) * REVEAL_AT_MAX);
+    revealCbRef.current(scaled);
+  }, [svg.d, pathLen, reduceMotion, svg.points]);
+
+  const dashOffset = useTransform(scrollYProgress, (v) => {
+    if (reduceMotion) return 0;
+    return (1 - v) * pathLen;
+  });
+
+  if (svg.w <= 0 || !svg.d) return null;
+
+  const trackStroke = 7;
+  const progressStroke = 5;
+  const dashArray = pathLen > 0 ? pathLen : 1;
+
+  return (
+    <svg
+      className="pointer-events-none absolute inset-0 z-0 h-full w-full overflow-visible"
+      viewBox={`0 0 ${svg.w} ${svg.h}`}
+      aria-hidden
+    >
+      <defs>
+        <linearGradient id={gradId} x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="var(--aa-primary)" stopOpacity="0.95" />
+          <stop offset="100%" stopColor="#60a5fa" stopOpacity="0.85" />
+        </linearGradient>
+      </defs>
+
+      {/* Full faint track — timeline “rail” */}
+      <path
+        d={svg.d}
+        fill="none"
+        stroke="rgb(226 232 240)"
+        strokeWidth={trackStroke}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className="opacity-90"
+        vectorEffect="non-scaling-stroke"
+      />
+
+      {/* Scroll-revealed flowing curve */}
+      {reduceMotion ? (
+        <path
+          ref={pathRef}
+          d={svg.d}
+          fill="none"
+          stroke={`url(#${gradId})`}
+          strokeWidth={progressStroke}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="drop-shadow-[0_0_12px_rgba(26,115,232,0.35)]"
+          vectorEffect="non-scaling-stroke"
+        />
+      ) : (
+        <motion.path
+          ref={pathRef}
+          d={svg.d}
+          fill="none"
+          stroke={`url(#${gradId})`}
+          strokeWidth={progressStroke}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeDasharray={dashArray}
+          strokeDashoffset={dashOffset}
+          className="drop-shadow-[0_0_14px_rgba(26,115,232,0.45)]"
+          vectorEffect="non-scaling-stroke"
+        />
+      )}
+    </svg>
+  );
+}
+
+function FlowNode({
+  index,
+  text,
+  active,
+  onHover,
+  setDotRef,
+  reduceMotion,
+  scrollYProgress,
+  revealAt,
+  thresholdsReady,
+}: {
+  index: number;
+  text: string;
+  active: boolean;
+  onHover: (i: number | null) => void;
+  setDotRef: (i: number) => (el: HTMLDivElement | null) => void;
+  reduceMotion: boolean;
+  scrollYProgress: MotionValue<number>;
+  revealAt: number;
+  thresholdsReady: boolean;
+}) {
+  const Icon = ICONS[index % ICONS.length];
+  const highlight = active;
+
+  const opacity = useTransform(scrollYProgress, (v) => {
+    if (reduceMotion) return 1;
+    if (!thresholdsReady) return 0;
+    return Math.min(1, Math.max(0, (v - revealAt) / REVEAL_FADE));
+  });
+
+  const y = useTransform(scrollYProgress, (v) => {
+    if (reduceMotion) return 0;
+    if (!thresholdsReady) return 18;
+    const t = Math.min(1, Math.max(0, (v - revealAt) / REVEAL_FADE));
+    return 18 * (1 - t);
+  });
+
+  const blurPx = useTransform(scrollYProgress, (v) => {
+    if (reduceMotion) return 0;
+    if (!thresholdsReady) return 7;
+    const t = Math.min(1, Math.max(0, (v - revealAt) / REVEAL_FADE));
+    return 7 * (1 - t);
+  });
+
+  const filter = useTransform(blurPx, (b) => `blur(${b}px)`);
+
+  return (
+    <motion.div
+      style={{ opacity, y, filter }}
+      className="group relative z-[2] flex flex-col items-center text-center"
+      onMouseEnter={() => onHover(index)}
+      onMouseLeave={() => onHover(null)}
+    >
+      <div
+        ref={setDotRef(index)}
+        className={`relative flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-full border bg-white transition duration-300 sm:h-14 sm:w-14 ${
+          highlight
+            ? "border-[var(--aa-primary)] shadow-[0_10px_36px_-8px_color-mix(in_srgb,var(--aa-primary)_55%,transparent)]"
+            : "border-slate-200 shadow-sm group-hover:border-[var(--aa-primary)]/50 group-hover:shadow-[0_8px_28px_-10px_color-mix(in_srgb,var(--aa-primary)_40%,transparent)]"
+        }`}
+        aria-hidden
+      >
+        <Icon className="h-[22px] w-[22px] text-slate-900 transition group-hover:text-[var(--aa-primary)] sm:h-6 sm:w-6" />
+      </div>
+      <p
+        className={`${fontHeading} mt-4 max-w-[18ch] text-[0.9375rem] font-bold leading-snug text-slate-900 transition group-hover:text-[var(--aa-primary)] sm:max-w-[22ch] sm:text-base`}
+      >
+        {text}
+      </p>
+    </motion.div>
+  );
+}
+
+function ReasonsSnakeDesktop({
+  reduceMotion,
+  scrollYProgress,
+}: {
+  reduceMotion: boolean;
+  scrollYProgress: MotionValue<number>;
+}) {
+  const [hovered, setHovered] = useState<number | null>(null);
+  const [revealThresholds, setRevealThresholds] = useState<number[]>([]);
+  const { containerRef, setDotRef, svg } = useConnectorPath(REASONS.length);
+
+  const handleRevealThresholds = useCallback((t: number[]) => {
+    setRevealThresholds((prev) => {
+      if (
+        prev.length === t.length &&
+        prev.every((v, i) => Math.abs(v - t[i]) < 1e-4)
+      ) {
+        return prev;
+      }
+      return t;
+    });
+  }, []);
+
+  const thresholdsReady = revealThresholds.length === REASONS.length;
+
+  return (
+    <div ref={containerRef} className="relative mx-auto w-full max-w-5xl">
+      <CurvedTimelinePath
+        svg={svg}
+        scrollYProgress={scrollYProgress}
+        reduceMotion={reduceMotion}
+        onRevealThresholds={handleRevealThresholds}
+      />
+
+      <div
+        className="relative z-[1] grid w-full gap-x-6 gap-y-16 sm:gap-x-8 sm:gap-y-20 lg:gap-x-10 lg:gap-y-24"
+        style={{
+          gridTemplateColumns: `repeat(${COLS}, minmax(0, 1fr))`,
+        }}
+      >
+        {REASONS.map((text, index) => {
+          const { row, col } = snakeCell(index, COLS);
+          return (
+            <div
+              key={`${index}-${text}`}
+              style={{
+                gridRow: row + 1,
+                gridColumn: col + 1,
+              }}
+              className="min-w-0"
+            >
+              <FlowNode
+                index={index}
+                text={text}
+                active={hovered === index}
+                onHover={setHovered}
+                setDotRef={setDotRef}
+                reduceMotion={reduceMotion}
+                scrollYProgress={scrollYProgress}
+                revealAt={revealThresholds[index] ?? 0}
+                thresholdsReady={thresholdsReady}
+              />
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function ReasonsStackMobile({
+  reduceMotion,
+  scrollYProgress,
+}: {
+  reduceMotion: boolean;
+  scrollYProgress: MotionValue<number>;
+}) {
+  const [hovered, setHovered] = useState<number | null>(null);
+  const [revealThresholds, setRevealThresholds] = useState<number[]>([]);
+  const { containerRef, setDotRef, svg } = useConnectorPath(REASONS.length);
+
+  const handleRevealThresholds = useCallback((t: number[]) => {
+    setRevealThresholds((prev) => {
+      if (
+        prev.length === t.length &&
+        prev.every((v, i) => Math.abs(v - t[i]) < 1e-4)
+      ) {
+        return prev;
+      }
+      return t;
+    });
+  }, []);
+
+  const thresholdsReady = revealThresholds.length === REASONS.length;
+
+  return (
+    <div ref={containerRef} className="relative mx-auto max-w-md">
+      <CurvedTimelinePath
+        svg={svg}
+        scrollYProgress={scrollYProgress}
+        reduceMotion={reduceMotion}
+        onRevealThresholds={handleRevealThresholds}
+      />
+
+      <div className="relative z-[1] flex flex-col gap-12 sm:gap-14">
+        {REASONS.map((text, index) => (
+          <FlowNode
+            key={`${index}-${text}`}
+            index={index}
+            text={text}
+            active={hovered === index}
+            onHover={setHovered}
+            setDotRef={setDotRef}
+            reduceMotion={reduceMotion}
+            scrollYProgress={scrollYProgress}
+            revealAt={revealThresholds[index] ?? 0}
+            thresholdsReady={thresholdsReady}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+const Reasons = () => {
+  const reduceMotion = useReducedMotion() ?? false;
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start 0.78", "end 0.22"],
+  });
+
+  const revealProgress = useTransform(scrollYProgress, (v) =>
+    Math.min(1, v / REVEAL_SCROLL_COMPRESSION),
+  );
+
+  return (
+    <section
+      ref={sectionRef}
+      id="reasons"
+      aria-labelledby="reasons-title"
+      className="aa-section relative overflow-hidden bg-white"
+    >
+      <div
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_90%_60%_at_50%_0%,color-mix(in_srgb,var(--aa-primary)_10%,transparent),transparent_50%)]"
+        aria-hidden
+      />
+
+      <div className="aa-container relative">
+        <motion.header
+          initial={reduceMotion ? false : { opacity: 0, y: 16 }}
+          whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          className="mx-auto mb-12 max-w-3xl text-center sm:mb-14 lg:mb-16"
+        >
+          <h2
+            id="reasons-title"
+            className={`${fontHeading} text-3xl font-black leading-[1.15] tracking-tight text-slate-900 sm:text-4xl`}
+          >
+            <span className="rounded-sm bg-[var(--aa-primary)] px-2 py-0.5 text-[#ffffff]">
+              Reasons
+            </span>{" "}
+            to Partner with Analytics Avenue
+          </h2>
+        </motion.header>
+
+        <div className="relative">
+          <div className="hidden md:block">
+            <ReasonsSnakeDesktop
+              reduceMotion={reduceMotion}
+              scrollYProgress={revealProgress}
+            />
+          </div>
+          <div className="md:hidden">
+            <ReasonsStackMobile
+              reduceMotion={reduceMotion}
+              scrollYProgress={revealProgress}
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default Reasons;
