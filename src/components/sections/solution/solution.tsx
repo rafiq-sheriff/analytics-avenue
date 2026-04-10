@@ -74,7 +74,9 @@ const Solution = () => {
               >
                 {steps[0]}
               </span>
-              <h3 className="mt-10 text-3xl font-semibold text-[#0f172a] sm:mt-0">01 — Data Sources</h3>
+              <h3 className="mt-10 text-balance text-xl font-semibold leading-snug text-[#0f172a] sm:mt-0 sm:text-2xl lg:text-3xl">
+                01 — Data Sources
+              </h3>
               <p className="mt-4 text-base leading-relaxed text-[#475569]">
                 Capturing multi-channel data across E-commerce, Social, and CRM platforms.
               </p>
@@ -108,7 +110,9 @@ const Solution = () => {
               >
                 {steps[1]}
               </span>
-              <h3 className="mt-10 text-3xl font-semibold text-[#0f172a] sm:mt-0">02 — Single Source of Truth to Query All Your Data</h3>
+              <h3 className="mt-10 text-balance text-xl font-semibold leading-snug text-[#0f172a] sm:mt-0 sm:text-2xl lg:text-3xl">
+                02 — Single Source of Truth to Query All Your Data
+              </h3>
               <p className="mt-4 text-base leading-relaxed text-[#475569]">
                 Processing and centralizing data into high-performance cloud warehouses for a Single Source of Truth.
               </p>
@@ -147,7 +151,9 @@ const Solution = () => {
               >
                 {steps[2]}
               </span>
-              <h3 className="mt-10 text-3xl font-semibold text-[#0f172a] sm:mt-0">03 — End to End AI Solutions</h3>
+              <h3 className="mt-10 text-balance text-xl font-semibold leading-snug text-[#0f172a] sm:mt-0 sm:text-2xl lg:text-3xl">
+                03 — End to End AI Solutions
+              </h3>
               <p className="mt-4 text-base leading-relaxed text-[#475569]">
                 Empower Your Business with Predictive Insights, Precision Decisions, and Seamless AI Automation.
               </p>

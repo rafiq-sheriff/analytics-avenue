@@ -34,6 +34,18 @@
   }
 }
 
+html {
+  scroll-behavior: smooth;
+  /* Slightly less offset on narrow screens (shorter sticky header). */
+  scroll-padding-top: clamp(4rem, 12vw, 5rem);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
 body {
   background: var(--background);
   color: var(--foreground);

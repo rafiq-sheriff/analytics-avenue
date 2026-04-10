@@ -86,7 +86,10 @@ const Hero = () => {
   }, []);
 
   return (
-    <section className="aa-section relative overflow-hidden bg-[var(--aa-surface-soft)]">
+    <section
+      id="home"
+      className="aa-section relative overflow-hidden bg-[var(--aa-surface-soft)]"
+    >
       <div className="pointer-events-none absolute inset-0 -z-0">
         <div className="absolute -left-24 top-[-140px] h-[360px] w-[360px] rounded-full bg-[radial-gradient(circle_at_center,rgba(26,115,232,0.28),rgba(26,115,232,0))] blur-3xl" />
         <div className="absolute -right-20 bottom-[-160px] h-[420px] w-[420px] rounded-full bg-[radial-gradient(circle_at_center,rgba(56,189,248,0.22),rgba(56,189,248,0))] blur-3xl" />
@@ -95,14 +98,14 @@ const Hero = () => {
 
       <div className="aa-container relative z-10 grid items-center gap-10 lg:grid-cols-2 lg:gap-14">
         <div className="max-w-xl">
-          <div className="mb-10 flex items-center gap-3 text-base font-semibold text-slate-900 sm:text-xl">
-            <span>AI Business Partner For</span>
-            <span className="inline-block h-[50px] min-w-[11ch] overflow-hidden align-middle text-[var(--aa-primary)]">
-              <ul ref={listRef} className="m-0 list-none p-0">
+          <div className="mb-8 flex flex-row flex-nowrap items-center gap-2 text-xl font-semibold sm:mb-10 sm:gap-3">
+            <span className="shrink-0 whitespace-nowrap text-slate-900">AI Business Partner For</span>
+            <span className="inline-block h-[50px] min-w-[11ch] shrink-0 overflow-hidden align-middle text-xl font-semibold text-[var(--aa-primary)]">
+              <ul ref={listRef} className="m-0 list-none p-0 text-inherit">
                 {rotatingIndustriesLoop.map((industry, index) => (
                   <li
                     key={`${industry}-${index}`}
-                    className="h-[50px] text-[24px] leading-[50px]"
+                    className="h-[50px] text-inherit leading-[50px]"
                     data-v-slide
                   >
                     {industry.split("").map((char, charIndex) => (
@@ -120,28 +123,28 @@ const Hero = () => {
             </span>
           </div>
 
-          <h1 className="font-[family-name:var(--font-heading)] text-5xl font-extrabold leading-[1.08] text-slate-900 sm:text-6xl lg:text-5xl">
+          <h1 className="font-[family-name:var(--font-heading)] text-4xl font-extrabold leading-[1.1] text-slate-900 sm:text-5xl md:text-6xl lg:text-5xl">
             AI Workforce for
             <br />
             Sales and Marketing
           </h1>
 
-          <h2 className="font-[family-name:var(--font-heading)] mt-12 flex flex-wrap items-baseline gap-x-2 text-4xl font-bold leading-tight text-slate-900 sm:text-3xl">
+          <h2 className="font-[family-name:var(--font-heading)] mt-8 flex flex-col gap-1 text-2xl font-bold leading-snug text-slate-900 sm:mt-12 sm:flex-row sm:flex-wrap sm:items-baseline sm:gap-x-2 sm:text-3xl">
             <RotatingText
               text={rotatingAiCapabilities}
               duration={2200}
               y={12}
-              containerClassName="align-middle"
-              textClassName="text-[var(--aa-primary)]"
+              containerClassName="align-middle min-w-0 max-w-full"
+              textClassName="text-[var(--aa-primary)] break-words"
             />
-            in one platform
+            <span className="text-balance">in one platform</span>
           </h2>
 
-          <p className="mt-6 max-w-lg text-base leading-8 text-slate-600 sm:text-xl">
+          <p className="mt-5 max-w-lg text-base leading-7 text-slate-600 sm:mt-6 sm:leading-8 sm:text-xl">
             So that your business runs like an enterprise.
           </p>
 
-          <div className="mt-9 flex flex-wrap items-center gap-3">
+          <div className="mt-8 flex flex-col gap-3 sm:mt-9 sm:flex-row sm:flex-wrap sm:items-center">
             <a href="#cta" className="aa-btn-primary shadow-lg shadow-blue-300/40">
               Get Started Free
               <svg
@@ -179,8 +182,8 @@ const Hero = () => {
             </a>
           </div>
 
-          <div className="mt-8 flex items-center gap-4">
-            <div className="-space-x-2">
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
+            <div className="-space-x-2 shrink-0">
               {["RK", "AM", "PS", "SJ"].map((name, index) => (
                 <span
                   key={name}
@@ -198,7 +201,7 @@ const Hero = () => {
                 </span>
               ))}
             </div>
-            <p className="text-sm leading-6 text-slate-600">
+            <p className="text-pretty text-sm leading-6 text-slate-600">
               <strong className="font-semibold text-slate-800">
                 500+ students placed
               </strong>{" "}
@@ -218,7 +221,7 @@ const Hero = () => {
               width={768}
               height={1024}
               priority
-              className="h-[500px] w-full rounded-[20px] object-cover object-top"
+              className="h-[min(420px,62vh)] w-full rounded-[20px] object-cover object-top sm:h-[min(480px,70vh)] lg:h-[500px]"
             />
           </div>
 

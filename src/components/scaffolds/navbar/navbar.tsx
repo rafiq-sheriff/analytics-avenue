@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
 type NavLink = {
   label: string;
@@ -8,6 +8,7 @@ type NavLink = {
 };
 
 const navLinks: NavLink[] = [
+  { label: "Home", href: "#home" },
   { label: "About", href: "#about" },
   { label: "Challenges", href: "#challenges" },
   { label: "Team", href: "#team-heading" },
@@ -15,16 +16,37 @@ const navLinks: NavLink[] = [
   { label: "Testimonials", href: "#testimonial-title" },
 ];
 
+/** Smooth-scroll to in-page section; keeps hash navigation reliable with Next.js client rendering. */
+function scrollToSectionId(id: string) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const reduceMotion =
+    typeof window !== "undefined" &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  el.scrollIntoView({
+    behavior: reduceMotion ? "auto" : "smooth",
+    block: "start",
+  });
+}
+
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const closeMenu = () => {
-    setIsMenuOpen(false);
-  };
+  const handleHashNavClick = useCallback(
+    (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+      if (!href.startsWith("#")) return;
+      const id = href.slice(1);
+      if (!id) return;
+      e.preventDefault();
+      scrollToSectionId(id);
+      setIsMenuOpen(false);
+    },
+    [],
+  );
 
   return (
     <header className="sticky top-0 z-50 border-b border-slate-200/70 bg-white/92 backdrop-blur-md">
-      <div className="aa-container flex items-center justify-between px-6 py-4">
+      <div className="aa-container flex items-center justify-between px-4 py-3.5 sm:px-6 sm:py-4">
         <a
           href="/"
           className="inline-flex items-center gap-2 text-lg font-extrabold tracking-tight text-slate-900 sm:text-xl"
@@ -44,6 +66,7 @@ const Navbar = () => {
               key={link.label}
               href={link.href}
               className="text-sm font-medium text-slate-600 transition hover:text-[var(--aa-primary)]"
+              onClick={(e) => handleHashNavClick(e, link.href)}
             >
               {link.label}
             </a>
@@ -54,12 +77,14 @@ const Navbar = () => {
           <a
             href="#about"
             className="aa-btn-secondary px-4 py-2 text-sm"
+            onClick={(e) => handleHashNavClick(e, "#about")}
           >
             EDTech Solutions
           </a>
           <a
             href="#cta"
             className="aa-btn-primary px-4 py-2 text-sm shadow-md shadow-blue-300/40"
+            onClick={(e) => handleHashNavClick(e, "#cta")}
           >
             Free Consultation
           </a>
@@ -101,14 +126,14 @@ const Navbar = () => {
       </div>
 
       {isMenuOpen && (
-        <div id="mobile-menu" className="border-t border-slate-200 bg-white px-6 py-4 md:hidden">
+        <div id="mobile-menu" className="border-t border-slate-200 bg-white px-4 py-4 sm:px-6 md:hidden">
           <nav className="flex flex-col gap-4" aria-label="Mobile navigation">
             {navLinks.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
                 className="text-sm font-medium text-slate-700 transition hover:text-[var(--aa-primary)]"
-                onClick={closeMenu}
+                onClick={(e) => handleHashNavClick(e, link.href)}
               >
                 {link.label}
               </a>
@@ -116,14 +141,14 @@ const Navbar = () => {
             <div className="mt-2 flex flex-col gap-3">
               <a
                 href="#about"
-                onClick={closeMenu}
+                onClick={(e) => handleHashNavClick(e, "#about")}
                 className="aa-btn-secondary px-4 py-2 text-center text-sm"
               >
                 EDTech Solutions
               </a>
               <a
                 href="#cta"
-                onClick={closeMenu}
+                onClick={(e) => handleHashNavClick(e, "#cta")}
                 className="aa-btn-primary px-4 py-2 text-center text-sm"
               >
                 Free Consultation

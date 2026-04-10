@@ -88,9 +88,28 @@ function useSectionReveal() {
   return { ref, visible: reduceMotion || visible, reduceMotion };
 }
 
+/** Desktop (lg+): one item open by default; mobile/tablet: all closed */
+function useFaqOpenIndexForViewport() {
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 1024px)");
+    const sync = () => {
+      setIsDesktop(mq.matches);
+      setOpenIndex(mq.matches ? 2 : null);
+    };
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
+
+  return { openIndex, setOpenIndex, isDesktop } as const;
+}
+
 const Faq = () => {
   const { ref, visible, reduceMotion } = useSectionReveal();
-  const [openIndex, setOpenIndex] = useState(2);
+  const { openIndex, setOpenIndex, isDesktop } = useFaqOpenIndexForViewport();
 
   const reveal = (delay: number) => ({
     opacity: visible ? 1 : 0,
@@ -119,26 +138,25 @@ const Faq = () => {
       <div className="aa-container relative">
         <div className="grid gap-10 lg:grid-cols-[minmax(0,35%)_minmax(0,65%)] lg:gap-14 lg:items-start">
           <div style={reveal(0)}>
-            <div className="mb-4 flex items-center gap-2.5">
+            <div className="mb-4 hidden items-center justify-center gap-2.5 lg:flex lg:justify-start">
               <span
-                className="h-2 w-2 shrink-0 rounded-full"
+                className="hidden h-2 w-2 shrink-0 rounded-full lg:block"
                 style={{ backgroundColor: accent }}
                 aria-hidden
               />
-                <span className="text-sm font-semibold tracking-wide text-slate-600">
+              <span className="text-sm font-semibold tracking-wide text-slate-600">
                 <span className="text-[var(--aa-primary)]">FAQs</span>
               </span>
             </div>
 
             <h2
               id="faq-title"
-              className="text-3xl font-extrabold leading-tight tracking-tight text-slate-900 sm:text-5xl"
+              className="text-center text-3xl font-extrabold leading-tight tracking-tight text-slate-900 sm:text-4xl lg:text-left lg:text-5xl"
             >
-              Program Details <br /> &amp; <span
-            className="rounded-sm bg-[var(--aa-primary)] px-2 py-0.5 text-white"
-          >
-            FAQs
-          </span>
+              Program Details <br /> &amp;{" "}
+              <span className="text-[var(--aa-primary)] lg:rounded-sm lg:bg-[var(--aa-primary)] lg:px-2 lg:py-0.5 lg:text-white">
+                FAQs
+              </span>
             </h2>
 
             <div className="mt-8 rounded-2xl border border-slate-100 bg-white p-6 shadow-[0_4px_24px_rgba(15,23,42,0.06)] sm:p-7">
@@ -189,7 +207,12 @@ const Faq = () => {
                       aria-expanded={open}
                       aria-controls={panelId}
                       className="flex w-full items-start gap-3 rounded-2xl px-5 py-4 text-left sm:px-6 sm:py-5"
-                      onClick={() => setOpenIndex(index)}
+                      onClick={() =>
+                        setOpenIndex((prev) => {
+                          if (isDesktop) return index;
+                          return prev === index ? null : index;
+                        })
+                      }
                     >
                       <span className="min-w-0 flex-1 text-[15px] font-bold leading-snug text-slate-900 sm:text-base">
                         {item.question}

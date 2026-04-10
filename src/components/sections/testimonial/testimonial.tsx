@@ -161,7 +161,7 @@ function initials(name: string) {
 function TestimonialCard({ item }: { item: TestimonialItem }) {
   return (
     <article
-      className="h-full w-[320px] rounded-2xl border border-slate-200 bg-white p-4 shadow-[0_18px_55px_-42px_rgba(15,23,42,0.35)] sm:w-[360px]"
+      className="h-full w-[min(320px,calc(100vw-2rem))] rounded-2xl border border-slate-200 bg-white p-4 shadow-[0_18px_55px_-42px_rgba(15,23,42,0.35)] sm:w-[360px]"
       aria-label={`Review by ${item.name}`}
     >
       <div className="flex items-start">
@@ -262,7 +262,7 @@ const Testimonial = () => {
 
           <h2
             id="testimonial-title"
-            className={`${fontHeading} text-4xl font-extrabold leading-[1.05] text-slate-900 sm:text-5xl`}
+            className={`${fontHeading} text-3xl font-extrabold leading-[1.08] text-slate-900 sm:text-5xl`}
           >
             Voices That Reflect <span
             className="rounded-sm bg-[var(--aa-primary)] px-2 py-0.5 text-[#ffffff]"

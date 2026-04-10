@@ -343,7 +343,7 @@ const Challenges = () => {
             ))}
           </div>
 
-          <div className="mt-4 flex items-center justify-center gap-6 border-t border-slate-100 pt-4">
+          <div className="mt-4 flex flex-row flex-wrap items-center justify-center gap-x-4 gap-y-2 border-t border-slate-100 pt-4 sm:gap-6">
             <button
               type="button"
               onClick={() => scrollByViewport("left")}

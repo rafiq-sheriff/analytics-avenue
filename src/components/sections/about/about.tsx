@@ -151,15 +151,21 @@ const About = () => {
           </div>
 
           <div className="min-w-0 rounded-[1.4rem] bg-white p-5 shadow-[0_10px_30px_-18px_rgba(15,23,42,0.28)] sm:p-7 lg:flex-[3]">
-            <p
-              className="text-xs font-semibold uppercase tracking-[0.15em]"
-              style={{ color: primary, ...reveal(140) }}
+            <div
+              className="mb-3 flex items-center gap-3"
+              style={reveal(140)}
             >
-              About Analytics Avenue
-            </p>
+              <h3
+                className="shrink-0 text-xs font-semibold uppercase tracking-[0.14em]"
+                style={{ color: primary }}
+              >
+                About Analytics Avenue
+              </h3>
+              <span className="h-px w-full bg-blue-200" aria-hidden />
+            </div>
 
             <p
-              className="mt-3 text-lg leading-relaxed text-slate-600 sm:text-[1.2rem] sm:leading-[1.3]"
+              className="text-lg leading-relaxed text-slate-600 sm:text-[1.2rem] sm:leading-[1.3]"
               style={reveal(180)}
             >
               At Analytics Avenue, we empower professionals and businesses

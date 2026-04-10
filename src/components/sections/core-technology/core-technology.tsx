@@ -3,7 +3,7 @@ import { PRIMARY } from "@/components/card/challenge-card/chalenge-card";
 const fontHeading = "font-[family-name:var(--font-heading)]";
 const fontBody = "font-[family-name:var(--font-body)]";
 
-/** One-line width for longest title “Natural Language Processing (NLP)” (Sora ~text-xl). */
+/** Desktop: one-line width for longest title (Sora ~text-xl). */
 const HEADING_WIDTH =
   "sm:w-[38ch] sm:min-w-[38ch] sm:max-w-[38ch] sm:shrink-0";
 type Capability = {
@@ -113,30 +113,38 @@ const CoreTechnology = () => {
                     className={`group px-4 py-5 transition-colors duration-300 ease-out hover:bg-[#1A73E8]/[0.04] sm:px-6 sm:py-6 md:px-8 ${fontBody}`}
                   >
                     {/*
-                      sm+: justify-between with fixed desc column width always — headings stay
-                      aligned across rows; only description height reveals on hover (no width jump).
+                      Mobile: number + title + action on row 1; description full width on row 2.
+                      sm+: number | title (fixed width) | description | button — desc expands on hover.
                     */}
-                    <div className="flex w-full min-w-0 flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-0">
-                      <div className="flex items-start justify-between w-full sm:contents">
-                        <span
-                          className={`${fontHeading} order-1 w-10 shrink-0 pt-0.5 text-sm font-bold tabular-nums text-slate-400 transition-colors duration-300 ease-out group-hover:text-[#1A73E8] group-focus-within:text-[#1A73E8] sm:w-11 sm:pt-0 sm:text-2xl`}
-                        >
-                          {n}
-                        </span>
-
-                        <h3
-                          className={`${fontHeading} order-2 min-w-0 flex-1 text-base font-bold leading-none text-slate-900 transition-colors duration-300 ease-out group-hover:text-[#1A73E8] group-focus-within:text-[#1A73E8] sm:flex-none sm:text-xl ${HEADING_WIDTH}`}
-                          title={item.title}
-                        >
-                          <span className="block truncate">{item.title}</span>
-                        </h3>
-                        <div
-                        className="order-3 min-w-0 w-full pl-[calc(2.5rem+0.75rem)] sm:w-[16rem] sm:max-w-[16rem] sm:shrink-0 sm:overflow-hidden sm:pl-0"
+                    <div className="grid w-full min-w-0 grid-cols-[auto_1fr_auto] gap-x-3 gap-y-3 sm:grid-cols-[auto_minmax(0,38ch)_minmax(0,16rem)_auto] sm:items-center sm:gap-x-4">
+                      <span
+                        className={`${fontHeading} col-start-1 row-start-1 w-10 shrink-0 pt-0.5 text-sm font-bold tabular-nums text-slate-400 transition-colors duration-300 ease-out group-hover:text-[#1A73E8] group-focus-within:text-[#1A73E8] sm:w-11 sm:pt-0 sm:text-2xl`}
                       >
-                        <div className="grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 ease-out group-hover:grid-rows-[1fr] group-focus-within:grid-rows-[1fr]">
+                        {n}
+                      </span>
+
+                      <h3
+                        className={`${fontHeading} col-start-2 row-start-1 min-w-0 self-start text-base font-bold leading-snug text-slate-900 transition-colors duration-300 ease-out group-hover:text-[#1A73E8] group-focus-within:text-[#1A73E8] sm:self-center sm:text-xl ${HEADING_WIDTH}`}
+                        title={item.title}
+                      >
+                        <span className="block sm:truncate">{item.title}</span>
+                      </h3>
+
+                      <button
+                        type="button"
+                        className="col-start-3 row-start-1 shrink-0 justify-self-end self-start rounded-full bg-slate-900 p-0 text-white transition-colors duration-300 ease-out hover:bg-[#1A73E8] group-hover:bg-[#1A73E8] group-focus-within:bg-[#1A73E8] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1A73E8] focus-visible:ring-offset-2 sm:col-start-4 sm:justify-self-center sm:self-center"
+                        aria-label={`${item.title} — details on hover or focus`}
+                      >
+                        <span className="flex h-10 w-10 items-center justify-center">
+                          <ArrowUpRightIcon className="h-4 w-4" />
+                        </span>
+                      </button>
+
+                      <div className="col-span-3 row-start-2 min-w-0 sm:col-span-1 sm:col-start-3 sm:row-start-1 sm:max-w-[16rem] sm:shrink-0 sm:overflow-hidden">
+                        <div className="grid grid-rows-[1fr] transition-[grid-template-rows] duration-300 ease-out sm:grid-rows-[0fr] sm:group-hover:grid-rows-[1fr] sm:group-focus-within:grid-rows-[1fr]">
                           <div className="overflow-hidden">
                             <p
-                              className={`${fontBody} line-clamp-3 text-sm leading-snug text-slate-500 transition-colors duration-300 ease-out group-hover:text-[#1A73E8] group-focus-within:text-[#1A73E8] sm:text-[1rem] sm:leading-snug`}
+                              className={`${fontBody} text-sm leading-snug text-slate-500 transition-colors duration-300 ease-out group-hover:text-[#1A73E8] group-focus-within:text-[#1A73E8] sm:text-[1rem] sm:leading-snug max-sm:line-clamp-4 sm:line-clamp-none`}
                               title={item.description}
                             >
                               {item.description}
@@ -144,19 +152,6 @@ const CoreTechnology = () => {
                           </div>
                         </div>
                       </div>
-
-                        <button
-                          type="button"
-                          className="order-4 shrink-0 self-start rounded-full bg-slate-900 p-0 text-white transition-colors duration-300 ease-out hover:bg-[#1A73E8] group-hover:bg-[#1A73E8] group-focus-within:bg-[#1A73E8] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1A73E8] focus-visible:ring-offset-2 sm:self-center"
-                          aria-label={`${item.title} — details on hover or focus`}
-                        >
-                          <span className="flex h-10 w-10 items-center justify-center">
-                            <ArrowUpRightIcon className="h-4 w-4" />
-                          </span>
-                        </button>
-                      </div>
-
-                     
                     </div>
                   </div>
                 </li>
