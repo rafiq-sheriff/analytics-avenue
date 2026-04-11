@@ -170,35 +170,6 @@ a {
   box-shadow: var(--aa-shadow-md);
 }
 
-@keyframes kpi-float {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-8px);
-  }
-}
-
-@keyframes kpi-glow {
-  0%,
-  100% {
-    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.12);
-  }
-  50% {
-    box-shadow: 0 12px 30px rgba(26, 115, 232, 0.25);
-  }
-}
-
-.kpi-float {
-  animation: kpi-float 4s ease-in-out infinite, kpi-glow 4s ease-in-out infinite;
-  will-change: transform, box-shadow;
-}
-
-.kpi-float-delay {
-  animation-delay: 0.7s;
-}
-
 @keyframes tech-logo-loop {
   from {
     transform: translateX(0);

@@ -2,7 +2,7 @@
 
 import { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
-import Image from "next/image";
+import OrbitingSkills from "@/components/ui/orbiting/orbiting";
 import RotatingText from "./rotating-text";
 
 const rotatingIndustries = [
@@ -322,99 +322,8 @@ const Hero = () => {
         </div>
       
 
-        <div className="relative mx-auto w-full max-w-xl lg:max-w-2xl">
-          <div className="overflow-hidden rounded-3xl border border-blue-200/70 bg-white p-2 shadow-xl shadow-slate-300/40">
-            <Image
-              src="/assets/images/Subramani.jpg"
-              alt="Subramani"
-              width={768}
-              height={1024}
-              priority
-              className="h-[min(420px,62vh)] w-full rounded-[20px] object-cover object-top sm:h-[min(480px,70vh)] lg:h-[500px]"
-            />
-          </div>
-
-          <div className="kpi-float absolute -left-4 top-10 hidden w-56 items-center gap-3 rounded-2xl border border-slate-200 bg-white/95 p-3 shadow-lg backdrop-blur sm:flex">
-            <div className="rounded-full bg-[#1A73E8]/10 p-2.5">
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden
-              >
-                <path
-                  d="M13 2L3 14H12L11 22L21 10H12L13 2Z"
-                  stroke="#1A73E8"
-                  strokeWidth={2}
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </div>
-            <div>
-              <p className="text-xs font-semibold text-slate-800">Trusted by 2000+</p>
-              <p className="text-[11px] text-slate-500">Professionals worldwide</p>
-            </div>
-          </div>
-
-          <div className="kpi-float kpi-float-delay absolute -right-4 top-1/2 hidden w-52 -translate-y-1/2 items-center gap-3 rounded-2xl border border-slate-200 bg-white/95 p-3 shadow-lg backdrop-blur sm:flex">
-            <div className="rounded-full bg-emerald-50 p-2.5">
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden
-              >
-                <polyline
-                  points="22 7 13.5 15.5 8.5 10.5 2 17"
-                  stroke="#16A34A"
-                  strokeWidth={2}
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <polyline
-                  points="16 7 22 7 22 13"
-                  stroke="#16A34A"
-                  strokeWidth={2}
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </div>
-            <div>
-              <p className="text-xs font-bold text-emerald-600">1000+ Learners</p>
-              <p className="text-[11px] text-slate-500">Career-focused training</p>
-            </div>
-          </div>
-
-          <div className="kpi-float absolute -left-4 bottom-6 hidden w-56 items-center gap-3 rounded-2xl border border-slate-200 bg-white/95 p-3 shadow-lg backdrop-blur sm:flex">
-            <div className="rounded-full bg-violet-50 p-2.5">
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden
-              >
-                <path
-                  d="M3 12L8 17L21 4"
-                  stroke="#7C3AED"
-                  strokeWidth={2}
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </div>
-            <div>
-              <p className="text-xs font-semibold text-slate-800">50+ Solutions</p>
-              <p className="text-[11px] text-slate-500">Industry-ready delivery</p>
-            </div>
-          </div>
+        <div className="mx-auto flex w-full max-w-xl justify-center lg:max-w-2xl lg:justify-end">
+          <OrbitingSkills className="min-h-[min(420px,62vh)] w-full max-w-[min(100vw-1rem,520px)] sm:min-h-[min(480px,70vh)] lg:min-h-[540px]" />
         </div>
       </div>
     </section>

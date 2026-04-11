@@ -14,6 +14,7 @@ import NewTeam from "@/components/sections/newteam/newteam";
 import Reasons from "@/components/sections/reasons/reasons";
 import Impact from "@/components/sections/impact/impact";
 import NewFaq from "@/components/sections/newfaq/newfaq";
+import NewReason from "@/components/sections/newreason/newreason";
 
 export default function Home() {
   return (
@@ -22,12 +23,13 @@ export default function Home() {
       <Hero />
       <Technology />  
       <About />
+      <NewReason />
       <Reasons />
       <Solution />
       <Impact />
       <Challenges />
       <CoreTechnology />
-      {/* <Team /> */}
+      <Team />
       <NewTeam />
       {/* <Faq /> */}
       <NewFaq />

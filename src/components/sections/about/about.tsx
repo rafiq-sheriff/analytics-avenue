@@ -8,6 +8,10 @@ const primary = "var(--aa-primary)";
 const ABOUT_VIDEO_EMBED =
   "https://www.youtube.com/embed/TouJOS07xNU?autoplay=1&start=2&rel=0";
 
+/** Intrinsic size of `public/assets/images/about/image.png` — keeps layout box matched to image aspect */
+const ABOUT_IMAGE_WIDTH = 1073;
+const ABOUT_IMAGE_HEIGHT = 1284;
+
 function useSectionReveal() {
   const ref = useRef<HTMLElement | null>(null);
   const [visible, setVisible] = useState(false);
@@ -74,24 +78,27 @@ const About = () => {
         </h2>
 
         <div
-          className="flex flex-col gap-5 rounded-3xl border border-slate-100 bg-[#f7fbff] p-4 shadow-[0_18px_55px_-30px_rgba(15,23,42,0.35)] sm:p-6 lg:flex-row lg:items-stretch lg:p-8"
+          className="flex flex-col gap-5 rounded-3xl border border-slate-100 bg-[#f7fbff] p-4 shadow-[0_18px_55px_-30px_rgba(15,23,42,0.35)] sm:p-6 lg:flex-row lg:items-start lg:p-8"
           style={reveal(90)}
         >
-          <div className="relative min-h-[340px] min-w-0 sm:min-h-[470px] lg:flex-[2]">
-            <div className="relative h-full min-h-[340px] rounded-[1.4rem] sm:min-h-[470px]">
+          <div className="relative min-w-0 shrink-0 lg:flex-[2] lg:self-start">
+            <div
+              className={`relative w-full overflow-hidden rounded-[1.4rem] ${
+                aboutVideoOpen ? "aspect-video" : ""
+              }`}
+            >
               {!aboutVideoOpen ? (
                 <>
-                  <div className="absolute inset-0 overflow-hidden rounded-[1.4rem]">
-                    <Image
-                      src="/assets/images/about/image.png"
-                      alt="Video cover: LinkedIn profile of Subramani — Data Scientist, AI guest speaker, and Analytics Avenue"
-                      fill
-                      sizes="(max-width: 1024px) 100vw, 50vw"
-                      className="object-cover object-center"
-                      priority={false}
-                    />
-                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950/25 via-slate-950/5 to-transparent" />
-                  </div>
+                  <Image
+                    src="/assets/images/about/image.png"
+                    alt="Video cover: LinkedIn profile of Subramani — Data Scientist, AI guest speaker, and Analytics Avenue"
+                    width={ABOUT_IMAGE_WIDTH}
+                    height={ABOUT_IMAGE_HEIGHT}
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    className="h-auto w-full rounded-[1.4rem]"
+                    priority={false}
+                  />
+                  <div className="pointer-events-none absolute inset-0 rounded-[1.4rem] bg-gradient-to-t from-slate-950/25 via-slate-950/5 to-transparent" />
                   <div className="absolute inset-0 flex items-center justify-center p-4">
                     <div className="relative flex h-16 w-16 items-center justify-center sm:h-[72px] sm:w-[72px]">
                       {!reduceMotion && (
@@ -119,7 +126,7 @@ const About = () => {
                   </div>
                 </>
               ) : (
-                <div className="absolute inset-0 overflow-hidden rounded-[1.4rem]">
+                <>
                   <iframe
                     title="Analytics Avenue introduction video"
                     src={ABOUT_VIDEO_EMBED}
@@ -145,7 +152,7 @@ const About = () => {
                       <path d="M18 6L6 18M6 6l12 12" />
                     </svg>
                   </button>
-                </div>
+                </>
               )}
             </div>
           </div>
