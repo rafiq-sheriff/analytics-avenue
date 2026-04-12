@@ -1,5 +1,3 @@
-import NewsletterForm from "@/components/scaffolds/footer/newsletter-form";
-
 const fontHeading = "font-[family-name:var(--font-heading)]";
 const fontBody = "font-[family-name:var(--font-body)]";
 
@@ -47,27 +45,23 @@ const footerColumns = [
   },
 ] as const;
 
-const Footer = () => {
+type FooterProps = {
+  /** When true, footer sits directly under the home CTA (border + spacing only below the rule). */
+  afterCta?: boolean;
+};
+
+const Footer = ({ afterCta = false }: FooterProps) => {
+  const shellClass = afterCta
+    ? "aa-section relative overflow-hidden bg-[#ffffff] pb-8 pt-0"
+    : "aa-section relative overflow-hidden bg-[#ffffff] pb-8 pt-10 sm:pt-14";
+  const innerClass = afterCta
+    ? "relative border-t border-slate-200/80 pt-10 sm:pt-12"
+    : "relative";
+
   return (
-    <footer id="cta" className="aa-section relative overflow-hidden bg-[#ffffff] pb-8 pt-10 sm:pt-14">
+    <footer className={shellClass}>
       <div className="aa-container">
-        <section className="rounded-[28px] border border-[#1A73E8]/20 bg-gradient-to-br from-[#1A73E8] via-[#5A8EF3] to-[#7F86FF] px-6 py-10 text-center  sm:px-10 sm:py-14">
-          <h2
-            className={`${fontHeading} text-2xl font-extrabold leading-tight text-white sm:text-4xl lg:text-5xl`}
-          >
-            Ready to Build Your Data and AI Advantage?
-          </h2>
-          <p
-            className={`${fontBody} mx-auto mt-4 max-w-3xl text-sm leading-relaxed text-white/85 sm:text-base`}
-          >
-            Partner with Analytics Avenue to upskill teams, deliver real-world
-            analytics solutions, and accelerate measurable business outcomes.
-          </p>
-
-          <NewsletterForm />
-        </section>
-
-        <div className="relative mt-12 border-t border-slate-200/80 pt-10">
+        <div className={innerClass}>
           <div className="grid gap-10 lg:grid-cols-[1.25fr_2.75fr] lg:gap-12">
             <div>
               <p className={`${fontHeading} text-4xl font-black text-[var(--aa-primary)]`}>

@@ -6,6 +6,7 @@ import Team from "@/components/sections/team/team";
 import Challenges from "@/components/sections/challenges/challenges";
 import CoreTechnology from "@/components/sections/core-technology/core-technology";
 import Testimonial from "@/components/sections/testimonial/testimonial";
+import Cta from "@/components/cta/cta";
 import Footer from "@/components/scaffolds/footer/footer";
 import Navbar from "@/components/scaffolds/navbar/navbar";
 import Solution from "@/components/sections/solution/solution";
@@ -41,7 +42,8 @@ export default function Home() {
       
       <Testimonial />
       <Gallery />
-      <Footer />
+      <Cta />
+      <Footer afterCta />
     </div>
   );
 }
