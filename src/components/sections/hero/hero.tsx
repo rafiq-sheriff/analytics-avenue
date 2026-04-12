@@ -202,7 +202,7 @@ const Hero = () => {
           </div>
         </div>
 
-        <div className="mx-auto flex w-full max-w-xl justify-center lg:max-w-2xl lg:justify-end">
+        <div className="mx-auto flex w-full max-w-xl justify-center pb-10 lg:max-w-2xl lg:justify-end">
           <OrbitingSkills className="min-h-[min(500px,62vh)] w-full max-w-[min(100vw-1rem,640px)] sm:min-h-[min(580px,70vh)] lg:min-h-[620px]" />
         </div>
       </div>

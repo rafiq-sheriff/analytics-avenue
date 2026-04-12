@@ -185,7 +185,7 @@ const About = () => {
                 href="#approach"
             className="aa-btn-primary shadow-lg shadow-blue-300/40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--aa-primary)]"
               >
-                Explore Our Approach
+                Visit Linkedin
                 <svg
                   viewBox="0 0 15 15"
                   fill="none"

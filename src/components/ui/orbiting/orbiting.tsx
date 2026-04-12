@@ -17,7 +17,14 @@ interface SkillConfig {
   orbitRadius: number;
   size: number;
   speed: number;
-  iconType: IconType;
+  /** Inline tech icon (HTML/CSS/React, etc.) */
+  iconType?: IconType;
+  /** Public path under `/` for an SVG or image asset */
+  imageSrc?: string;
+  /** Glow / hover accent (always set; used for assets and can override inline defaults) */
+  accentColor: string;
+  /** Optional scale for icon artwork inside the circle (1 = default) */
+  contentScale?: number;
   phaseShift: number;
   glowColor: GlowColor;
   label: string;
@@ -119,99 +126,172 @@ const SkillIcon = memo(({ type }: SkillIconProps) => {
 });
 SkillIcon.displayName = "SkillIcon";
 
+const INNER_LAYER_ASSETS = {
+  digitalMarketing: "/assets/hero/inner-layer/instagram.svg",
+  crm: "/assets/hero/inner-layer/crm.svg",
+  salesAutomation: "/assets/hero/inner-layer/sales-automation.svg",
+} as const;
+
+const OUTER_LAYER_ASSETS = {
+  agenticAi: "/assets/hero/outer-layer/agentic-ai.svg",
+  biSolution: "/assets/hero/outer-layer/bi-solution.svg",
+  dataEngineer: "/assets/hero/outer-layer/data-engineer.svg",
+  placementPrograms: "/assets/hero/outer-layer/placement-programs.svg",
+} as const;
+
+const OrbitIcon = memo(
+  ({
+    iconType,
+    imageSrc,
+    contentScale = 1,
+  }: {
+    iconType?: IconType;
+    imageSrc?: string;
+    contentScale?: number;
+  }) => {
+    const scaleStyle =
+      contentScale !== 1 ? { transform: `scale(${contentScale})` } : undefined;
+
+    if (imageSrc) {
+      return (
+        <img
+          src={imageSrc}
+          alt=""
+          className="h-full w-full origin-center object-contain"
+          style={scaleStyle}
+          draggable={false}
+        />
+      );
+    }
+    if (iconType) {
+      return (
+        <span
+          className="flex h-full w-full origin-center items-center justify-center"
+          style={scaleStyle}
+        >
+          <SkillIcon type={iconType} />
+        </span>
+      );
+    }
+    return null;
+  },
+);
+OrbitIcon.displayName = "OrbitIcon";
+
 const INNER_RADIUS = 142;
 const OUTER_RADIUS = 258;
 const INNER_PHASE_STEP = (2 * Math.PI) / 4;
-const OUTER_PHASE_STEP = (2 * Math.PI) / 4;
+const OUTER_ORBIT_COUNT = 5;
+const OUTER_PHASE_STEP = (2 * Math.PI) / OUTER_ORBIT_COUNT;
 
 const skillsConfig: SkillConfig[] = [
-  // Inner orbit — four icons, evenly spaced
+  // Inner orbit — Digital Marketing, Web development (React), CRM Pipeline, Sales Automation
   {
-    id: "html-inner",
+    id: "digital-marketing-inner",
     orbitRadius: INNER_RADIUS,
-    size: 50,
+    size: 56,
     speed: 1,
-    iconType: "html",
+    imageSrc: INNER_LAYER_ASSETS.digitalMarketing,
+    accentColor: "#E4405F",
     phaseShift: 0,
     glowColor: "cyan",
-    label: "HTML5",
+    label: "Digital Marketing",
   },
   {
-    id: "css-inner",
+    id: "web-dev-inner",
     orbitRadius: INNER_RADIUS,
-    size: 54,
+    size: 56,
     speed: 1,
-    iconType: "css",
+    iconType: "react",
+    accentColor: iconComponents.react.color,
     phaseShift: INNER_PHASE_STEP,
     glowColor: "cyan",
-    label: "CSS3",
+    label: "Web development",
   },
   {
-    id: "javascript-inner",
+    id: "crm-inner",
     orbitRadius: INNER_RADIUS,
-    size: 50,
+    size: 56,
     speed: 1,
-    iconType: "javascript",
+    imageSrc: INNER_LAYER_ASSETS.crm,
+    accentColor: "#0ea5e9",
+    contentScale: 1.3,
     phaseShift: 2 * INNER_PHASE_STEP,
     glowColor: "cyan",
-    label: "JavaScript",
+    label: "CRM Pipeline",
   },
   {
-    id: "tailwind-inner",
+    id: "sales-automation-inner",
     orbitRadius: INNER_RADIUS,
-    size: 50,
+    size: 56,
     speed: 1,
-    iconType: "tailwind",
+    imageSrc: INNER_LAYER_ASSETS.salesAutomation,
+    accentColor: "#a855f7",
     phaseShift: 3 * INNER_PHASE_STEP,
     glowColor: "cyan",
-    label: "Tailwind CSS",
+    label: "Sales Automation",
   },
-  // Outer orbit — four icons (reuses HTML & React from the icon set)
+  // Outer orbit — four hero SVGs + JavaScript (inline icon)
   {
-    id: "react-outer",
+    id: "agentic-ai-outer",
     orbitRadius: OUTER_RADIUS,
     size: 62,
     speed: -0.6,
-    iconType: "react",
+    imageSrc: OUTER_LAYER_ASSETS.agenticAi,
+    accentColor: "#8b5cf6",
     phaseShift: 0,
     glowColor: "purple",
-    label: "React",
+    label: "Ai Agents",
   },
   {
-    id: "node-outer",
+    id: "bi-solution-outer",
     orbitRadius: OUTER_RADIUS,
-    size: 56,
+    size: 62,
     speed: -0.6,
-    iconType: "node",
+    imageSrc: OUTER_LAYER_ASSETS.biSolution,
+    accentColor: "#0ea5e9",
     phaseShift: OUTER_PHASE_STEP,
     glowColor: "purple",
-    label: "Node.js",
+    label: "BI Solutions",
   },
   {
     id: "javascript-outer",
     orbitRadius: OUTER_RADIUS,
-    size: 50,
+    size: 56,
     speed: -0.6,
     iconType: "javascript",
+    accentColor: iconComponents.javascript.color,
     phaseShift: 2 * OUTER_PHASE_STEP,
     glowColor: "purple",
-    label: "JavaScript",
+    label: "javascript",
   },
   {
-    id: "css-outer",
+    id: "data-engineer-outer",
     orbitRadius: OUTER_RADIUS,
-    size: 54,
+    size: 62,
     speed: -0.6,
-    iconType: "css",
+    imageSrc: OUTER_LAYER_ASSETS.dataEngineer,
+    accentColor: "#10b981",
     phaseShift: 3 * OUTER_PHASE_STEP,
     glowColor: "purple",
-    label: "CSS3",
+    label: "Data Engineering",
+  },
+  {
+    id: "placement-programs-outer",
+    orbitRadius: OUTER_RADIUS,
+    size: 62,
+    speed: -0.6,
+    imageSrc: OUTER_LAYER_ASSETS.placementPrograms,
+    accentColor: "#f59e0b",
+    phaseShift: 4 * OUTER_PHASE_STEP,
+    glowColor: "purple",
+    label: "Placement Programs",
   },
 ];
 
 const OrbitingSkill = memo(({ config, angle }: OrbitingSkillProps) => {
   const [isHovered, setIsHovered] = useState(false);
-  const { orbitRadius, size, iconType, label } = config;
+  const { orbitRadius, size, iconType, imageSrc, accentColor, contentScale, label } = config;
 
   const x = Math.cos(angle) * orbitRadius;
   const y = Math.sin(angle) * orbitRadius;
@@ -224,30 +304,38 @@ const OrbitingSkill = memo(({ config, angle }: OrbitingSkillProps) => {
         width: `${size}px`,
         height: `${size}px`,
         transform: `translate(calc(${x}px - 50%), calc(${y}px - 50%))`,
-        zIndex: isHovered ? 20 : 10,
+        zIndex: isHovered ? 30 : 10,
       }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       <div
         className={`
-          relative flex h-full w-full cursor-pointer items-center justify-center rounded-full
+          relative flex h-full w-full cursor-pointer items-center justify-center overflow-hidden rounded-full
           border border-slate-200/90 bg-white p-2 shadow-md transition-all duration-300
           ${isHovered ? "scale-125 shadow-2xl" : "hover:shadow-lg"}
         `}
         style={{
           boxShadow: isHovered
-            ? `0 0 28px ${iconComponents[iconType]?.color}35, 0 0 52px ${iconComponents[iconType]?.color}18, 0 10px 25px -8px rgb(15 23 42 / 0.12)`
+            ? `0 0 28px ${accentColor}35, 0 0 52px ${accentColor}18, 0 10px 25px -8px rgb(15 23 42 / 0.12)`
             : undefined,
         }}
       >
-        <SkillIcon type={iconType} />
-        {isHovered && (
-          <div className="pointer-events-none absolute -bottom-8 left-1/2 -translate-x-1/2 whitespace-nowrap rounded bg-gray-900/95 px-2 py-1 text-xs text-white backdrop-blur-sm">
-            {label}
-          </div>
-        )}
+        <OrbitIcon
+          iconType={iconType}
+          imageSrc={imageSrc}
+          contentScale={contentScale}
+        />
       </div>
+      {/* Outside overflow-hidden circle so label is not clipped (pill below icon) */}
+      {isHovered && (
+        <div
+          className="pointer-events-none absolute left-1/2 top-full z-[40] mt-2 -translate-x-1/2 whitespace-nowrap rounded-full bg-[#1a1c23] px-3 py-1.5 text-xs font-medium text-white shadow-lg sm:text-sm"
+          role="tooltip"
+        >
+          {label}
+        </div>
+      )}
     </div>
   );
 });
@@ -316,7 +404,7 @@ export default function OrbitingSkills({ className }: OrbitingSkillsProps) {
     <div
       className={`relative flex w-full flex-col items-center justify-center overflow-visible bg-transparent ${className ?? ""}`}
       role="img"
-      aria-label="Lottie robot at center with orbiting technology icons: inner ring HTML5, CSS3, JavaScript, Tailwind CSS; outer ring React, Node.js, JavaScript, CSS3"
+      aria-label="Lottie robot at center with orbiting icons: inner ring Digital Marketing, Web development, CRM Pipeline, Sales Automation; outer ring Ai Agents, BI Solutions, javascript, Data Engineering, Placement Programs"
     >
       <div
         className="relative flex h-[min(calc(100vw-32px),500px)] w-[min(calc(100vw-32px),500px)] items-center justify-center sm:h-[580px] sm:w-[580px] md:h-[620px] md:w-[620px]"
