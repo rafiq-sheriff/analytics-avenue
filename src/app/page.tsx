@@ -9,12 +9,13 @@ import Testimonial from "@/components/sections/testimonial/testimonial";
 import Footer from "@/components/scaffolds/footer/footer";
 import Navbar from "@/components/scaffolds/navbar/navbar";
 import Solution from "@/components/sections/solution/solution";
-import Gallery from "@/components/sections/gallery/gallery";
+import Gallery from "@/components/sections/gallery/gallery-dynamic";
 import NewTeam from "@/components/sections/newteam/newteam";
 import Reasons from "@/components/sections/reasons/reasons";
 import Impact from "@/components/sections/impact/impact";
 import NewFaq from "@/components/sections/newfaq/newfaq";
 import NewReason from "@/components/sections/newreason/newreason";
+import Curriculam from "@/components/sections/curriculam/curriculam";
 
 export default function Home() {
   return (
@@ -23,16 +24,20 @@ export default function Home() {
       <Hero />
       <Technology />  
       <About />
-      <NewReason />
-      <Reasons />
       <Solution />
-      <Impact />
+      {/* <NewReason /> */}
+      <Reasons />
       <Challenges />
-      <CoreTechnology />
+      
+      <Impact />
       <Team />
-      <NewTeam />
+      
+      {/* <CoreTechnology /> */}
+      
+      {/* <NewTeam /> */}
       {/* <Faq /> */}
-      <NewFaq />
+      <Curriculam />
+      {/* <NewFaq /> */}
       <Gallery />
       <Testimonial />
       <Footer />

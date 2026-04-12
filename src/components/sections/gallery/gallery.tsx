@@ -1,153 +1,62 @@
 "use client";
 
-import type { CSSProperties } from "react";
-import Image from "next/image";
-import { useEffect, useState } from "react";
+import Image, { type StaticImageData } from "next/image";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import type { Swiper as SwiperClass } from "swiper";
+import { A11y } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
+
+import galleryImage1 from "../../../../public/assets/images/gallery/image1.png";
+import galleryImage2 from "../../../../public/assets/images/gallery/image2.png";
+import galleryImage3 from "../../../../public/assets/images/gallery/image3.png";
+import galleryImage4 from "../../../../public/assets/images/gallery/image4.png";
+import galleryImage5 from "../../../../public/assets/images/gallery/image5.png";
+import galleryImage6 from "../../../../public/assets/images/gallery/image6.png";
+import galleryImage7 from "../../../../public/assets/images/gallery/image7.png";
+import galleryImage8 from "../../../../public/assets/images/gallery/image8.png";
+import galleryImage9 from "../../../../public/assets/images/gallery/image9.png";
+import galleryImage10 from "../../../../public/assets/images/gallery/image10.png";
+
+import "swiper/css";
 
 type GallerySlide = {
   id: string;
-  title: string;
-  description: string;
-  imageSrc: string;
-};
-
-type GalleryThumbnailLoopProps = {
-  slides: GallerySlide[];
-  speed?: number;
-  thumbSize?: number;
-  gap?: number;
-  hoverSpeed?: number;
-  selectedIndex: number;
-  onSelect: (index: number) => void;
-  ariaLabel?: string;
-};
-
-/** Thumbnail strip: same infinite scroll as `technology.tsx` LogoLoop; default direction = right-to-left. */
-const GalleryThumbnailLoop = ({
-  slides,
-  speed = 72,
-  thumbSize = 80,
-  gap = 14,
-  hoverSpeed = 0,
-  selectedIndex,
-  onSelect,
-  ariaLabel = "Gallery thumbnails",
-}: GalleryThumbnailLoopProps) => {
-  const isPauseOnHover = hoverSpeed === 0;
-  const estimatedThumbWidth = thumbSize;
-  const trackWidth =
-    slides.length * estimatedThumbWidth + (slides.length - 1) * gap;
-  const durationSeconds = Math.max(trackWidth / Math.max(speed, 1), 12);
-  const hoverDurationSeconds =
-    hoverSpeed <= 0
-      ? durationSeconds
-      : Math.max(trackWidth / Math.max(hoverSpeed, 1), durationSeconds);
-
-  return (
-    <div
-      className={`tech-logo-loop group relative w-full overflow-hidden ${
-        isPauseOnHover ? "tech-logo-loop--pause-on-hover" : "tech-logo-loop--slow-on-hover"
-      }`}
-      aria-label={ariaLabel}
-    >
-      <div
-        className="tech-logo-track flex w-max items-center"
-        style={
-          {
-            "--logo-gap": `${gap}px`,
-            "--loop-duration": `${durationSeconds}s`,
-            "--hover-loop-duration": `${hoverDurationSeconds}s`,
-          } as CSSProperties
-        }
-      >
-        {[...slides, ...slides].map((slide, index) => {
-          const logicalIndex = index % slides.length;
-          const isActive = logicalIndex === selectedIndex;
-          return (
-            <button
-              key={`${slide.id}-${index}`}
-              type="button"
-              onClick={() => onSelect(logicalIndex)}
-              className={`relative shrink-0 overflow-hidden rounded-xl border-2 transition-[transform,box-shadow,ring] duration-200 hover:scale-[1.03] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--aa-primary)] ${
-                isActive
-                  ? "border-[var(--aa-primary)] ring-2 ring-[var(--aa-primary)]/35 ring-offset-2 ring-offset-[var(--aa-surface-soft)]"
-                  : "border-transparent opacity-90 hover:opacity-100"
-              }`}
-              style={{ width: thumbSize, height: thumbSize }}
-              aria-current={isActive ? "true" : undefined}
-              aria-label={`Show slide: ${slide.title}`}
-            >
-              <Image
-                src={slide.imageSrc}
-                alt=""
-                width={thumbSize}
-                height={thumbSize}
-                className="h-full w-full object-cover"
-                sizes={`${thumbSize}px`}
-              />
-            </button>
-          );
-        })}
-      </div>
-
-      <div className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-white to-transparent sm:w-20" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-white to-transparent sm:w-20" />
-    </div>
-  );
+  image: StaticImageData;
 };
 
 const gallerySlides: GallerySlide[] = [
-  {
-    id: "storytelling",
-    title: "Insights That Move Decisions",
-    description:
-      "Explore outcomes from analytics engagements where dashboards, models, and clear narratives turned raw data into actions your stakeholders can trust.",
-    imageSrc: "/assets/images/about/image.png",
-  },
-  {
-    id: "healthcare",
-    title: "Healthcare & Life Sciences",
-    description:
-      "From patient flow to operational efficiency, see how teams use BI and AI to improve care delivery while keeping compliance and traceability front and center.",
-    imageSrc: "/assets/images/challenges/healthcare.png",
-  },
-  {
-    id: "energy",
-    title: "Energy & Sustainability",
-    description:
-      "Monitor performance, forecast demand, and report on sustainability metrics with pipelines and visuals built for complex, real-world operations data.",
-    imageSrc: "/assets/images/challenges/solar.png",
-  },
-  {
-    id: "logistics",
-    title: "Logistics & Mobility",
-    description:
-      "Optimize routes, capacity, and costs using integrated data platforms—so operations teams see one version of the truth across regions and partners.",
-    imageSrc: "/assets/images/challenges/transport.png",
-  },
-  {
-    id: "realestate",
-    title: "Real Estate & PropTech",
-    description:
-      "Blend market, portfolio, and customer signals into executive-ready views that support pricing, investment, and experience decisions.",
-    imageSrc: "/assets/images/challenges/realestate.png",
-  },
-  {
-    id: "marketing",
-    title: "Marketing & Growth Analytics",
-    description:
-      "Connect campaigns to revenue with attribution, experimentation, and reporting that marketing and finance can align on—without spreadsheet chaos.",
-    imageSrc: "/assets/images/challenges/marketing.png",
-  },
+  { id: "gallery-1", image: galleryImage1 },
+  { id: "gallery-2", image: galleryImage2 },
+  { id: "gallery-3", image: galleryImage3 },
+  { id: "gallery-4", image: galleryImage4 },
+  { id: "gallery-5", image: galleryImage5 },
+  { id: "gallery-6", image: galleryImage6 },
+  { id: "gallery-7", image: galleryImage7 },
+  { id: "gallery-8", image: galleryImage8 },
+  { id: "gallery-9", image: galleryImage9 },
+  { id: "gallery-10", image: galleryImage10 },
 ];
 
-const fontHeading = "font-[family-name:var(--font-heading)]";
+const swiperModules = [A11y];
+
+const AUTO_ADVANCE_MS = 2000;
+
 const fontBody = "font-[family-name:var(--font-body)]";
 const primary = "var(--aa-primary)";
 
 const Gallery = () => {
-  const [selectedIndex, setSelectedIndex] = useState(0);
   const [reduceMotion, setReduceMotion] = useState(false);
+  const [pausedByHover, setPausedByHover] = useState(false);
+  const swiperRef = useRef<SwiperClass | null>(null);
+
+  const goPrev = useCallback(() => {
+    swiperRef.current?.slidePrev();
+  }, []);
+
+  const goNext = useCallback(() => {
+    swiperRef.current?.slideNext();
+  }, []);
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -157,106 +66,101 @@ const Gallery = () => {
     return () => mq.removeEventListener("change", sync);
   }, []);
 
+  /** Same motion as “Next”; avoids Swiper Autoplay (can clash with App Router init). */
   useEffect(() => {
-    const autoplay = window.setInterval(() => {
-      setSelectedIndex((prev) => (prev + 1) % gallerySlides.length);
-    }, 3000);
-
-    return () => window.clearInterval(autoplay);
-  }, []);
-
-  const active = gallerySlides[selectedIndex] ?? gallerySlides[0];
+    if (reduceMotion || pausedByHover) return;
+    const id = window.setInterval(() => {
+      swiperRef.current?.slideNext();
+    }, AUTO_ADVANCE_MS);
+    return () => window.clearInterval(id);
+  }, [reduceMotion, pausedByHover]);
 
   return (
     <section
       id="gallery"
       aria-labelledby="gallery-title"
-      className="aa-section bg-[var(--aa-surface-soft)] py-8 sm:py-10 bg-white rounded-3xl "
+      className="aa-section bg-[var(--aa-surface)] py-6 sm:py-8"
     >
-      <div className="aa-container">
-        <div className="grid items-start gap-10 lg:grid-cols-2 lg:gap-14">
-          <div className="min-w-0 self-start">
-            <h2
-              id="gallery-title"
-              className={`${fontHeading} text-3xl font-extrabold leading-[1.12] tracking-tight text-slate-900 sm:text-4xl lg:text-[2.65rem]`}
+      <div className="aa-container px-4 sm:px-6">
+        <div className="flex w-full min-w-0 flex-col rounded-3xl border border-slate-100 bg-[var(--aa-surface-soft)] p-6 shadow-sm sm:p-8">
+          {/* Nav first in DOM; `order-*` keeps visual: title → carousel → controls. Clicks call Swiper via ref (avoids broken external Navigation binding). */}
+          <div
+            className={`${fontBody} order-3 mt-6 flex shrink-0 flex-wrap items-center justify-center gap-6 sm:mt-8 sm:gap-10 md:gap-14`}
+          >
+            <button
+              type="button"
+              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-sky-300/90 bg-white/90 text-slate-600 shadow-sm transition-[background-color,transform,color,opacity] hover:bg-sky-50/90 hover:text-slate-800 active:scale-[0.97]"
+              aria-label="Previous slide"
+              onClick={goPrev}
             >
-              Captured{" "}
-              <span
-                className="rounded-sm px-2 py-0.5 text-white"
-                style={{ backgroundColor: primary }}
-              >
-                Moments
-              </span>
-            </h2>
-            <p
-              className={`${fontBody} mt-4 max-w-xl text-base leading-relaxed text-slate-600 sm:text-lg`}
-            >
-              Every image tells a story - of learning, growth, and the people behind our journey.
+              <ChevronLeft className="h-5 w-5" strokeWidth={1.75} aria-hidden />
+            </button>
+            <p className="min-w-0 max-w-[16rem] text-center text-sm leading-snug text-slate-500 sm:max-w-none sm:text-base">
+              Scroll to explore
             </p>
-            <a
-              href="#cta"
-              className={`${fontBody} aa-btn-primary mt-8 inline-flex rounded-full px-8 text-[0.9375rem] font-semibold shadow-[0_14px_34px_-18px_rgba(26,115,232,0.65)]`}
+            <button
+              type="button"
+              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-sky-300/90 bg-white/90 text-slate-600 shadow-sm transition-[background-color,transform,color,opacity] hover:bg-sky-50/90 hover:text-slate-800 active:scale-[0.97]"
+              aria-label="Next slide"
+              onClick={goNext}
             >
-              Contact Sales
-            </a>
+              <ChevronRight className="h-5 w-5" strokeWidth={1.75} aria-hidden />
+            </button>
           </div>
 
-          <div className="min-w-0">
-            <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-slate-200 shadow-[var(--aa-shadow-md)] ring-1 ring-slate-200/80">
-              <Image
-                key={active.id}
-                src={active.imageSrc}
-                alt={active.title}
-                fill
-                className="object-cover"
-                sizes="(min-width: 1024px) 40vw, 100vw"
-                priority={selectedIndex === 0}
-              />
-            </div>
-
-            <div className="mt-4">
-              {reduceMotion ? (
-                <div className="flex flex-wrap gap-3" aria-label="Gallery thumbnails">
-                  {gallerySlides.map((slide, index) => {
-                    const isActive = index === selectedIndex;
-                    return (
-                      <button
-                        key={slide.id}
-                        type="button"
-                        onClick={() => setSelectedIndex(index)}
-                        className={`relative h-20 w-20 shrink-0 overflow-hidden rounded-xl border-2 transition-[transform,box-shadow] duration-200 hover:scale-[1.03] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--aa-primary)] ${
-                          isActive
-                            ? "border-[var(--aa-primary)] ring-2 ring-[var(--aa-primary)]/35 ring-offset-2 ring-offset-[var(--aa-surface-soft)]"
-                            : "border-transparent opacity-90 hover:opacity-100"
-                        }`}
-                        aria-current={isActive ? "true" : undefined}
-                        aria-label={`Show slide: ${slide.title}`}
-                      >
-                        <Image
-                          src={slide.imageSrc}
-                          alt=""
-                          width={84}
-                          height={84}
-                          className="h-full w-full object-cover"
-                          sizes="84px"
-                        />
-                      </button>
-                    );
-                  })}
-                </div>
-              ) : (
-                <GalleryThumbnailLoop
-                  slides={gallerySlides}
-                  speed={72}
-                  hoverSpeed={0}
-                  thumbSize={80}
-                  gap={14}
-                  selectedIndex={selectedIndex}
-                  onSelect={setSelectedIndex}
-                />
-              )}
-            </div>
+          <div
+            className="gallery-swiper-root order-2 mt-6 w-full shrink-0 sm:mt-8"
+            onMouseEnter={() => setPausedByHover(true)}
+            onMouseLeave={() => setPausedByHover(false)}
+          >
+            <Swiper
+              modules={swiperModules}
+              onSwiper={(instance) => {
+                swiperRef.current = instance;
+              }}
+              spaceBetween={10}
+              slidesPerView={1.08}
+              loop={gallerySlides.length > 3}
+              speed={reduceMotion ? 0 : 450}
+              a11y={{ enabled: true, prevSlideMessage: "Previous slide", nextSlideMessage: "Next slide" }}
+              breakpoints={{
+                520: { slidesPerView: 1.25, spaceBetween: 10 },
+                640: { slidesPerView: 2, spaceBetween: 10 },
+                1024: { slidesPerView: 3, spaceBetween: 10 },
+                1280: { slidesPerView: 4, spaceBetween: 10 },
+              }}
+              className="!pb-1"
+            >
+              {gallerySlides.map((slide) => (
+                <SwiperSlide key={slide.id} className="!h-auto">
+                  <div className="w-full overflow-hidden rounded-xl border border-slate-100 bg-[var(--aa-surface-soft)] shadow-sm">
+                    <Image
+                      src={slide.image}
+                      alt=""
+                      width={slide.image.width}
+                      height={slide.image.height}
+                      sizes="(max-width: 640px) 88vw, (max-width: 1024px) 45vw, 25vw"
+                      className="h-auto w-full max-w-full object-contain"
+                      priority={slide.id === "gallery-1"}
+                    />
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
           </div>
+
+          <h2
+            id="gallery-title"
+            className="order-1 text-center text-3xl font-extrabold leading-tight text-slate-900 sm:text-4xl"
+          >
+            Honours and{" "}
+            <span
+              className="rounded-sm px-2 py-0.5 text-white"
+              style={{ backgroundColor: primary }}
+            >
+              Recognitions
+            </span>
+          </h2>
         </div>
       </div>
     </section>

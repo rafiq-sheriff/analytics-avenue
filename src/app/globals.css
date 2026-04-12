@@ -292,3 +292,13 @@ a {
   }
 }
 
+/* Gallery Swiper: default Swiper uses height:100% on slides without a fixed .swiper height → collapsed slides and invisible `next/image` fill */
+.gallery-swiper-root .swiper-wrapper {
+  height: auto;
+  align-items: flex-start;
+}
+
+.gallery-swiper-root .swiper-slide {
+  height: auto;
+}
+

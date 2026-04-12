@@ -17,8 +17,10 @@ import {
 } from "lucide-react";
 import { useEffect, useId, useRef, useState } from "react";
 
-const primary = "var(--aa-primary)";
+import { PRIMARY } from "@/components/card/challenge-card/chalenge-card";
+
 const fontHeading = "font-[family-name:var(--font-heading)]";
+const fontBody = "font-[family-name:var(--font-body)]";
 
 type ImpactRow = {
   /** Numeric endpoints for count-up; displayed as `${a}–${b}%` */
@@ -139,7 +141,7 @@ function Impact() {
   return (
     <section
       id="impact"
-      className="aa-section relative overflow-hidden bg-gradient-to-b from-[#faf8f4] via-[#fbfaf7] to-[#f5f4f0]"
+      className="aa-section relative overflow-hidden bg-[#ffffff]"
       aria-labelledby={`${sectionId}-heading`}
     >
       <div
@@ -171,7 +173,7 @@ function Impact() {
             Business{" "}
             <span
               className="rounded-md px-2 py-0.5 text-white"
-              style={{ backgroundColor: primary }}
+              style={{ backgroundColor: PRIMARY }}
             >
               Impact
             </span>{" "}
@@ -179,7 +181,7 @@ function Impact() {
           </motion.h2>
         </div>
 
-        <ul className="mx-auto mt-10 grid max-w-5xl list-none grid-cols-1 gap-5 p-0 sm:mt-12 md:grid-cols-2 md:gap-6 lg:mt-14">
+        <ul className="mx-auto mt-10 grid max-w-7xl list-none grid-cols-1 gap-3 p-0 sm:mt-12 sm:gap-4 md:grid-cols-2 lg:mt-14 lg:grid-cols-3 lg:gap-4">
           {IMPACT_ROWS.map((row, index) => (
             <ImpactCard
               key={`${row.title}-${row.range.join("-")}`}
@@ -211,7 +213,12 @@ function ImpactCard({
   return (
     <li ref={ref}>
       <motion.article
-        className="group h-full rounded-2xl border border-stone-200/80 bg-white p-5 shadow-[0_12px_40px_-18px_rgba(15,23,42,0.14)] transition-[box-shadow,transform] duration-300 hover:-translate-y-0.5 hover:shadow-[0_20px_50px_-20px_rgba(15,23,42,0.18)] sm:p-6"
+        className="group flex h-full items-start gap-2.5 rounded-[var(--aa-radius-lg)] border border-slate-200/80 bg-white p-3 shadow-[0_12px_40px_-32px_rgba(15,23,42,0.22)] transition-[box-shadow,transform,border-color] duration-300 ease-out motion-reduce:transition-colors motion-reduce:hover:translate-y-0 hover:-translate-y-0.5 hover:border-slate-300/90 hover:shadow-[0_16px_44px_-28px_rgba(15,23,42,0.26)] sm:gap-3 sm:p-3.5"
+        style={{
+          borderTopWidth: 4,
+          borderTopStyle: "solid",
+          borderTopColor: PRIMARY,
+        }}
         initial={{ opacity: 0, y: 22 }}
         animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 22 }}
         transition={{
@@ -220,32 +227,31 @@ function ImpactCard({
           ease: [0.22, 1, 0.36, 1],
         }}
       >
-        <div className="flex gap-4 sm:gap-5">
-          <div
-            className="flex size-12 shrink-0 items-center justify-center rounded-xl border border-slate-200/90 bg-gradient-to-b from-white to-slate-50/90 shadow-[inset_0_1px_0_rgba(255,255,255,0.95)] ring-1 ring-slate-950/[0.04] transition-[border-color,box-shadow,background-color] duration-300 group-hover:border-[color-mix(in_srgb,var(--aa-primary)_22%,var(--aa-border))] group-hover:shadow-[inset_0_1px_0_rgba(255,255,255,1),0_0_0_1px_color-mix(in_srgb,var(--aa-primary)_12%,transparent)] sm:size-[3.25rem]"
-            aria-hidden
+        <div
+          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#eff6ff] text-slate-700 ring-1 ring-slate-100/90 transition-[background-color,box-shadow,color] duration-300 ease-out group-hover:bg-[color-mix(in_srgb,var(--aa-primary)_10%,white)] group-hover:text-[var(--aa-primary)] group-hover:shadow-[0_6px_18px_-10px_color-mix(in_srgb,var(--aa-primary)_45%,transparent)] sm:h-10 sm:w-10"
+          aria-hidden
+        >
+          <Icon
+            className="h-4.5 w-4.5 sm:h-5 sm:w-5"
+            strokeWidth={2}
+          />
+        </div>
+        <div className="min-w-0 flex-1">
+          <p
+            className={`${fontHeading} text-[clamp(1.125rem,2.5vw,1.35rem)] font-extrabold leading-none tracking-[-0.03em] text-slate-900 transition-colors duration-300 group-hover:text-[var(--aa-primary)]`}
           >
-            <Icon
-              className="size-[1.25rem] text-[var(--aa-primary)] transition-colors duration-300 group-hover:text-[var(--aa-primary-hover)] sm:size-[1.375rem]"
-              strokeWidth={1.65}
-              absoluteStrokeWidth
-            />
-          </div>
-          <div className="min-w-0 flex-1">
-            <p
-              className={`${fontHeading} text-[clamp(1.85rem,4.2vw,2.35rem)] font-extrabold leading-none tracking-[-0.03em] text-[var(--aa-text-strong)] transition-colors duration-300 group-hover:text-[var(--aa-primary)]`}
-            >
-              <AnimatedPercentRange target={row.range} active={inView} />
-            </p>
-            <h3
-              className={`${fontHeading} mt-2 text-base font-semibold leading-snug tracking-tight text-[var(--aa-text-strong)] sm:text-lg`}
-            >
-              {row.title}
-            </h3>
-            <p className="mt-2 text-sm leading-relaxed text-[var(--aa-text-muted)] sm:text-[0.9375rem]">
-              {row.description}
-            </p>
-          </div>
+            <AnimatedPercentRange target={row.range} active={inView} />
+          </p>
+          <h3
+            className={`${fontHeading} mt-1.5 text-[0.8125rem] font-semibold leading-snug text-slate-900 transition-colors duration-300 group-hover:text-[var(--aa-primary)] sm:text-sm`}
+          >
+            {row.title}
+          </h3>
+          <p
+            className={`${fontBody} mt-1.5 text-pretty text-xs leading-relaxed text-slate-600 sm:text-sm`}
+          >
+            {row.description}
+          </p>
         </div>
       </motion.article>
     </li>

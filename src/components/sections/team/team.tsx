@@ -134,7 +134,7 @@ function formatRoleTag(role: string): string {
 function InfoCard({ member }: { member: TeamMember }) {
   return (
     <article
-      className="flex h-full min-h-0 flex-col overflow-hidden rounded-xl border border-slate-100 bg-slate-50 p-3 shadow-sm sm:rounded-2xl sm:p-4"
+      className="flex h-full min-h-0 flex-col overflow-hidden rounded-xl border border-slate-100 bg-[var(--aa-surface)] p-3 shadow-sm sm:rounded-2xl sm:p-4"
       aria-label={`${member.name}, ${member.role}`}
     >
       <div className="flex min-h-0 flex-1 flex-col justify-center gap-1.5 sm:gap-2">
@@ -163,7 +163,7 @@ function PhotoCard({
   columnWidth: number;
 }) {
   return (
-    <div className="relative h-full min-h-0 w-full overflow-hidden rounded-xl border border-slate-100 bg-slate-200 sm:rounded-2xl">
+    <div className="relative h-full min-h-0 w-full overflow-hidden rounded-xl border border-slate-100 bg-[var(--aa-surface)] sm:rounded-2xl">
       <Image
         src={member.imageSrc}
         alt={`${member.name}, ${member.role}`}
@@ -409,15 +409,15 @@ function TeamMarquee() {
         </div>
       </div>
 
-      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-20 bg-gradient-to-r from-white to-transparent sm:w-24" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-20 bg-gradient-to-l from-white to-transparent sm:w-24" />
+      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-20 bg-gradient-to-r from-[var(--aa-surface-soft)] to-transparent sm:w-24" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-20 bg-gradient-to-l from-[var(--aa-surface-soft)] to-transparent sm:w-24" />
     </div>
   );
 }
 
 const Team = () => {
   return (
-    <section className="aa-section overflow-x-hidden bg-white" aria-labelledby="team-heading">
+    <section className="aa-section overflow-x-hidden bg-[var(--aa-surface-soft)]" aria-labelledby="team-heading">
       <div className="aa-container mb-6 sm:mb-10 lg:mb-12">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div className="flex w-full flex-col items-center justify-center gap-2">
