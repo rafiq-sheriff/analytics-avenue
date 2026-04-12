@@ -59,7 +59,7 @@ const LogoLoop = ({
               src={logo.src}
               alt={logo.name}
               style={{ height: `${logoHeight}px`, width: "auto" }}
-              className="select-none object-contain grayscale opacity-60 transition duration-300 hover:grayscale-0 hover:opacity-100"
+              className="select-none object-contain transition duration-300"
               loading="lazy"
               decoding="async"
             />

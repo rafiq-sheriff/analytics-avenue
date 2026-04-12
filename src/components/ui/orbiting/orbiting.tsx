@@ -119,11 +119,17 @@ const SkillIcon = memo(({ type }: SkillIconProps) => {
 });
 SkillIcon.displayName = "SkillIcon";
 
+const INNER_RADIUS = 142;
+const OUTER_RADIUS = 258;
+const INNER_PHASE_STEP = (2 * Math.PI) / 4;
+const OUTER_PHASE_STEP = (2 * Math.PI) / 4;
+
 const skillsConfig: SkillConfig[] = [
+  // Inner orbit — four icons, evenly spaced
   {
-    id: "html",
-    orbitRadius: 118,
-    size: 46,
+    id: "html-inner",
+    orbitRadius: INNER_RADIUS,
+    size: 50,
     speed: 1,
     iconType: "html",
     phaseShift: 0,
@@ -131,29 +137,40 @@ const skillsConfig: SkillConfig[] = [
     label: "HTML5",
   },
   {
-    id: "css",
-    orbitRadius: 118,
-    size: 50,
+    id: "css-inner",
+    orbitRadius: INNER_RADIUS,
+    size: 54,
     speed: 1,
     iconType: "css",
-    phaseShift: (2 * Math.PI) / 3,
+    phaseShift: INNER_PHASE_STEP,
     glowColor: "cyan",
     label: "CSS3",
   },
   {
-    id: "javascript",
-    orbitRadius: 118,
-    size: 46,
+    id: "javascript-inner",
+    orbitRadius: INNER_RADIUS,
+    size: 50,
     speed: 1,
     iconType: "javascript",
-    phaseShift: (4 * Math.PI) / 3,
+    phaseShift: 2 * INNER_PHASE_STEP,
     glowColor: "cyan",
     label: "JavaScript",
   },
   {
-    id: "react",
-    orbitRadius: 210,
-    size: 58,
+    id: "tailwind-inner",
+    orbitRadius: INNER_RADIUS,
+    size: 50,
+    speed: 1,
+    iconType: "tailwind",
+    phaseShift: 3 * INNER_PHASE_STEP,
+    glowColor: "cyan",
+    label: "Tailwind CSS",
+  },
+  // Outer orbit — four icons (reuses HTML & React from the icon set)
+  {
+    id: "react-outer",
+    orbitRadius: OUTER_RADIUS,
+    size: 62,
     speed: -0.6,
     iconType: "react",
     phaseShift: 0,
@@ -161,24 +178,34 @@ const skillsConfig: SkillConfig[] = [
     label: "React",
   },
   {
-    id: "node",
-    orbitRadius: 210,
-    size: 52,
+    id: "node-outer",
+    orbitRadius: OUTER_RADIUS,
+    size: 56,
     speed: -0.6,
     iconType: "node",
-    phaseShift: (2 * Math.PI) / 3,
+    phaseShift: OUTER_PHASE_STEP,
     glowColor: "purple",
     label: "Node.js",
   },
   {
-    id: "tailwind",
-    orbitRadius: 210,
-    size: 46,
+    id: "javascript-outer",
+    orbitRadius: OUTER_RADIUS,
+    size: 50,
     speed: -0.6,
-    iconType: "tailwind",
-    phaseShift: (4 * Math.PI) / 3,
+    iconType: "javascript",
+    phaseShift: 2 * OUTER_PHASE_STEP,
     glowColor: "purple",
-    label: "Tailwind CSS",
+    label: "JavaScript",
+  },
+  {
+    id: "css-outer",
+    orbitRadius: OUTER_RADIUS,
+    size: 54,
+    speed: -0.6,
+    iconType: "css",
+    phaseShift: 3 * OUTER_PHASE_STEP,
+    glowColor: "purple",
+    label: "CSS3",
   },
 ];
 
@@ -258,8 +285,8 @@ const GlowingOrbitPath = memo(
 GlowingOrbitPath.displayName = "GlowingOrbitPath";
 
 const orbitPathConfigs: Array<{ radius: number; glowColor: GlowColor; delay: number }> = [
-  { radius: 118, glowColor: "cyan", delay: 0 },
-  { radius: 210, glowColor: "purple", delay: 1.5 },
+  { radius: INNER_RADIUS, glowColor: "cyan", delay: 0 },
+  { radius: OUTER_RADIUS, glowColor: "purple", delay: 1.5 },
 ];
 
 export default function OrbitingSkills({ className }: OrbitingSkillsProps) {
@@ -289,14 +316,14 @@ export default function OrbitingSkills({ className }: OrbitingSkillsProps) {
     <div
       className={`relative flex w-full flex-col items-center justify-center overflow-visible bg-transparent ${className ?? ""}`}
       role="img"
-      aria-label="Lottie robot at center with orbiting technology icons: HTML5, CSS3, JavaScript, React, Node.js, Tailwind CSS"
+      aria-label="Lottie robot at center with orbiting technology icons: inner ring HTML5, CSS3, JavaScript, Tailwind CSS; outer ring React, Node.js, JavaScript, CSS3"
     >
       <div
-        className="relative flex h-[min(calc(100vw-32px),420px)] w-[min(calc(100vw-32px),420px)] items-center justify-center sm:h-[480px] sm:w-[480px] md:h-[520px] md:w-[520px]"
+        className="relative flex h-[min(calc(100vw-32px),500px)] w-[min(calc(100vw-32px),500px)] items-center justify-center sm:h-[580px] sm:w-[580px] md:h-[620px] md:w-[620px]"
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
       >
-        <div className="relative z-10 flex h-[5.5rem] w-[5.5rem] min-h-0 min-w-0 items-center justify-center overflow-hidden rounded-full border border-slate-200/90 bg-white shadow-md">
+        <div className="relative z-10 flex h-40 w-40 min-h-0 min-w-0 items-center justify-center sm:h-44 sm:w-44 md:h-30 md:w-30">
           <OrbitingCenterLottie />
         </div>
 

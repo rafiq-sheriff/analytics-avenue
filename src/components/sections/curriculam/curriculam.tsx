@@ -5,20 +5,24 @@ import Image from "next/image";
 import {
   useCallback,
   useEffect,
-  useRef,
   useState,
   type CSSProperties,
   type KeyboardEvent,
+  type ReactNode,
 } from "react";
 
 const fontHeading = "font-[family-name:var(--font-heading)]";
 const fontBody = "font-[family-name:var(--font-body)]";
 
-/** Matches about-section pill highlight (`var(--aa-primary)`) */
+/** Highlight pill in curriculum hero headline */
 const HEADING_PRIMARY = "var(--aa-primary)";
 
 const TAB_ICON_CLASS =
   "h-6 w-auto max-h-6 max-w-[5.25rem] shrink-0 object-contain object-center sm:h-7 sm:max-h-7 sm:max-w-[6.5rem]";
+
+/** Slightly larger MySQL mark so it matches visual weight of other tab icons */
+const TAB_ICON_CLASS_MYSQL =
+  "h-8 w-auto max-h-8 max-w-[7rem] shrink-0 object-contain object-center sm:h-9 sm:max-h-9 sm:max-w-[8rem]";
 
 const TAB_FOCUS =
   "outline-none focus-visible:ring-2 focus-visible:ring-[var(--aa-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-white";
@@ -35,6 +39,8 @@ const PRIMARY_LIST_DOT_RING = "rgba(26, 115, 232, 0.28)";
 
 type TabId = "genai" | "python" | "powerbi" | "sql";
 
+type HeroStatTone = "blue" | "fuchsia" | "emerald";
+
 type CurriculumTab = {
   id: TabId;
   /** Accessible name when the tab is icon-only */
@@ -45,6 +51,12 @@ type CurriculumTab = {
   title: string;
   meta: string;
   description: string;
+  /** Three highlight stats shown beside the hero copy (reference-style cards) */
+  heroStats: readonly {
+    value: string;
+    label: string;
+    tone: HeroStatTone;
+  }[];
   learn: readonly string[];
   outcomes: readonly string[];
   /** Optional second list (e.g. trends) shown under “What you’ll learn” */
@@ -74,6 +86,11 @@ const CURRICULUM_TABS: readonly CurriculumTab[] = [
     meta: "6 Weeks • Live + Recorded • Intermediate → Advanced",
     description:
       "From LLM foundations to production GenAI—then the 2026 market signals hiring teams actually watch for.",
+    heroStats: [
+      { value: "35%", label: "CAGR Growth", tone: "blue" },
+      { value: "₹50L", label: "Max Package", tone: "fuchsia" },
+      { value: "7L+", label: "Openings", tone: "emerald" },
+    ],
     learn: [
       "AI & ML foundations — supervised, unsupervised & reinforcement",
       "LLMs — GPT, Gemini, Claude — architecture & applications",
@@ -111,6 +128,11 @@ const CURRICULUM_TABS: readonly CurriculumTab[] = [
     meta: "8 Weeks • Live + Recorded • Beginner → Advanced",
     description:
       "Build a strong analytics core in Python—then layer in how teams actually work in 2026: GenAI helpers, cloud warehouses, AutoML, and the stack employers screen for.",
+    heroStats: [
+      { value: "32%", label: "CAGR Growth", tone: "blue" },
+      { value: "₹42L", label: "Max Package", tone: "fuchsia" },
+      { value: "6L+", label: "Openings", tone: "emerald" },
+    ],
     learn: [
       "Python fundamentals, data structures & OOP",
       "Pandas & NumPy — data manipulation & analysis",
@@ -148,6 +170,11 @@ const CURRICULUM_TABS: readonly CurriculumTab[] = [
     meta: "5 Weeks • Live + Recorded • Beginner → Advanced",
     description:
       "Executive-grade dashboards and semantic models—plus how Copilot and embedded AI are reshaping BI delivery in 2026.",
+    heroStats: [
+      { value: "26%", label: "CAGR Growth", tone: "blue" },
+      { value: "₹28L", label: "Max Package", tone: "fuchsia" },
+      { value: "4L+", label: "Openings", tone: "emerald" },
+    ],
     learn: [
       "Data visualisation fundamentals & chart selection principles",
       "Power BI Desktop — data modelling, DAX & relationships",
@@ -185,6 +212,11 @@ const CURRICULUM_TABS: readonly CurriculumTab[] = [
     meta: "4 Weeks • Live + Recorded • Beginner → Advanced",
     description:
       "Interview-ready SQL through warehouses and pipelines—plus NL-to-SQL, cloud engines, and where demand is headed in 2026.",
+    heroStats: [
+      { value: "45%", label: "CAGR Growth", tone: "blue" },
+      { value: "₹38L", label: "Max Package", tone: "fuchsia" },
+      { value: "8L+", label: "Openings", tone: "emerald" },
+    ],
     learn: [
       "SQL basics — SELECT, WHERE, GROUP BY, ORDER BY",
       "Advanced queries — JOINs, CTEs, subqueries, window functions",
@@ -216,55 +248,243 @@ const CURRICULUM_TABS: readonly CurriculumTab[] = [
   },
 ] as const;
 
-function useCurriculumHeaderReveal() {
-  const ref = useRef<HTMLElement | null>(null);
-  const [visible, setVisible] = useState(false);
-  const [headerMotionReduced, setHeaderMotionReduced] = useState(false);
+/** Blue matrix strip (clipped banner) below hero — global program metrics */
+const CURRICULUM_MATRIX_STATS: readonly { figure: string; caption: string }[] =
+  [
+    { figure: "2,000+", caption: "Professionals empowered worldwide" },
+    { figure: "99%", caption: "Learner satisfaction — and growing!" },
+    { figure: "4", caption: "Career-ready program tracks" },
+  ];
 
-  useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const sync = () => setHeaderMotionReduced(mq.matches);
-    sync();
-    mq.addEventListener("change", sync);
-    return () => mq.removeEventListener("change", sync);
-  }, []);
+function splitCurriculumMeta(meta: string): readonly [string, string, string] {
+  const parts = meta.split(/\s*•\s*/).map((s) => s.trim());
+  return [
+    parts[0] ?? "",
+    parts[1] ?? "",
+    parts[2] ?? "",
+  ] as const;
+}
 
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
+const HERO_STAT_TONE_CLASS: Record<
+  HeroStatTone,
+  { card: string; value: string }
+> = {
+  blue: {
+    card: "border border-blue-100/90 bg-blue-50/95",
+    value: "text-blue-600",
+  },
+  fuchsia: {
+    card: "border border-fuchsia-100/90 bg-fuchsia-50/95",
+    value: "text-purple-600",
+  },
+  emerald: {
+    card: "border border-emerald-100/90 bg-emerald-50/95",
+    value: "text-emerald-600",
+  },
+};
 
-    const obs = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setVisible(true);
-      },
-      { threshold: 0.12, rootMargin: "0px 0px -5% 0px" },
-    );
+function IconMetaClock({ className }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.75"
+      aria-hidden
+    >
+      <circle cx="12" cy="12" r="9" />
+      <path strokeLinecap="round" d="M12 7v5l3 2" />
+    </svg>
+  );
+}
 
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, []);
+function IconMetaVideo({ className }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.75"
+      aria-hidden
+    >
+      <rect x="3" y="7" width="12" height="10" rx="2" />
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="m15 10 4-2v8l-4-2"
+      />
+    </svg>
+  );
+}
 
-  return {
-    ref,
-    headerVisible: headerMotionReduced || visible,
-    headerMotionReduced,
-  };
+function IconMetaRibbon({ className }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.75"
+      aria-hidden
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M6 3h12v18l-6-3-6 3V3z"
+      />
+    </svg>
+  );
+}
+
+/** Open book — core curriculum */
+function IconCoreCurriculum({ className }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.25"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+      <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+      <path d="M8 7h8M8 11h6" />
+    </svg>
+  );
+}
+
+function IconMarketTrend({ className }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.25"
+      aria-hidden
+    >
+      <path strokeLinecap="round" strokeLinejoin="round" d="M4 19h16" />
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M6 15l4-4 3 2 5-6"
+      />
+    </svg>
+  );
+}
+
+/** Reference-style FAQ row + light panel */
+const FAQ_BOX_CLASS =
+  "overflow-hidden rounded-2xl border border-slate-200/90 bg-white shadow-[0_4px_20px_rgba(15,23,42,0.05)] transition-shadow hover:shadow-[0_8px_28px_rgba(15,23,42,0.08)]";
+
+function LearnAccordionChevron({ open }: { open: boolean }) {
+  return (
+    <span
+      className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-slate-200 text-slate-400"
+      aria-hidden
+    >
+      <svg
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className={`transition-transform duration-200 ${open ? "" : "rotate-180"}`}
+      >
+        <path d="M6 15l6-6 6 6" />
+      </svg>
+    </span>
+  );
+}
+
+function CurriculumLearnAccordion({
+  activeTabId,
+  panelKey,
+  title,
+  variant,
+  open,
+  onToggle,
+  children,
+}: {
+  activeTabId: TabId;
+  panelKey: "core" | "market";
+  title: string;
+  variant: "core" | "market";
+  open: boolean;
+  onToggle: () => void;
+  children: ReactNode;
+}) {
+  const headerId = `curriculum-learn-${panelKey}-header-${activeTabId}`;
+  const panelId = `curriculum-learn-${panelKey}-panel-${activeTabId}`;
+
+  return (
+    <div className={`${FAQ_BOX_CLASS} min-w-0`}>
+      <h3 className="m-0">
+        <button
+          type="button"
+          id={headerId}
+          aria-expanded={open}
+          aria-controls={panelId}
+          className="flex w-full items-center gap-2 rounded-none px-3 py-3.5 text-left sm:gap-3 sm:px-4 sm:py-4 md:px-5"
+          onClick={onToggle}
+        >
+          {variant === "core" ? (
+            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[color-mix(in_srgb,var(--aa-primary)_14%,white)] text-[var(--aa-primary)] ring-1 ring-[color-mix(in_srgb,var(--aa-primary)_28%,transparent)]">
+              <IconCoreCurriculum className="h-[1.125rem] w-[1.125rem] sm:h-5 sm:w-5" />
+            </span>
+          ) : (
+            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-purple-100 text-purple-700 ring-1 ring-purple-200/80">
+              <IconMarketTrend className="h-[1.125rem] w-[1.125rem] sm:h-5 sm:w-5" />
+            </span>
+          )}
+          <span
+            className={`min-w-0 flex-1 text-[13px] font-bold leading-snug text-slate-900 sm:text-[15px] md:text-base ${fontHeading}`}
+          >
+            {title}
+          </span>
+          <LearnAccordionChevron open={open} />
+        </button>
+      </h3>
+      <div
+        id={panelId}
+        role="region"
+        aria-labelledby={headerId}
+        hidden={!open}
+        className={open ? "block" : "hidden"}
+      >
+        <div className="border-t border-slate-100 bg-slate-50/95 px-3 py-4 sm:px-5 sm:py-5">
+          {children}
+        </div>
+      </div>
+    </div>
+  );
 }
 
 const Curriculam = () => {
   const [activeId, setActiveId] = useState<TabId>("genai");
+  /** At most one panel open; `null` = both closed */
+  const [learnOpenPanel, setLearnOpenPanel] = useState<
+    "core" | "market" | null
+  >(null);
   const reduceMotion = useReducedMotion();
-  const { ref: sectionRef, headerVisible, headerMotionReduced } =
-    useCurriculumHeaderReveal();
   const active = CURRICULUM_TABS.find((t) => t.id === activeId)!;
+  const [metaWeeks, metaFormat, metaLevel] = splitCurriculumMeta(active.meta);
 
-  const headerRevealStyle = (delay: number) => ({
-    opacity: headerVisible ? 1 : 0,
-    transform: headerVisible ? "translateY(0)" : "translateY(1rem)",
-    transition: headerMotionReduced
-      ? "none"
-      : `opacity 0.55s ease, transform 0.55s ease ${delay}ms`,
-  });
+  useEffect(() => {
+    setLearnOpenPanel(null);
+  }, [activeId]);
+
+  const toggleLearnPanel = useCallback((panel: "core" | "market") => {
+    setLearnOpenPanel((prev) => (prev === panel ? null : panel));
+  }, []);
 
   const transition = reduceMotion
     ? { duration: 0 }
@@ -304,7 +524,6 @@ const Curriculam = () => {
 
   return (
     <section
-      ref={sectionRef}
       aria-labelledby="curriculum-heading"
       className={`aa-section relative overflow-hidden bg-gradient-to-b from-[#e8eefc] via-[color-mix(in_srgb,var(--aa-primary)_9%,#f4f7fd)] to-[var(--aa-surface-soft)] py-14 sm:py-16 ${fontBody}`}
     >
@@ -322,38 +541,76 @@ const Curriculam = () => {
       <div className="aa-container relative">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="relative overflow-hidden rounded-[1.75rem] bg-white/82 p-6 shadow-[0_24px_60px_-40px_rgba(15,23,42,0.1)] backdrop-blur-md sm:rounded-[2rem] sm:p-8 lg:p-10">
-            <header className="mx-auto max-w-3xl text-center lg:max-w-none lg:text-left">
-              <div style={headerRevealStyle(0)}>
-                <h2
-                  id="curriculum-heading"
-                  className="text-3xl font-extrabold leading-tight tracking-tight text-slate-900 sm:text-4xl lg:text-5xl text-center"
+            <header className="mx-auto  text-center">
+              <h2
+                id="curriculum-heading"
+                className={`text-3xl w-full font-extrabold leading-tight tracking-tight text-slate-900 sm:text-4xl lg:text-5xl ${fontHeading}`}
+              >
+                Empowered{" "}
+                <span
+                  className="rounded-sm px-2 py-0.5 text-white"
+                  style={{ backgroundColor: HEADING_PRIMARY }}
                 >
-                  Empowered{" "}
-                  <span
-                    className="rounded-sm px-2 py-0.5 text-white"
-                    style={{ backgroundColor: HEADING_PRIMARY }}
-                  >
-                    2,000+ professionals
-                  </span>{" "}
-                  glob from the team of Data Scientists
-                </h2>
-
-                <p className="mt-4 text-base font-medium text-slate-600 sm:text-lg text-center">
-                  Nationwide Data Analytics &amp; GenAI Industrial Program
-                </p>
-
-                <div className="mt-8 flex justify-center lg:justify-center">
-                  <a
-                    href="#cta"
-                    className="aa-btn-primary shadow-lg shadow-blue-300/40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--aa-primary)]"
-                  >
-                    EdTech Solutions
-                  </a>
-                </div>
-              </div>
+                  2,000+ professionals
+                </span>{" "}
+                globally from the team of Data Scientists
+              </h2>
+              <p className="mt-4 text-base font-medium text-slate-600 sm:text-lg">
+                Nationwide Data Analytics &amp; GenAI Industrial Program
+              </p>
+              
             </header>
 
-            <div className="mt-12 border-t border-slate-200/80 pt-10 lg:mt-14 lg:pt-12">
+            <div className="relative isolate mt-10 overflow-hidden">
+              <div
+                className="relative overflow-hidden px-5 py-10 sm:px-8 sm:py-12 lg:px-10 lg:py-10"
+                style={{
+                  backgroundColor: "var(--aa-primary)",
+                  clipPath:
+                    "polygon(2rem 0%, 100% 0%, 100% calc(100% - 2rem), calc(100% - 2rem) 100%, 0% 100%, 0% 2rem)",
+                }}
+              >
+                <div className="pointer-events-none absolute inset-0" aria-hidden>
+                  <div
+                    className="absolute -bottom-24 -left-20 h-80 w-80 rounded-full opacity-[0.14]"
+                    style={{
+                      background:
+                        "radial-gradient(circle at center, rgba(255,255,255,0.5) 0%, transparent 68%)",
+                    }}
+                  />
+                  <div
+                    className="absolute -right-16 -top-24 h-72 w-72 rounded-full opacity-[0.12]"
+                    style={{
+                      background:
+                        "radial-gradient(circle at center, rgba(255,255,255,0.45) 0%, transparent 65%)",
+                    }}
+                  />
+                </div>
+                <div
+                  className="relative grid grid-cols-1 gap-8 text-center text-white sm:grid-cols-3 sm:gap-6 lg:gap-10"
+                  role="group"
+                  aria-label="Program impact at a glance"
+                >
+                  {CURRICULUM_MATRIX_STATS.map((row) => (
+                    <div
+                      key={row.caption}
+                      className="flex flex-col items-center justify-center"
+                    >
+                      <p
+                        className={`text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-[2.75rem] ${fontHeading}`}
+                      >
+                        {row.figure}
+                      </p>
+                      <p className="mt-2 max-w-[16rem] text-sm font-medium leading-snug text-white/92 sm:mt-3 sm:text-[0.9375rem]">
+                        {row.caption}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-10 lg:mt-12">
               <div
                 className="border-b border-slate-100 px-4 pb-4 pt-4 sm:px-6 sm:pb-5 sm:pt-5 lg:px-8"
                 role="tablist"
@@ -399,9 +656,11 @@ const Curriculam = () => {
                           width={200}
                           height={44}
                           unoptimized
-                          className={`${TAB_ICON_CLASS} ${
-                            isActive ? "brightness-0 invert" : ""
-                          }`}
+                          className={`${
+                            tab.id === "sql"
+                              ? TAB_ICON_CLASS_MYSQL
+                              : TAB_ICON_CLASS
+                          } ${isActive ? "brightness-0 invert" : ""}`}
                           draggable={false}
                         />
                         {showPillText ? (
@@ -444,28 +703,88 @@ const Curriculam = () => {
                     transition={transition}
                     className="will-change-transform"
                   >
-                  {/* Row 1: program summary + compact preview (not 50/50) */}
+                  {/* Hero: program copy + stats + CTA + career | video */}
                   <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-10 xl:gap-12">
-                    <div className="min-w-0 flex-1 lg:max-w-[min(100%,40rem)]">
+                    <div className="min-w-0 flex-1 space-y-5 lg:max-w-[min(100%,42rem)]">
                       <h3
-                        className={`text-2xl font-semibold tracking-tight text-[var(--aa-text-strong)] sm:text-3xl lg:text-[1.75rem] ${fontHeading}`}
+                        className={`text-3xl font-bold leading-tight tracking-tight text-slate-900 sm:text-4xl ${fontHeading}`}
                       >
                         {active.title}
                       </h3>
-                      <p className="mt-3 text-sm leading-relaxed text-slate-500 sm:text-[0.9375rem]">
-                        {active.meta}
-                      </p>
-                      <p className="mt-5 text-[0.9375rem] leading-relaxed text-[var(--aa-text-muted)] sm:text-base">
+                      <ul
+                        className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-slate-500 sm:text-[0.9375rem]"
+                        aria-label="Program details"
+                      >
+                        <li className="flex items-center gap-2">
+                          <IconMetaClock className="h-[1.125rem] w-[1.125rem] shrink-0 text-slate-400" />
+                          <span>{metaWeeks}</span>
+                        </li>
+                        <li className="flex items-center gap-2">
+                          <IconMetaVideo className="h-[1.125rem] w-[1.125rem] shrink-0 text-slate-400" />
+                          <span>{metaFormat}</span>
+                        </li>
+                        <li className="flex items-center gap-2">
+                          <IconMetaRibbon className="h-[1.125rem] w-[1.125rem] shrink-0 text-slate-400" />
+                          <span>{metaLevel}</span>
+                        </li>
+                      </ul>
+                      <p className="text-[0.9375rem] leading-relaxed text-[var(--aa-text-muted)] sm:text-base">
                         {active.description}
                       </p>
+                      <div>
+                        <p
+                          className={`text-[0.6875rem] font-semibold uppercase tracking-[0.14em] text-slate-400 ${fontHeading}`}
+                        >
+                          Career outcomes
+                        </p>
+                        <div className="mt-3 flex flex-wrap gap-2">
+                          {active.outcomes.map((tag) => (
+                            <span
+                              key={tag}
+                              className={`rounded-lg px-3 py-1.5 text-xs font-medium text-slate-700 sm:px-3.5 sm:py-1.5 sm:text-[0.8125rem] ${fontHeading}`}
+                              style={{
+                                backgroundColor: active.accent.soft,
+                                boxShadow: `inset 0 0 0 1px ${active.accent.ring}`,
+                              }}
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                      <div className="grid grid-cols-3 gap-2 sm:gap-3">
+                        {active.heroStats.map((stat) => {
+                          const tone = HERO_STAT_TONE_CLASS[stat.tone];
+                          return (
+                            <div
+                              key={`${stat.value}-${stat.label}`}
+                              className={`rounded-xl px-2 py-3 text-center sm:px-3 sm:py-4 ${tone.card}`}
+                            >
+                              <p
+                                className={`text-lg font-extrabold tabular-nums sm:text-xl ${tone.value} ${fontHeading}`}
+                              >
+                                {stat.value}
+                              </p>
+                              <p className="mt-1 text-[0.65rem] font-medium leading-tight text-slate-500 sm:text-xs">
+                                {stat.label}
+                              </p>
+                            </div>
+                          );
+                        })}
+                      </div>
+                      <a
+                        href="#cta"
+                        className="aa-btn-primary flex w-full items-center justify-center py-3.5 text-center text-base font-semibold shadow-lg shadow-blue-300/35 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--aa-primary)] sm:py-4"
+                      >
+                        Enroll Now — Limited Seats
+                      </a>
+                      
                     </div>
 
-                    <aside className="w-full shrink-0 lg:max-w-[min(100%,22rem)] xl:max-w-[26rem]">
-                      <p
-                        className={`mb-3 text-[0.6875rem] font-semibold uppercase tracking-[0.14em] text-slate-400 ${fontHeading}`}
-                      >
-                        Course preview
-                      </p>
+                    <aside
+                      className="w-full shrink-0 lg:max-w-[min(100%,24rem)] xl:max-w-[28rem]"
+                      aria-label="Course preview"
+                    >
                       <div className="lg:sticky lg:top-28">
                         <div className="relative overflow-hidden rounded-2xl bg-slate-950/[0.04] shadow-[0_12px_40px_-16px_rgba(15,23,42,0.12)] ring-1 ring-slate-200/90">
                           <div className="relative aspect-video w-full bg-slate-900/[0.06]">
@@ -478,17 +797,23 @@ const Curriculam = () => {
                               loading="lazy"
                             />
                             <div
-                              className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-slate-900/15 via-transparent to-transparent sm:h-24"
+                              className="pointer-events-none absolute inset-x-0 bottom-0 flex justify-center pb-3"
                               aria-hidden
-                            />
+                            >
+                              <span
+                                className={`rounded-md bg-black/45 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-white/95 ${fontHeading}`}
+                              >
+                                Course preview
+                              </span>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </aside>
                   </div>
 
-                  {/* Row 2: full-width scope — uses horizontal space instead of a tall narrow column */}
-                  <div className="mt-10 border-t border-slate-100 pt-10 sm:mt-12 sm:pt-12">
+                  {/* Curriculum accordions */}
+                  <div className="mt-10 sm:mt-12">
                     <p
                       className={`text-[0.6875rem] font-semibold uppercase tracking-[0.14em] text-slate-400 ${fontHeading}`}
                     >
@@ -497,14 +822,16 @@ const Curriculam = () => {
 
                     {active.trendsItems != null &&
                     active.trendsItems.length > 0 ? (
-                      <div className="mt-6 grid gap-10 lg:grid-cols-2 lg:gap-12 xl:gap-14">
-                        <div className="min-w-0 rounded-2xl bg-slate-50/80 p-5 ring-1 ring-slate-900/[0.04] sm:p-6">
-                          <p
-                            className={`text-[0.6875rem] font-semibold uppercase tracking-[0.12em] text-slate-500 ${fontHeading}`}
-                          >
-                            Core curriculum
-                          </p>
-                          <ul className="mt-3 space-y-3 sm:space-y-3.5">
+                      <div className="mt-6 flex flex-col gap-3 sm:gap-4">
+                        <CurriculumLearnAccordion
+                          activeTabId={activeId}
+                          panelKey="core"
+                          variant="core"
+                          title="Core curriculum"
+                          open={learnOpenPanel === "core"}
+                          onToggle={() => toggleLearnPanel("core")}
+                        >
+                          <ul className="grid gap-x-6 gap-y-3 sm:grid-cols-2">
                             {active.learn.map((item) => (
                               <li
                                 key={item}
@@ -521,20 +848,16 @@ const Curriculam = () => {
                               </li>
                             ))}
                           </ul>
-                        </div>
-                        <div
-                          className="min-w-0 rounded-2xl p-5 ring-1 ring-slate-900/[0.06] sm:p-6"
-                          style={{
-                            backgroundColor: active.accent.soft,
-                            boxShadow: `inset 0 0 0 1px ${active.accent.ring}`,
-                          }}
+                        </CurriculumLearnAccordion>
+                        <CurriculumLearnAccordion
+                          activeTabId={activeId}
+                          panelKey="market"
+                          variant="market"
+                          title="2026 market intelligence"
+                          open={learnOpenPanel === "market"}
+                          onToggle={() => toggleLearnPanel("market")}
                         >
-                          <p
-                            className={`text-[0.6875rem] font-semibold uppercase tracking-[0.12em] text-slate-600 ${fontHeading}`}
-                          >
-                            {active.trendsHeading ?? "Also covered"}
-                          </p>
-                          <ul className="mt-3 space-y-3 sm:space-y-3.5">
+                          <ul className="grid gap-x-6 gap-y-3 sm:grid-cols-2">
                             {active.trendsItems.map((item) => (
                               <li
                                 key={item}
@@ -551,57 +874,67 @@ const Curriculam = () => {
                               </li>
                             ))}
                           </ul>
-                        </div>
+                        </CurriculumLearnAccordion>
                       </div>
                     ) : (
-                      <ul className="mt-4 grid gap-x-8 gap-y-3 sm:grid-cols-2">
-                        {active.learn.map((item) => (
-                          <li
-                            key={item}
-                            className="flex gap-3 text-[0.9375rem] leading-snug text-slate-700"
-                          >
-                            <span
-                              className="mt-[0.45rem] h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--aa-primary)] ring-2 ring-white"
-                              style={{
-                                boxShadow: `0 0 0 1px ${PRIMARY_LIST_DOT_RING}`,
-                              }}
-                              aria-hidden
-                            />
-                            <span>{item}</span>
-                          </li>
-                        ))}
-                      </ul>
+                      <div className="mt-6">
+                        <CurriculumLearnAccordion
+                          activeTabId={activeId}
+                          panelKey="core"
+                          variant="core"
+                          title="Core curriculum"
+                          open={learnOpenPanel === "core"}
+                          onToggle={() => toggleLearnPanel("core")}
+                        >
+                          <ul className="grid gap-x-8 gap-y-3 sm:grid-cols-2">
+                            {active.learn.map((item) => (
+                              <li
+                                key={item}
+                                className="flex gap-3 text-[0.9375rem] leading-snug text-slate-700"
+                              >
+                                <span
+                                  className="mt-[0.45rem] h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--aa-primary)] ring-2 ring-white"
+                                  style={{
+                                    boxShadow: `0 0 0 1px ${PRIMARY_LIST_DOT_RING}`,
+                                  }}
+                                  aria-hidden
+                                />
+                                <span>{item}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </CurriculumLearnAccordion>
+                      </div>
                     )}
                   </div>
 
-                  <div className="mt-10 sm:mt-12">
-                    <p
-                      className={`text-[0.6875rem] font-semibold uppercase tracking-[0.14em] text-slate-400 ${fontHeading}`}
-                    >
-                      Career outcomes
-                    </p>
-                    <div className="mt-3 flex flex-wrap gap-2">
-                      {active.outcomes.map((tag) => (
-                        <span
-                          key={tag}
-                          className={`rounded-full px-3 py-1.5 text-xs font-medium text-slate-700 sm:px-3.5 sm:py-1.5 sm:text-[0.8125rem] ${fontHeading}`}
-                          style={{
-                            backgroundColor: active.accent.soft,
-                            boxShadow: `inset 0 0 0 1px ${active.accent.ring}`,
-                          }}
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
+                  
                 </motion.div>
                 </AnimatePresence>
               </div>
+              <div className="flex flex-col items-center gap-4 text-center">
+                    <p className="max-w-md text-sm leading-relaxed text-slate-600">
+                      Join{" "}
+                      <span className="font-bold text-slate-900">
+                        2,400+ professionals
+                      </span>{" "}
+                      already enrolled.
+                    </p>
+                    <a
+                      href="#cta"
+                      className="inline-flex min-w-[12rem] items-center justify-center rounded-xl bg-[#1a73e8] px-8 py-3 text-sm font-semibold text-white shadow-md "
+                    >
+                      Start Learning Today
+                    </a>
+                  </div>
             </div>
+            
           </div>
+          
         </div>
+        
       </div>
+      
     </section>
   );
 };

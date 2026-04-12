@@ -28,10 +28,11 @@ const footerColumns = [
     title: "Company",
     links: [
       { label: "About Analytics Avenue", href: "#about" },
+      { label: "Careers", href: "/careers" },
       { label: "Core Technology", href: "#challenges" },
       { label: "Client Testimonials", href: "#testimonial-title" },
       { label: "FAQs", href: "#faq-title" },
-      { label: "Contact Us", href: "#cta" },
+      { label: "Contact Us", href: "/contact" },
     ],
   },
   {

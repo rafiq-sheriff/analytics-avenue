@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useCallback, useState } from "react";
 
 type NavLink = {
@@ -13,8 +15,18 @@ const navLinks: NavLink[] = [
   { label: "Challenges", href: "#challenges" },
   { label: "Team", href: "#team-heading" },
   { label: "FAQ", href: "#faq" },
-  { label: "Testimonials", href: "#testimonial-title" },
+  { label: "Contact", href: "/contact" },
 ];
+
+function isHashHref(href: string) {
+  return href.startsWith("#");
+}
+
+/** Hash links on `/` scroll in-page; from other routes, navigate to `/#id` so the home page loads and jumps. */
+function resolvedHashHref(pathname: string, href: string) {
+  if (!isHashHref(href)) return href;
+  return pathname === "/" ? href : `/${href}`;
+}
 
 /** Smooth-scroll to in-page section; keeps hash navigation reliable with Next.js client rendering. */
 function scrollToSectionId(id: string) {
@@ -30,18 +42,20 @@ function scrollToSectionId(id: string) {
 }
 
 const Navbar = () => {
+  const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleHashNavClick = useCallback(
     (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
       if (!href.startsWith("#")) return;
+      if (pathname !== "/") return;
       const id = href.slice(1);
       if (!id) return;
       e.preventDefault();
       scrollToSectionId(id);
       setIsMenuOpen(false);
     },
-    [],
+    [pathname],
   );
 
   return (
@@ -61,33 +75,42 @@ const Navbar = () => {
         </a>
 
         <nav className="hidden items-center gap-7 md:flex" aria-label="Primary navigation">
-          {navLinks.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              className="text-sm font-medium text-slate-600 transition hover:text-[var(--aa-primary)]"
-              onClick={(e) => handleHashNavClick(e, link.href)}
-            >
-              {link.label}
-            </a>
-          ))}
+          {navLinks.map((link) =>
+            isHashHref(link.href) ? (
+              <a
+                key={link.label}
+                href={resolvedHashHref(pathname, link.href)}
+                className="text-sm font-medium text-slate-600 transition hover:text-[var(--aa-primary)]"
+                onClick={(e) => handleHashNavClick(e, link.href)}
+              >
+                {link.label}
+              </a>
+            ) : (
+              <Link
+                key={link.label}
+                href={link.href}
+                className="text-sm font-medium text-slate-600 transition hover:text-[var(--aa-primary)]"
+              >
+                {link.label}
+              </Link>
+            ),
+          )}
         </nav>
 
         <div className="hidden items-center gap-3 md:flex">
           <a
-            href="#about"
+            href={resolvedHashHref(pathname, "#about")}
             className="aa-btn-secondary px-4 py-2 text-sm"
             onClick={(e) => handleHashNavClick(e, "#about")}
           >
             EDTech Solutions
           </a>
-          <a
-            href="#cta"
+          <Link
+            href="/careers"
             className="aa-btn-primary px-4 py-2 text-sm shadow-md shadow-blue-300/40"
-            onClick={(e) => handleHashNavClick(e, "#cta")}
           >
-            Free Consultation
-          </a>
+            Careers
+          </Link>
         </div>
 
         <button
@@ -128,31 +151,42 @@ const Navbar = () => {
       {isMenuOpen && (
         <div id="mobile-menu" className="border-t border-slate-200 bg-white px-4 py-4 sm:px-6 md:hidden">
           <nav className="flex flex-col gap-4" aria-label="Mobile navigation">
-            {navLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                className="text-sm font-medium text-slate-700 transition hover:text-[var(--aa-primary)]"
-                onClick={(e) => handleHashNavClick(e, link.href)}
-              >
-                {link.label}
-              </a>
-            ))}
+            {navLinks.map((link) =>
+              isHashHref(link.href) ? (
+                <a
+                  key={link.label}
+                  href={resolvedHashHref(pathname, link.href)}
+                  className="text-sm font-medium text-slate-700 transition hover:text-[var(--aa-primary)]"
+                  onClick={(e) => handleHashNavClick(e, link.href)}
+                >
+                  {link.label}
+                </a>
+              ) : (
+                <Link
+                  key={link.label}
+                  href={link.href}
+                  className="text-sm font-medium text-slate-700 transition hover:text-[var(--aa-primary)]"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  {link.label}
+                </Link>
+              ),
+            )}
             <div className="mt-2 flex flex-col gap-3">
               <a
-                href="#about"
+                href={resolvedHashHref(pathname, "#about")}
                 onClick={(e) => handleHashNavClick(e, "#about")}
                 className="aa-btn-secondary px-4 py-2 text-center text-sm"
               >
                 EDTech Solutions
               </a>
-              <a
-                href="#cta"
-                onClick={(e) => handleHashNavClick(e, "#cta")}
+              <Link
+                href="/careers"
                 className="aa-btn-primary px-4 py-2 text-center text-sm"
+                onClick={() => setIsMenuOpen(false)}
               >
-                Free Consultation
-              </a>
+                Careers
+              </Link>
             </div>
           </nav>
         </div>

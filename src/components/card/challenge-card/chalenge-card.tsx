@@ -64,7 +64,7 @@ const ChallengeCard = forwardRef<HTMLElement, ChallengeCardProps>(
     return (
       <article
         ref={ref}
-      className={`grid grid-cols-1 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_8px_30px_-12px_rgba(15,23,42,0.12)] md:grid-cols-[40%_60%] md:h-[340px] ${className}`}
+        className={`grid grid-cols-1 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_8px_30px_-12px_rgba(15,23,42,0.12)] md:grid-cols-[40%_60%] md:h-[340px] ${className}`}
       >
         <div className="relative h-[180px] overflow-hidden bg-[#f7fbff] sm:h-[200px] md:h-full md:min-h-0">
           <Image
@@ -99,7 +99,6 @@ const ChallengeCard = forwardRef<HTMLElement, ChallengeCardProps>(
             >
               {badgeLabel}
             </span>
-           
           </p>
 
           <h3

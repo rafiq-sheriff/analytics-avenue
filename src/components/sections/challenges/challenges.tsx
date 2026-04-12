@@ -24,60 +24,18 @@ type ChallengeItem = {
 
 const challenges: ChallengeItem[] = [
   {
-    id: "marketing",
-    badgeLabel: "Marketing Analytics",
-    headline: "Data-Driven Campaign Optimization.",
+    id: "ai-automation",
+    badgeLabel: "AI & Automation",
+    headline: "Automate. Optimize. Scale.",
     description:
-      "Analyze campaigns, track performance, and maximize ROI with real-time marketing insights.",
+      "Transform your business with intelligent automation and AI-driven workflows.",
     bullets: [
-      "Monitor campaign performance across channels",
-      "Understand customer behavior & segmentation",
-      "Optimize conversions with data insights",
+      "Automate repetitive processes",
+      "Build intelligent decision systems",
+      "Improve efficiency at scale",
     ],
-    imageSrc: "/assets/images/challenges/marketing.png",
-    imageAlt: "Marketing analytics illustration",
-  },
-  {
-    id: "sales",
-    badgeLabel: "Sales Analytics",
-    headline: "Smarter Sales, Better Decisions.",
-    description:
-      "Track sales performance, forecast revenue, and identify growth opportunities with precision.",
-    bullets: [
-      "Real-time sales tracking & reporting",
-      "Forecast revenue and trends",
-      "Identify high-value opportunities",
-    ],
-    imageSrc: "/assets/images/challenges/ev.png",
-    imageAlt: "Sales analytics illustration",
-  },
-  {
-    id: "customer",
-    badgeLabel: "Customer Analytics",
-    headline: "Understand Every Customer.",
-    description:
-      "Gain deep insights into customer behavior, retention, and engagement patterns.",
-    bullets: [
-      "Segment customers with precision",
-      "Track engagement and retention",
-      "Personalize experiences using data",
-    ],
-    imageSrc: "/assets/images/challenges/transport.png",
-    imageAlt: "Customer analytics illustration",
-  },
-  {
-    id: "financial",
-    badgeLabel: "Financial Analytics",
-    headline: "Smarter Financial Planning.",
-    description:
-      "Improve forecasting, risk management, and decision-making with accurate financial insights.",
-    bullets: [
-      "Monitor financial performance",
-      "Forecast revenue and expenses",
-      "Reduce risks with predictive analytics",
-    ],
-    imageSrc: "/assets/images/challenges/solar.png",
-    imageAlt: "Financial analytics illustration",
+    imageSrc: "/assets/images/challenges/genai.png",
+    imageAlt: "AI and automation illustration",
   },
   {
     id: "supply-chain",
@@ -94,76 +52,93 @@ const challenges: ChallengeItem[] = [
     imageAlt: "Supply chain analytics illustration",
   },
   {
-    id: "healthcare",
-    badgeLabel: "Healthcare Analytics",
-    headline: "Better Care Through Data.",
+    id: "telemetry",
+    badgeLabel: "Telemetry",
+    headline: "Understand Every Customer.",
     description:
-      "Enhance patient outcomes and operational efficiency using healthcare analytics.",
+      "Gain deep insights into customer behavior, retention, and engagement patterns.",
     bullets: [
-      "Monitor patient data & trends",
-      "Improve treatment outcomes",
-      "Optimize healthcare operations",
+      "Segment customers with precision",
+      "Track engagement and retention",
+      "Personalize experiences using data",
     ],
-    imageSrc: "/assets/images/challenges/healthcare.png",
-    imageAlt: "Healthcare analytics illustration",
+    imageSrc: "/assets/images/challenges/marketing.png",
+    imageAlt: "Customer analytics and engagement illustration",
   },
   {
-    id: "manufacturing",
-    badgeLabel: "Manufacturing Analytics",
-    headline: "Optimize Production Performance.",
+    id: "automobile",
+    badgeLabel: "Automobile",
+    headline: "Smarter Mobility And Aftermarket.",
     description:
-      "Increase efficiency and reduce downtime with predictive manufacturing insights.",
+      "From connected vehicles to dealer and service networks—turn product, usage, and quality data into better experiences.",
     bullets: [
-      "Monitor production performance",
-      "Predict equipment failures",
-      "Improve operational efficiency",
+      "Usage patterns, quality, and recall-risk signals",
+      "Optimize parts, service, and channel performance",
+      "Personalize offers with privacy-aware analytics",
     ],
-    imageSrc: "/assets/images/challenges/manufacturing.png",
-    imageAlt: "Manufacturing analytics illustration",
-  },
-  {
-    id: "hr",
-    badgeLabel: "HR Analytics",
-    headline: "Smarter Workforce Decisions.",
-    description:
-      "Optimize hiring, performance, and employee retention with data-driven HR insights.",
-    bullets: [
-      "Analyze workforce performance",
-      "Improve hiring decisions",
-      "Track employee engagement",
-    ],
-    imageSrc: "/assets/images/challenges/hr.png",
-    imageAlt: "HR analytics illustration",
+    imageSrc: "/assets/images/challenges/ev.png",
+    imageAlt: "Automotive and electric mobility illustration",
   },
   {
     id: "real-estate",
-    badgeLabel: "Real Estate Analytics",
-    headline: "Make Smarter Property Decisions.",
+    badgeLabel: "Real Estate",
+    headline: "Markets, Assets, And Portfolios In View.",
     description:
-      "Analyze market trends, valuations, and investment opportunities with data insights.",
+      "Blend listings, comps, footfall, and operations data to price confidently, allocate capital, and run properties efficiently.",
     bullets: [
-      "Track market trends & pricing",
-      "Evaluate investment opportunities",
-      "Forecast property demand",
+      "Market and submarket trend monitoring",
+      "Portfolio and asset performance reporting",
+      "Occupancy, revenue, and opex visibility",
     ],
     imageSrc: "/assets/images/challenges/realestate.png",
-    imageAlt: "Real estate analytics illustration",
+    imageAlt: "Real estate and property analytics illustration",
   },
   {
-    id: "ai-automation",
-    badgeLabel: "AI & Automation",
-    headline: "Automate. Optimize. Scale.",
+    id: "ecommerce",
+    badgeLabel: "Ecommerce",
+    headline: "Conversion, Catalog, And Fulfillment Aligned.",
     description:
-      "Transform your business with intelligent automation and AI-driven workflows.",
+      "Connect merchandising, marketing, and operations so you grow revenue while protecting margin and delivery promises.",
     bullets: [
-      "Automate repetitive processes",
-      "Build intelligent decision systems",
-      "Improve efficiency at scale",
+      "Funnel, cohort, and merchandising analytics",
+      "Inventory and fulfillment aligned to demand",
+      "Attribution and promo effectiveness you can trust",
     ],
-    imageSrc: "/assets/images/challenges/genai.png",
-    imageAlt: "AI and automation illustration",
+    imageSrc: "/assets/images/challenges/marketing.png",
+    imageAlt: "Ecommerce and digital retail illustration",
+  },
+  {
+    id: "bfsi",
+    badgeLabel: "BFSI",
+    headline: "Risk, Compliance, And Customer Trust.",
+    description:
+      "Strengthen fraud detection, credit and portfolio monitoring, and regulatory reporting with auditable, scalable analytics.",
+    bullets: [
+      "Fraud patterns and anomaly detection at scale",
+      "Credit, exposure, and portfolio health views",
+      "Reporting pipelines with lineage and controls",
+    ],
+    imageSrc: "/assets/images/challenges/manufacturing.png",
+    imageAlt: "Financial services and enterprise analytics illustration",
+  },
+  {
+    id: "greentech",
+    badgeLabel: "Greentech",
+    headline: "Measure Impact, Scale Clean Operations.",
+    description:
+      "Track generation, consumption, and emissions across assets so you can optimize efficiency and prove sustainability outcomes.",
+    bullets: [
+      "Asset and grid performance monitoring",
+      "Carbon and energy intensity reporting",
+      "Scenario planning for capacity and investment",
+    ],
+    imageSrc: "/assets/images/challenges/solar.png",
+    imageAlt: "Clean energy and sustainability illustration",
   },
 ];
+
+const tabScrollHide =
+  "[-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden";
 
 const Challenges = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -280,38 +255,40 @@ const Challenges = () => {
           </p>
         </header>
 
-        <div className="mb-3 sm:mb-4">
-          <div className="rounded-xl border border-slate-100 bg-white/90 px-1 py-1 shadow-sm sm:px-1.5 sm:py-1.5">
-            <div
-              className="flex justify-start gap-1.5 overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] sm:justify-center sm:gap-1.5 sm:px-0 md:gap-2 [&::-webkit-scrollbar]:hidden"
-              role="tablist"
-              aria-label="Challenge categories"
-            >
-              {challenges.map((c, i) => (
+        <div
+          className={`mb-4 overflow-x-auto border-b border-slate-200 sm:mb-6 lg:mb-8 ${tabScrollHide}`}
+        >
+          <div
+            className="flex min-w-max justify-start gap-6 px-1 sm:justify-center sm:gap-8"
+            role="tablist"
+            aria-label="Challenge categories"
+          >
+            {challenges.map((c, i) => {
+              const isActive = activeIndex === i;
+              return (
                 <button
                   key={c.id}
                   type="button"
                   role="tab"
-                  aria-selected={activeIndex === i}
+                  aria-selected={isActive}
                   onClick={() => scrollToIndex(i)}
-                  className={`${fontBody} shrink-0 whitespace-nowrap rounded-md px-2 py-1 text-[10px] font-medium leading-tight transition-colors sm:px-2.5 sm:py-1.5 sm:text-[11px] md:text-xs ${
-                    activeIndex === i
-                      ? "text-slate-900"
-                      : "text-slate-500 hover:text-slate-700"
+                  className={`${fontBody} relative shrink-0 whitespace-nowrap pb-3 text-[14px] font-medium transition-all duration-200 ${
+                    isActive
+                      ? "text-[var(--aa-primary)]"
+                      : "text-slate-600 hover:text-slate-900"
                   }`}
-                  style={
-                    activeIndex === i
-                      ? {
-                          boxShadow: `inset 0 -2px 0 ${PRIMARY}`,
-                          color: "#0f172a",
-                        }
-                      : undefined
-                  }
                 >
                   {c.badgeLabel}
+                  {isActive ? (
+                    <span
+                      className="absolute bottom-0 left-0 right-0 h-0.5 rounded-full"
+                      style={{ backgroundColor: PRIMARY }}
+                      aria-hidden
+                    />
+                  ) : null}
                 </button>
-              ))}
-            </div>
+              );
+            })}
           </div>
         </div>
 

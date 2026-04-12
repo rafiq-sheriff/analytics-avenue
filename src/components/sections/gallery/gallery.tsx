@@ -76,13 +76,9 @@ const Gallery = () => {
   }, [reduceMotion, pausedByHover]);
 
   return (
-    <section
-      id="gallery"
-      aria-labelledby="gallery-title"
-      className="aa-section bg-[var(--aa-surface)] py-6 sm:py-8"
-    >
-      <div className="aa-container px-4 sm:px-6">
-        <div className="flex w-full min-w-0 flex-col rounded-3xl border border-slate-100 bg-[var(--aa-surface-soft)] p-6 shadow-sm sm:p-8">
+   
+      
+        <div className="flex w-full min-w-0 flex-col  bg-[var(--aa-surface-soft)] p-6  sm:px-8 sm:pb-15">
           {/* Nav first in DOM; `order-*` keeps visual: title → carousel → controls. Clicks call Swiper via ref (avoids broken external Navigation binding). */}
           <div
             className={`${fontBody} order-3 mt-6 flex shrink-0 flex-wrap items-center justify-center gap-6 sm:mt-8 sm:gap-10 md:gap-14`}
@@ -162,8 +158,8 @@ const Gallery = () => {
             </span>
           </h2>
         </div>
-      </div>
-    </section>
+      
+    
   );
 };
 

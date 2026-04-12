@@ -24,7 +24,7 @@ export default function Home() {
       <Hero />
       <Technology />  
       <About />
-      <Solution />
+      {/* <Solution /> */}
       {/* <NewReason /> */}
       <Reasons />
       <Challenges />
@@ -38,8 +38,9 @@ export default function Home() {
       {/* <Faq /> */}
       <Curriculam />
       {/* <NewFaq /> */}
-      <Gallery />
+      
       <Testimonial />
+      <Gallery />
       <Footer />
     </div>
   );
