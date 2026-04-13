@@ -163,7 +163,7 @@ const About = () => {
               style={reveal(140)}
             >
               <h3
-                className="shrink-0 text-xl font-extrabold   sm:text-xl"
+                className="shrink-0 text-xl font-extrabold sm:text-xl"
                 style={{ color: primary }}
               >
                 About Analytics Avenue
@@ -171,14 +171,55 @@ const About = () => {
               <span className="h-px w-full bg-blue-200" aria-hidden />
             </div>
 
-            <p
-              className="text-lg leading-relaxed text-[#080808] sm:text-[1.2rem] sm:leading-[1.3]"
+            <div
+              className="space-y-4 text-lg leading-relaxed text-[#080808] sm:text-[1.2rem] sm:leading-[1.3]"
               style={reveal(180)}
             >
-              At Analytics Avenue, we empower professionals and businesses
-              through impactful learning and real-world data solutions, backed
-              by experts across multiple industries.
-            </p>
+              <p>
+                At <strong className="font-bold">Analytics Avenue</strong>, our
+                team of{" "}
+                <strong className="font-bold">
+                  data scientists and AI engineers
+                </strong>{" "}
+                is driven by a single vision:{" "}
+                <strong className="font-bold">
+                  to take data analytics from every home to every industry
+                </strong>
+                . We are transforming our EdTech offerings into{" "}
+                <strong className="font-bold">
+                  scalable, product-driven platforms
+                </strong>{" "}
+                that empower every family to upskill, stay relevant, and thrive
+                in today&apos;s rapidly evolving, AI-led economy.
+              </p>
+              <p>
+                In parallel, our{" "}
+                <strong className="font-bold">
+                  consulting, predictive analytics, and intelligent automation
+                  solutions
+                </strong>{" "}
+                are becoming mission-critical across sectors positioning
+                analytics and AI as the{" "}
+                <strong className="font-bold">
+                  true backbone of modern business decision-making.
+                </strong>
+              </p>
+              <p>
+                Backed by hands-on experience working with{" "}
+                <strong className="font-bold">
+                  leading international brands across retail, manufacturing,
+                  healthcare, supply chain, finance, and beyond
+                </strong>
+                , our data science team brings proven industry intelligence into
+                everything we build. This real-world expertise enables us to
+                partner with organizations as their{" "}
+                <strong className="font-bold">
+                  official skill development and AI transformation partners
+                </strong>
+                , solving complex business challenges while creating future-ready
+                talent ecosystems.
+              </p>
+            </div>
 
             <div className="mt-6" style={reveal(230)}>
               <a
@@ -207,7 +248,7 @@ const About = () => {
             <div id="approach" className="mt-7" style={reveal(280)}>
               <div className="mb-3 flex items-center gap-3">
                 <h3
-                  className="shrink-0 text-xl font-extrabold  sm:text-xl"
+                  className="shrink-0 text-xl font-extrabold sm:text-xl"
                   style={{ color: primary }}
                 >
                   Leadership Excellence
@@ -224,8 +265,11 @@ const About = () => {
                     ✓
                   </span>
                   <span>
-                    Worked with 15+ global brands, delivering data-driven
-                    strategies and intelligent solutions.
+                    <strong className="font-bold">
+                      Collaborated with 15+ Global Brands
+                    </strong>
+                    , delivering high-impact data strategies and intelligent
+                    AI-driven solutions
                   </span>
                 </li>
                 <li className="flex items-start gap-2.5">
@@ -236,8 +280,11 @@ const About = () => {
                     ✓
                   </span>
                   <span>
-                    Recognized as a leading AI speaker for contributions to AI
-                    education and industry adoption.
+                    <strong className="font-bold">
+                      Recognized AI Thought Leader
+                    </strong>
+                    , driving innovation in AI education and accelerating
+                    industry adoption
                   </span>
                 </li>
                 <li className="flex items-start gap-2.5">
@@ -248,8 +295,11 @@ const About = () => {
                     ✓
                   </span>
                   <span>
-                    Empowered 1,000+ students through focused data and analytics
-                    initiatives.
+                    <strong className="font-bold">
+                      Empowered 1,000+ Professionals
+                    </strong>
+                    , transforming careers through focused data analytics
+                    initiatives
                   </span>
                 </li>
                 <li className="flex items-start gap-2.5">
@@ -260,8 +310,11 @@ const About = () => {
                     ✓
                   </span>
                   <span>
-                    Driving efforts to bridge academia and industry by building
-                    future-ready AI talent.
+                    <strong className="font-bold">
+                      Founder of #UpSkillIndia Movement
+                    </strong>
+                    , empowering talent across the nation to build future-ready
+                    data and AI careers
                   </span>
                 </li>
               </ul>
