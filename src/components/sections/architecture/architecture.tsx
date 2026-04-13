@@ -37,7 +37,7 @@ type PulseDotProps = { cx: number; cy: number; delay?: number; color?: string }
 type FadeInProps = { children: ReactNode; delay?: number; y?: number; className?: string }
 
 type SectionHeaderProps = {
-    number: string
+    number?: string
     title: ReactNode
     subtitle: ReactNode
     center?: boolean
@@ -139,13 +139,15 @@ const FadeIn = ({ children, delay = 0, y = 30, className = "" }: FadeInProps) =>
    ═══════════════════════════════════════════════════ */
 const SectionHeader = ({ number, title, subtitle, center = false }: SectionHeaderProps) => (
     <div className={`mb-10 lg:mb-14 ${center ? 'text-center' : ''}`}>
+        {number != null && number !== '' && (
         <motion.span
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className={`${fontHeading} mb-2 block text-4xl font-extrabold text-[var(--aa-primary)] md:text-5xl`}
+            className={`${fontHeading} mb-5 block text-4xl font-extrabold text-[var(--aa-primary)] md:mb-6 md:text-5xl`}
         >{number}</motion.span>
+        )}
         <motion.h3
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -339,7 +341,7 @@ const Architecture = () => {
         >
             <div className="aa-container">
 
-                {/* ────────────── Main Heading ────────────── */}
+                {/* ────────────── Main Heading (pill highlight like About) ────────────── */}
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -349,10 +351,15 @@ const Architecture = () => {
                 >
                     <h2
                         id="architecture-heading"
-                        className={`${fontHeading} text-balance text-3xl font-extrabold leading-[1.15] tracking-[-0.02em] text-[var(--aa-text-strong)] sm:text-4xl lg:text-[2.65rem]`}
+                        className={`${fontHeading} text-balance text-3xl font-extrabold leading-tight tracking-[-0.02em] text-[var(--aa-text-strong)] sm:text-4xl lg:text-[2.65rem]`}
                     >
-                        Our End to End<br />
-                        <span className="text-[var(--aa-primary)]">Data Analytics Solutions</span>
+                        Our End to End{" "}
+                        <span
+                            className="rounded-sm px-2 py-0.5 text-white"
+                            style={{ backgroundColor: "var(--aa-primary)" }}
+                        >
+                            Data Analytics Solutions
+                        </span>
                     </h2>
                 </motion.div>
 
@@ -362,7 +369,8 @@ const Architecture = () => {
             ═══════════════════════════════════════════ */}
                 <div className="mb-0">
                     <SectionHeader
-                        number="01" title="Data Sources"
+                        number="01"
+                        title="Data Sources"
                         subtitle="Capturing multi-channel data across E-commerce, Social, and CRM platforms."
                         center
                     />

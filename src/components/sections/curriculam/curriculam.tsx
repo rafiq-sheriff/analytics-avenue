@@ -251,9 +251,10 @@ const CURRICULUM_TABS: readonly CurriculumTab[] = [
 /** Blue matrix strip (clipped banner) below hero — global program metrics */
 const CURRICULUM_MATRIX_STATS: readonly { figure: string; caption: string }[] =
   [
-    { figure: "2,000+", caption: "Professionals empowered worldwide" },
-    { figure: "99%", caption: "Learner satisfaction — and growing!" },
-    { figure: "4", caption: "Career-ready program tracks" },
+    { figure: "2,000", caption: "Nationwide Consultations" },
+    { figure: "10", caption: "AI Career Opportunities" },
+    { figure: "15", caption: "Data Experts across Nation" },
+    { figure: "50", caption: "Industrial POCs" },
   ];
 
 function splitCurriculumMeta(meta: string): readonly [string, string, string] {
@@ -587,21 +588,23 @@ const Curriculam = () => {
                   />
                 </div>
                 <div
-                  className="relative grid grid-cols-1 gap-8 text-center text-white sm:grid-cols-3 sm:gap-6 lg:gap-10"
+                  className="relative grid grid-cols-1 gap-0 divide-y divide-white/20 text-center text-white sm:grid-cols-2 sm:divide-y-0 lg:grid-cols-4 lg:divide-x lg:divide-white/20"
                   role="group"
                   aria-label="Program impact at a glance"
                 >
                   {CURRICULUM_MATRIX_STATS.map((row) => (
                     <div
                       key={row.caption}
-                      className="flex flex-col items-center justify-center"
+                      className="flex flex-col items-center justify-center px-4 py-8 sm:px-6 sm:py-0 sm:even:border-l sm:even:border-white/20 lg:border-l-0 lg:px-8 lg:py-2"
                     >
                       <p
-                        className="font-[family-name:var(--font-sora)] text-4xl font-bold tracking-tight sm:text-5xl lg:text-[2.75rem]"
+                        className={`m-0 text-4xl font-bold tabular-nums tracking-tight sm:text-5xl lg:text-[2.75rem] ${fontHeading}`}
                       >
                         {row.figure}
                       </p>
-                      <p className="mt-2 max-w-[16rem] text-sm font-medium leading-snug text-white/92 sm:mt-3 sm:text-[0.9375rem]">
+                      <p
+                        className={`m-0 mt-2 max-w-[16rem] text-sm font-medium leading-snug text-white/92 sm:mt-3 sm:text-[0.9375rem] ${fontHeading}`}
+                      >
                         {row.caption}
                       </p>
                     </div>

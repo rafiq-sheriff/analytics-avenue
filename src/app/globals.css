@@ -54,19 +54,22 @@ body {
   line-height: 1.5;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: var(--font-heading), sans-serif;
-}
+/* In @layer base so Tailwind font-weight utilities (font-bold, etc.) win on <p> and headings. */
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-heading), sans-serif;
+  }
 
-p {
-  font-family: var(--font-body), sans-serif;
-  /* Slightly heavier than default for readability; color stays from Tailwind/utilities */
-  font-weight: 500;
+  p {
+    font-family: var(--font-body), sans-serif;
+    /* Slightly heavier than default for readability; color stays from Tailwind/utilities */
+    font-weight: 500;
+  }
 }
 
 a {

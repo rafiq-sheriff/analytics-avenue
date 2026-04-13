@@ -12,7 +12,7 @@ const Cta = () => {
       <div className="aa-container">
         <div className="rounded-[28px] border border-[#1A73E8]/20 bg-gradient-to-br from-[#1A73E8] via-[#5A8EF3] to-[#7F86FF] px-6 py-10 text-center sm:px-10 sm:py-14">
           <h2
-            className={`${fontHeading} text-2xl font-extrabold leading-tight text-white sm:text-4xl lg:text-5xl`}
+            className={`${fontHeading} text-2xl font-extrabold leading-tight text-[#080808] sm:text-4xl lg:text-5xl`}
           >
             Ready to Build Your Data and AI Advantage?
           </h2>

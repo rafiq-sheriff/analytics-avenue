@@ -100,22 +100,22 @@ type ColumnSizes = {
  */
 function useColumnSizes(): ColumnSizes {
   const [sizes, setSizes] = useState<ColumnSizes>({
-    width: 215,
-    height: 310,
-    gap: 13,
+    width: 232,
+    height: 332,
+    gap: 14,
   });
 
   useEffect(() => {
     const update = () => {
       const vw = window.innerWidth;
       if (vw < 480) {
-        setSizes({ width: 200, height: 280, gap: 12 });
+        setSizes({ width: 216, height: 298, gap: 13 });
       } else if (vw < 640) {
-        setSizes({ width: 215, height: 310, gap: 13 });
+        setSizes({ width: 232, height: 332, gap: 14 });
       } else if (vw < 1024) {
-        setSizes({ width: 235, height: 360, gap: 16 });
+        setSizes({ width: 252, height: 385, gap: 17 });
       } else {
-        setSizes({ width: 260, height: 400, gap: 20 });
+        setSizes({ width: 280, height: 428, gap: 22 });
       }
     };
 
@@ -138,7 +138,7 @@ function InfoCard({ member }: { member: TeamMember }) {
       aria-label={`${member.name}, ${member.role}`}
     >
       <div className="flex min-h-0 flex-1 flex-col justify-center gap-1.5 sm:gap-2">
-        <p className="text-[10px] font-bold uppercase  text-slate-900 sm:text-[11px] sm:tracking-[0.05em]">
+        <p className="font-[family-name:var(--font-heading)] text-[11px] !font-extrabold uppercase text-slate-900 sm:text-sm sm:tracking-[0.06em]">
           [ {formatRoleTag(member.role)} ]
         </p>
         <h3
@@ -169,7 +169,7 @@ function PhotoCard({
         alt={`${member.name}, ${member.role}`}
         fill
         className="object-cover object-top"
-        sizes={`(max-width: 480px) 200px, (max-width: 1024px) 235px, ${columnWidth}px`}
+        sizes={`(max-width: 480px) 216px, (max-width: 1024px) 252px, ${columnWidth}px`}
         loading="lazy"
         decoding="async"
         draggable={false}

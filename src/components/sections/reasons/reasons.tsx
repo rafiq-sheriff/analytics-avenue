@@ -8,7 +8,7 @@ import {
   useTransform,
 } from "framer-motion";
 import type { MotionValue } from "framer-motion";
-import type { RefObject } from "react";
+import type { ReactNode, RefObject } from "react";
 import { useCallback, useId, useLayoutEffect, useRef, useState } from "react";
 
 const fontHeading = "font-[family-name:var(--font-heading)]";
@@ -85,23 +85,106 @@ function enforceSequentialRevealThresholds(
   return out;
 }
 
-/** Exact copy — order preserved (includes duplicate line). */
+const primary = "var(--aa-primary)";
+
+const REASONS_SECTION_TITLE_LINE1 = "From Manual to Autonomous";
+const REASONS_SECTION_TITLE_AFTER_HIGHLIGHT =
+  " That Think, Act & Scale Your Business";
+const REASONS_SECTION_DESCRIPTION =
+  "Scalable Growth Engine – From data to revenue in under 90 days";
+
+/** Bold metrics in body copy (paired with extrabold titles). */
+function metricBold(children: ReactNode) {
+  return <strong className="font-bold text-slate-900">{children}</strong>;
+}
+
 const REASONS = [
-  "Business process automation",
-  "Data-Driven business strategy",
-  "Human error reduction",
-  "Cost Reduction",
-  "Digital transformation",
-  "Brand awareness",
-  "Optimized data-driven models",
-  "Data-Driven business strategy",
-  "Forecasted data-driven decision",
-  "Demand forecasting",
-  "Brand health monitoring",
-  "Streamlined Security",
-  "Customer churn retention",
-  "Improved ROI",
-] as const;
+  {
+    title: "Unified Website Development",
+    description: (
+      <>
+        Launch production-ready platforms in {metricBold("7–14 days")}
+      </>
+    ),
+  },
+  {
+    title: "AI Digital Marketing Campaigns",
+    description: (
+      <>Improve lead conversion by {metricBold("3X–5X")}</>
+    ),
+  },
+  {
+    title: "Improved ROI",
+    description: (
+      <>
+        Achieve {metricBold("30–70%")} increase in marketing
+      </>
+    ),
+  },
+  {
+    title: "Zero Manual Effort Operations",
+    description: (
+      <>
+        Automate workflows and save {metricBold("100+ hours/month")}
+      </>
+    ),
+  },
+  {
+    title: "Reduced Churn Rate",
+    description: (
+      <>
+        Improve retention by {metricBold("20–40%")} by AI Agents
+      </>
+    ),
+  },
+  {
+    title: "End-to-End Business Automation",
+    description: (
+      <>Reduce manual workload by {metricBold("60–80%")}</>
+    ),
+  },
+  {
+    title: "Reliable Data Pipelines",
+    description: (
+      <>Ensure {metricBold("99%")} data accuracy & real-time flow</>
+    ),
+  },
+  {
+    title: "Optimized ML Models",
+    description: (
+      <>
+        Achieve high-performance predictions ({metricBold("85–95%")}{" "}
+        accuracy)
+      </>
+    ),
+  },
+  {
+    title: "AI-Generated Performance Dashboards",
+    description: (
+      <>
+        Real-time insights with {metricBold("100%")} instant decision
+        visibility
+      </>
+    ),
+  },
+  {
+    title: "Continuous Brand Health Monitoring",
+    description: (
+      <>Track sentiment & engagement {metricBold("24/7")}</>
+    ),
+  },
+  {
+    title: "Faster Decision-Making",
+    description: (
+      <>
+        Cut analysis time by {metricBold("80%")} with AI automation
+      </>
+    ),
+  },
+] as const satisfies ReadonlyArray<{
+  title: string;
+  description: ReactNode;
+}>;
 
 const ICONS = [
   function IconFlow({ className }: { className?: string }) {
@@ -420,7 +503,8 @@ function CurvedTimelinePath({
 
 function FlowNode({
   index,
-  text,
+  title,
+  description,
   active,
   onHover,
   setDotRef,
@@ -431,7 +515,8 @@ function FlowNode({
   layout = "snake",
 }: {
   index: number;
-  text: string;
+  title: string;
+  description: ReactNode;
   active: boolean;
   onHover: (i: number | null) => void;
   setDotRef: (i: number) => (el: HTMLDivElement | null) => void;
@@ -497,16 +582,29 @@ function FlowNode({
           <Icon className="h-[22px] w-[22px] text-slate-900 transition group-hover:text-[var(--aa-primary)] sm:h-6 sm:w-6" />
         </motion.div>
       </div>
-      <motion.p
+      <motion.div
         style={motionStyle}
-        className={`${fontHeading} text-[0.9375rem] font-bold leading-snug text-slate-900 transition group-hover:text-[var(--aa-primary)] sm:text-base ${
+        className={
           isStack
-            ? "min-w-0 flex-1 pt-2.5 text-left sm:pt-3"
-            : "mt-4 max-w-[18ch] text-center sm:max-w-[22ch]"
-        }`}
+            ? "min-w-0 flex-1 pt-2.5 sm:pt-3"
+            : "mt-4 max-w-[min(100%,22rem)] text-center sm:max-w-[26rem]"
+        }
       >
-        {text}
-      </motion.p>
+        <h3
+          className={`${fontHeading} m-0 text-[0.9375rem] font-black leading-snug text-slate-900 transition group-hover:text-[var(--aa-primary)] sm:text-base ${
+            isStack ? "text-left" : ""
+          }`}
+        >
+          {title}
+        </h3>
+        <p
+          className={`mt-1.5 text-[0.8125rem] leading-relaxed text-slate-600 sm:text-sm ${
+            isStack ? "text-left" : ""
+          }`}
+        >
+          {description}
+        </p>
+      </motion.div>
     </div>
   );
 }
@@ -551,11 +649,11 @@ function ReasonsSnakeDesktop({
           gridTemplateColumns: `repeat(${COLS}, minmax(0, 1fr))`,
         }}
       >
-        {REASONS.map((text, index) => {
+        {REASONS.map((reason, index) => {
           const { row, col } = snakeCell(index, COLS);
           return (
             <div
-              key={`${index}-${text}`}
+              key={`${index}-${reason.title}`}
               style={{
                 gridRow: row + 1,
                 gridColumn: col + 1,
@@ -564,7 +662,8 @@ function ReasonsSnakeDesktop({
             >
               <FlowNode
                 index={index}
-                text={text}
+                title={reason.title}
+                description={reason.description}
                 active={hovered === index}
                 onHover={setHovered}
                 setDotRef={setDotRef}
@@ -616,12 +715,13 @@ function ReasonsStackMobile({
       />
 
       <div className="relative z-[1] flex flex-col gap-10 sm:gap-12">
-        {REASONS.map((text, index) => (
+        {REASONS.map((reason, index) => (
           <FlowNode
-            key={`${index}-${text}`}
+            key={`${index}-${reason.title}`}
             layout="stack"
             index={index}
-            text={text}
+            title={reason.title}
+            description={reason.description}
             active={hovered === index}
             onHover={setHovered}
             setDotRef={setDotRef}
@@ -650,6 +750,7 @@ const Reasons = () => {
       ref={sectionRef}
       id="reasons"
       aria-labelledby="reasons-title"
+      aria-describedby="reasons-description"
       className="aa-section relative overflow-x-hidden bg-white"
     >
       <div
@@ -663,17 +764,30 @@ const Reasons = () => {
           whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.5 }}
           transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          className="mx-auto mb-12 max-w-3xl text-center sm:mb-14 lg:mb-16"
+          className="mx-auto mb-12 max-w-7xl text-center sm:mb-14 lg:mb-16"
         >
           <h2
             id="reasons-title"
-            className={`${fontHeading} text-3xl font-black leading-[1.15] tracking-tight text-slate-900 sm:text-4xl`}
+            className={`${fontHeading} flex flex-col items-center gap-1 text-3xl font-black leading-[1.15] tracking-tight text-slate-900 sm:gap-1.5 sm:text-4xl`}
           >
-            <span className="rounded-sm bg-[var(--aa-primary)] px-2 py-0.5 text-[#ffffff]">
-              Reasons
-            </span>{" "}
-            to Partner with Analytics Avenue
+            <span className="block">{REASONS_SECTION_TITLE_LINE1}</span>
+            <span className="block max-w-full">
+              We{" "}
+              <span
+                className="rounded-sm px-2 py-0.5 text-white"
+                style={{ backgroundColor: primary }}
+              >
+                Build AI Systems
+              </span>
+              {REASONS_SECTION_TITLE_AFTER_HIGHLIGHT}
+            </span>
           </h2>
+          <p
+            id="reasons-description"
+            className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-slate-600 sm:text-lg"
+          >
+            {REASONS_SECTION_DESCRIPTION}
+          </p>
         </motion.header>
 
         <div className="relative">
