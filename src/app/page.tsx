@@ -18,6 +18,7 @@ import NewFaq from "@/components/sections/newfaq/newfaq";
 import NewReason from "@/components/sections/newreason/newreason";
 import Curriculam from "@/components/sections/curriculam/curriculam";
 import LaunchPopup from "@/components/scaffolds/launch-popup/launch-popup";
+import Architecture from "@/components/sections/architecture/architecture";
 
 export default function Home() {
   return (
@@ -29,6 +30,7 @@ export default function Home() {
       <About />
       {/* <Solution /> */}
       {/* <NewReason /> */}
+      <Architecture />
       <Reasons />
       <Challenges />
       
