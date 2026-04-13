@@ -1,62 +1,66 @@
 "use client";
 
 import {
-  BarChart3,
   Bot,
-  Database,
-  LayoutDashboard,
-  ShieldCheck,
-  UserCheck,
+  Brain,
+  Briefcase,
+  GraduationCap,
+  MessageCircle,
+  Presentation,
 } from "lucide-react";
 import OrbitingSkills from "@/components/ui/orbiting/orbiting";
 import RotatingText from "./rotating-text";
 
-const rotatingAiCapabilities = [
-  "AI Agents",
+const buildYourSystemsCapabilities = [
+  "Web Application",
+  "Digital Marketing",
   "Data Analytics",
-  "Automation",
-  "Predictive Models",
-  "Business Intelligence",
-  "Data Pipelines",
-  "GenAI Solutions",
+  "Data Engineering",
+  "AI Automation",
+  "Agentic AI",
+  "L&D",
 ];
 
 const heroMatrix = [
   {
     value: "2000+",
-    title: "Unified data",
-    sublabel: "Connect siloed sources into one view",
-    Icon: Database,
-  },
-  {
-    value: "1000+",
-    title: "AI agents",
-    sublabel: "Automate sales and marketing work",
-    Icon: Bot,
-  },
-  {
-    value: "50+",
-    title: "One platform",
-    sublabel: "End-to-end workflows in one place",
-    Icon: LayoutDashboard,
-  },
-  {
-    value: "500+",
-    title: "Live analytics",
-    sublabel: "Measure performance as it happens",
-    Icon: BarChart3,
+    title: "Personal & Professional",
+    sublabel:
+      "Consultations by Our Data Scientists Panel",
+    Icon: MessageCircle,
   },
   {
     value: "100+",
-    title: "Guided onboarding",
-    sublabel: "Get productive without the guesswork",
-    Icon: UserCheck,
+    title: "High-Performance ML Models",
+    sublabel:
+      "Delivering Production-Ready Accuracy & Reliability",
+    Icon: Brain,
   },
   {
-    value: "10+",
-    title: "Enterprise security",
-    sublabel: "Controls built for serious teams",
-    Icon: ShieldCheck,
+    value: "15+",
+    title: "AI Agents",
+    sublabel:
+      "To Transform Your Workflow Designed to Streamline, Automate, and Accelerate Your Business",
+    Icon: Bot,
+  },
+  {
+    value: "1000+",
+    title: "Rural Aspirants",
+    sublabel: "Empowered with Data Analytics Skills",
+    Icon: GraduationCap,
+  },
+  {
+    value: "500+",
+    title: "Nationwide Professionals",
+    sublabel:
+      "Completed Industry-Ready Projects for Successful Career Transitions",
+    Icon: Briefcase,
+  },
+  {
+    value: "50+",
+    title: "Guest Lectures and MOUs",
+    sublabel: "Bridging Academia with Industry Excellence",
+    Icon: Presentation,
   },
 ] as const;
 
@@ -81,18 +85,20 @@ const Hero = () => {
           </h1>
 
           <h2 className="font-[family-name:var(--font-heading)] mt-8 flex flex-col gap-1 text-2xl font-bold leading-snug text-slate-900 sm:mt-12 sm:flex-row sm:flex-wrap sm:items-baseline sm:gap-x-2 sm:text-3xl">
+            <span className="text-balance">We Build your</span>
             <RotatingText
-              text={rotatingAiCapabilities}
+              text={buildYourSystemsCapabilities}
               duration={2200}
               y={12}
               containerClassName="align-middle min-w-0 max-w-full"
               textClassName="text-[var(--aa-primary)] break-words"
             />
-            <span className="text-balance">in one platform</span>
+            <span className="text-balance">Systems</span>
           </h2>
 
           <p className="mt-5 max-w-lg text-base leading-7 text-slate-600 sm:mt-6 sm:leading-8 sm:text-xl">
-            So that your business runs like an enterprise.
+          We Build Your Intelligent Business Ecosystem
+
           </p>
 
           <div className="mt-9 grid gap-6 sm:mt-10 sm:grid-cols-3 sm:gap-4">
@@ -108,8 +114,8 @@ const Hero = () => {
                   <p className="font-[family-name:var(--font-heading)] text-2xl font-extrabold tracking-tight text-slate-900 sm:text-[1.65rem]">
                     {value}
                   </p>
-                  <p className="mt-0.5 text-[13px] leading-snug text-slate-600 sm:text-sm">
-                    <span className="block">{title}</span>
+                  <p className="mt-0.5 text-[13px] leading-snug sm:text-sm">
+                    <span className="block font-semibold text-[#080808]">{title}</span>
                     <span className="block text-slate-500">{sublabel}</span>
                   </p>
                 </div>
