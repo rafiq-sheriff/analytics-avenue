@@ -102,7 +102,7 @@ const ChallengeCard = forwardRef<HTMLElement, ChallengeCardProps>(
           </p>
 
           <h3
-            className={`${fontHeading} mb-2 text-[15px] font-bold leading-tight text-[#000000] sm:text-[16px] md:mb-3`}
+            className={`${fontHeading} mb-2 text-[15px] font-bold leading-tight text-black sm:text-[16px] md:mb-3`}
           >
             {headline}
           </h3>

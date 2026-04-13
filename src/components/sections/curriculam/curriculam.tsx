@@ -612,7 +612,7 @@ const Curriculam = () => {
 
             <div className="mt-10 lg:mt-12">
               <div
-                className="border-b border-slate-100 px-4 pb-4 pt-4 sm:px-6 sm:pb-5 sm:pt-5 lg:px-8"
+                className="border-b border-slate-100 pb-4 pt-4  sm:pb-5 sm:pt-5 "
                 role="tablist"
                 aria-label="Course tracks"
                 onKeyDown={onTabListKeyDown}
@@ -622,7 +622,7 @@ const Curriculam = () => {
                 >
                   Select program
                 </p>
-                <div className="flex w-full items-stretch gap-1 rounded-lg bg-slate-100/95 p-1 ring-1 ring-slate-900/[0.04] sm:gap-1.5 sm:p-1.5">
+                <div className="grid w-full grid-cols-2 items-stretch gap-1 rounded-lg bg-white p-1 ring-1 ring-slate-900/[0.04] sm:flex sm:flex-row sm:gap-1.5 sm:p-1.5">
                   {CURRICULUM_TABS.map((tab) => {
                     const isActive = tab.id === activeId;
                     const showPillText = tab.pillLabel != null;
@@ -639,14 +639,14 @@ const Curriculam = () => {
                         onClick={() => setActiveId(tab.id)}
                         whileTap={reduceMotion ? undefined : { scale: 0.98 }}
                         transition={{ type: "spring", stiffness: 450, damping: 28 }}
-                        className={`flex min-h-11 min-w-0 flex-1 items-center justify-center rounded-lg py-2 transition-[color,background-color,box-shadow,filter] duration-200 sm:min-h-12 sm:py-2.5 ${TAB_FOCUS} ${
+                        className={`flex min-h-11 min-w-0 w-full items-center justify-center rounded-lg py-2 transition-[color,background-color,box-shadow,filter] duration-200 sm:w-auto sm:flex-1 sm:min-h-12 sm:py-2.5 ${TAB_FOCUS} ${
                           showPillText
                             ? "gap-1.5 px-2 sm:gap-2 sm:px-3"
                             : "gap-0 px-1.5 sm:px-2"
                         } ${
                           isActive
                             ? "shadow-sm"
-                            : "bg-transparent hover:bg-white/70 active:bg-white/85"
+                            : "bg-transparent hover:bg-[#e8eefc] active:bg-white/85"
                         }`}
                         style={isActive ? ACTIVE_TAB_BUTTON_STYLE : undefined}
                       >
@@ -678,7 +678,7 @@ const Curriculam = () => {
                 </div>
               </div>
 
-              <div className="px-4 py-8 sm:px-6 sm:py-10 lg:px-8 lg:py-10">
+              <div className=" py-8  sm:py-10  lg:py-10">
                 <AnimatePresence mode="wait" initial={false}>
                   <motion.div
                     key={activeId}
@@ -705,80 +705,87 @@ const Curriculam = () => {
                   >
                   {/* Hero: program copy + stats + CTA + career | video */}
                   <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-10 xl:gap-12">
-                    <div className="min-w-0 flex-1 space-y-5 lg:max-w-[min(100%,42rem)]">
-                      <h3
-                        className={`text-3xl font-bold leading-tight tracking-tight text-slate-900 sm:text-4xl ${fontHeading}`}
+                    <div className="min-w-0 flex-1 lg:max-w-[min(100%,42rem)]">
+                      <section
+                        className="overflow-hidden rounded-2xl border border-slate-200/90 bg-white p-5 shadow-[0_4px_24px_rgba(15,23,42,0.06)] ring-1 ring-slate-900/[0.03] sm:p-6 lg:p-7"
+                        aria-labelledby={`curriculum-hero-title-${activeId}`}
                       >
-                        {active.title}
-                      </h3>
-                      <ul
-                        className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-slate-500 sm:text-[0.9375rem]"
-                        aria-label="Program details"
-                      >
-                        <li className="flex items-center gap-2">
-                          <IconMetaClock className="h-[1.125rem] w-[1.125rem] shrink-0 text-slate-400" />
-                          <span>{metaWeeks}</span>
-                        </li>
-                        <li className="flex items-center gap-2">
-                          <IconMetaVideo className="h-[1.125rem] w-[1.125rem] shrink-0 text-slate-400" />
-                          <span>{metaFormat}</span>
-                        </li>
-                        <li className="flex items-center gap-2">
-                          <IconMetaRibbon className="h-[1.125rem] w-[1.125rem] shrink-0 text-slate-400" />
-                          <span>{metaLevel}</span>
-                        </li>
-                      </ul>
-                      <p className="text-[0.9375rem] leading-relaxed text-[var(--aa-text-muted)] sm:text-base">
-                        {active.description}
-                      </p>
-                      <div>
-                        <p
-                          className={`text-[0.6875rem] font-semibold uppercase tracking-[0.14em] text-slate-400 ${fontHeading}`}
-                        >
-                          Career outcomes
-                        </p>
-                        <div className="mt-3 flex flex-wrap gap-2">
-                          {active.outcomes.map((tag) => (
-                            <span
-                              key={tag}
-                              className={`rounded-lg px-3 py-1.5 text-xs font-medium text-slate-700 sm:px-3.5 sm:py-1.5 sm:text-[0.8125rem] ${fontHeading}`}
-                              style={{
-                                backgroundColor: active.accent.soft,
-                                boxShadow: `inset 0 0 0 1px ${active.accent.ring}`,
-                              }}
+                        <div className="space-y-5">
+                          <h3
+                            id={`curriculum-hero-title-${activeId}`}
+                            className={`text-3xl font-bold leading-tight tracking-tight text-slate-900 sm:text-4xl ${fontHeading}`}
+                          >
+                            {active.title}
+                          </h3>
+                          <ul
+                            className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-slate-500 sm:text-[0.9375rem]"
+                            aria-label="Program details"
+                          >
+                            <li className="flex items-center gap-2">
+                              <IconMetaClock className="h-[1.125rem] w-[1.125rem] shrink-0 text-slate-400" />
+                              <span>{metaWeeks}</span>
+                            </li>
+                            <li className="flex items-center gap-2">
+                              <IconMetaVideo className="h-[1.125rem] w-[1.125rem] shrink-0 text-slate-400" />
+                              <span>{metaFormat}</span>
+                            </li>
+                            <li className="flex items-center gap-2">
+                              <IconMetaRibbon className="h-[1.125rem] w-[1.125rem] shrink-0 text-slate-400" />
+                              <span>{metaLevel}</span>
+                            </li>
+                          </ul>
+                          <p className="text-[0.9375rem] leading-relaxed text-[var(--aa-text-muted)] sm:text-base">
+                            {active.description}
+                          </p>
+                          <div>
+                            <p
+                              className={`text-[0.6875rem] font-semibold uppercase tracking-[0.14em] text-slate-400 ${fontHeading}`}
                             >
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                      <div className="grid grid-cols-3 gap-2 sm:gap-3">
-                        {active.heroStats.map((stat) => {
-                          const tone = HERO_STAT_TONE_CLASS[stat.tone];
-                          return (
-                            <div
-                              key={`${stat.value}-${stat.label}`}
-                              className={`rounded-xl px-2 py-3 text-center sm:px-3 sm:py-4 ${tone.card}`}
-                            >
-                              <p
-                                className={`text-lg font-extrabold tabular-nums sm:text-xl ${tone.value} ${fontHeading}`}
-                              >
-                                {stat.value}
-                              </p>
-                              <p className="mt-1 text-[0.65rem] font-medium leading-tight text-slate-500 sm:text-xs">
-                                {stat.label}
-                              </p>
+                              Career outcomes
+                            </p>
+                            <div className="mt-3 flex flex-wrap gap-2">
+                              {active.outcomes.map((tag) => (
+                                <span
+                                  key={tag}
+                                  className={`rounded-lg px-3 py-1.5 text-xs font-medium text-slate-700 sm:px-3.5 sm:py-1.5 sm:text-[0.8125rem] ${fontHeading}`}
+                                  style={{
+                                    backgroundColor: active.accent.soft,
+                                    boxShadow: `inset 0 0 0 1px ${active.accent.ring}`,
+                                  }}
+                                >
+                                  {tag}
+                                </span>
+                              ))}
                             </div>
-                          );
-                        })}
-                      </div>
-                      <a
-                        href="#cta"
-                        className="aa-btn-primary flex w-full items-center justify-center py-3.5 text-center text-base font-semibold shadow-lg shadow-blue-300/35 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--aa-primary)] sm:py-4"
-                      >
-                        Enroll Now — Limited Seats
-                      </a>
-                      
+                          </div>
+                          <div className="grid grid-cols-3 gap-2 sm:gap-3">
+                            {active.heroStats.map((stat) => {
+                              const tone = HERO_STAT_TONE_CLASS[stat.tone];
+                              return (
+                                <div
+                                  key={`${stat.value}-${stat.label}`}
+                                  className={`rounded-xl px-2 py-3 text-center sm:px-3 sm:py-4 ${tone.card}`}
+                                >
+                                  <p
+                                    className={`text-lg font-extrabold tabular-nums sm:text-xl ${tone.value} ${fontHeading}`}
+                                  >
+                                    {stat.value}
+                                  </p>
+                                  <p className="mt-1 text-[0.65rem] font-medium leading-tight text-slate-500 sm:text-xs">
+                                    {stat.label}
+                                  </p>
+                                </div>
+                              );
+                            })}
+                          </div>
+                          <a
+                            href="#cta"
+                            className="aa-btn-primary flex w-full items-center justify-center py-3.5 text-center text-base font-semibold shadow-lg shadow-blue-300/35 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--aa-primary)] sm:py-4"
+                          >
+                            Enroll Now — Limited Seats
+                          </a>
+                        </div>
+                      </section>
                     </div>
 
                     <aside

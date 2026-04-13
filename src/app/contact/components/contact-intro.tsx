@@ -40,7 +40,7 @@ export default function ContactIntro({ phoneDisplay, phoneTel, email }: ContactI
         aria-hidden
       />
       <div
-        className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,rgba(148,163,184,0.055)_1px,transparent_1px),linear-gradient(to_bottom,rgba(148,163,184,0.055)_1px,transparent_1px)] bg-[size:2rem_2rem] [mask-image:radial-gradient(ellipse_85%_75%_at_50%_35%,black,transparent)]"
+        className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,rgba(148,163,184,0.055)_1px,transparent_1px),linear-gradient(to_bottom,rgba(148,163,184,0.055)_1px,transparent_1px)] bg-[size:2rem_2rem] [mask-image:radial-gradient(ellipse_85%_75%_at_50%_35%,#080808,transparent)]"
         aria-hidden
       />
 
