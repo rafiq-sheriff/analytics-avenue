@@ -1,3 +1,5 @@
+import { BrandLogoWithText } from "@/components/scaffolds/brand-logo-with-text";
+
 const fontHeading = "font-[family-name:var(--font-heading)]";
 const fontBody = "font-[family-name:var(--font-body)]";
 
@@ -64,9 +66,9 @@ const Footer = ({ afterCta = false }: FooterProps) => {
         <div className={innerClass}>
           <div className="grid gap-10 lg:grid-cols-[1.25fr_2.75fr] lg:gap-12">
             <div>
-              <p className={`${fontHeading} text-4xl font-black text-[var(--aa-primary)]`}>
-                Analytics Avenue
-              </p>
+              <div className="flex flex-wrap items-center">
+                <BrandLogoWithText variant="footer" />
+              </div>
               <p className={`${fontBody} mt-4 max-w-sm text-sm leading-relaxed text-slate-600`}>
                 AI Business Partner for Ed-Tech and enterprise teams - building
                 talent, systems, and solutions for measurable impact.

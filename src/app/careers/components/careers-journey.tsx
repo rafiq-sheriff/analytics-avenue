@@ -82,16 +82,7 @@ export default function CareersJourney() {
       <div className="aa-container relative px-4 sm:px-6">
         <div className="grid gap-10 lg:grid-cols-[minmax(0,35%)_minmax(0,65%)] lg:gap-14 lg:items-start">
           <div style={reveal(0)}>
-            <div className="mb-4 hidden items-center justify-center gap-2.5 lg:flex lg:justify-start">
-              <span
-                className="hidden h-2 w-2 shrink-0 rounded-full lg:block"
-                style={{ backgroundColor: accent }}
-                aria-hidden
-              />
-              <span className="text-sm font-semibold tracking-wide text-slate-600">
-                <span className="text-[var(--aa-primary)]">Career Journey</span>
-              </span>
-            </div>
+            
 
             <h2
               id="careers-journey-title"

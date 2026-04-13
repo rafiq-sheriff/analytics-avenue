@@ -1,5 +1,6 @@
 "use client";
 
+import { BrandLogoWithText } from "@/components/scaffolds/brand-logo-with-text";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useState } from "react";
@@ -63,15 +64,10 @@ const Navbar = () => {
       <div className="aa-container flex items-center justify-between px-4 py-3.5 sm:px-6 sm:py-4">
         <a
           href="/"
-          className="inline-flex items-center gap-2 text-lg font-extrabold tracking-tight text-[#080808] sm:text-xl"
+          className="inline-flex items-center"
           aria-label="Analytics Avenue home"
         >
-          <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-[var(--aa-primary)] text-sm font-bold text-white">
-            AA
-          </span>
-          <span>
-            Analytics <span className="text-[#080808]">Avenue</span>
-          </span>
+          <BrandLogoWithText variant="nav" />
         </a>
 
         <nav className="hidden items-center gap-7 md:flex" aria-label="Primary navigation">

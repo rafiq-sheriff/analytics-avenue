@@ -621,7 +621,7 @@ const Curriculam = () => {
                 onKeyDown={onTabListKeyDown}
               >
                 <p
-                  className={`mb-3 text-[0.6875rem] font-semibold uppercase tracking-[0.16em] text-slate-400 ${fontHeading}`}
+                  className={`mb-3 text-[1rem] font-semibold  text-[#080808] ${fontHeading}`}
                 >
                   Select program
                 </p>
@@ -785,7 +785,7 @@ const Curriculam = () => {
                             href="#cta"
                             className="aa-btn-primary flex w-full items-center justify-center py-3.5 text-center text-base font-semibold shadow-lg shadow-blue-300/35 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--aa-primary)] sm:py-4"
                           >
-                            Enroll Now — Limited Seats
+                            Enroll Now — Under Shortlisted Aspirants
                           </a>
                         </div>
                       </section>
@@ -825,7 +825,7 @@ const Curriculam = () => {
                   {/* Curriculum accordions */}
                   <div className="mt-10 sm:mt-12">
                     <p
-                      className={`text-[0.6875rem] font-semibold uppercase tracking-[0.14em] text-slate-400 ${fontHeading}`}
+                      className={`text-[1rem] font-semibold  text-[#080808] ${fontHeading}`}
                     >
                       What you&apos;ll learn
                     </p>

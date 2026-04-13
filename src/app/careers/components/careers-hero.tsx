@@ -13,7 +13,7 @@ export default function CareersHero() {
       <div className="aa-container relative z-10 px-4 sm:px-6">
         <div className="grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14">
           <div>
-            <p className="aa-kicker mb-3">Careers</p>
+            
             <h1 className="aa-title max-w-xl">Analytics Avenue Careers</h1>
             <h3 className="mt-5 text-lg font-semibold leading-snug text-slate-800 sm:text-xl">
               Analytics Avenue is an IT and EdTech organization specializing in advanced analytics, data engineering,

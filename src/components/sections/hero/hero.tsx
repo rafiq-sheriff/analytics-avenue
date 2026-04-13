@@ -111,7 +111,7 @@ const Hero = () => {
                   <Icon className="h-5 w-5" strokeWidth={1.75} />
                 </div>
                 <div className="min-w-0">
-                  <p className="font-[family-name:var(--font-heading)] text-2xl font-extrabold tracking-tight text-slate-900 sm:text-[1.65rem]">
+                  <p className="font-[family-name:var(--font-heading)] text-2xl font-semibold tracking-tight text-slate-900 sm:text-[1.65rem]">
                     {value}
                   </p>
                   <p className="mt-0.5 text-[13px] leading-snug sm:text-sm">
