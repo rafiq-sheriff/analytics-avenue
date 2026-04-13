@@ -3,8 +3,14 @@ import { CAREERS_LINKEDIN_URL, CAREERS_YOUTUBE_URL } from "../data";
 
 export default function CareersHero() {
   return (
-    <section className="aa-section relative overflow-hidden border-b border-slate-100 bg-gradient-to-b from-[#f7fbff] to-white pb-14 pt-10 sm:pb-20 sm:pt-14">
-      <div className="aa-container px-4 sm:px-6">
+    <section className="aa-section relative overflow-hidden border-b border-slate-100 bg-gradient-to-b from-[#e8eefc] via-[color-mix(in_srgb,var(--aa-primary)_9%,#f4f7fd)] to-[var(--aa-surface-soft)] pb-14 pt-10 sm:pb-20 sm:pt-14">
+      <div className="pointer-events-none absolute inset-0 -z-0">
+        <div className="absolute -left-24 top-[-140px] h-[360px] w-[360px] rounded-full bg-[radial-gradient(circle_at_center,rgba(26,115,232,0.28),rgba(26,115,232,0))] blur-3xl" />
+        <div className="absolute -right-20 bottom-[-160px] h-[420px] w-[420px] rounded-full bg-[radial-gradient(circle_at_center,rgba(56,189,248,0.22),rgba(56,189,248,0))] blur-3xl" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(15,23,42,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(15,23,42,0.06)_1px,transparent_1px)] bg-[size:44px_44px] [mask-image:radial-gradient(circle_at_50%_35%,black,transparent_72%)]" />
+      </div>
+
+      <div className="aa-container relative z-10 px-4 sm:px-6">
         <div className="grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14">
           <div>
             <p className="aa-kicker mb-3">Careers</p>

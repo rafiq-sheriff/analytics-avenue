@@ -64,6 +64,8 @@ h6 {
 
 p {
   font-family: var(--font-body), sans-serif;
+  /* Slightly heavier than default for readability; color stays from Tailwind/utilities */
+  font-weight: 500;
 }
 
 a {

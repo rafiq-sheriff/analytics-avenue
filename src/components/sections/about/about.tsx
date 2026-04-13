@@ -163,7 +163,7 @@ const About = () => {
               style={reveal(140)}
             >
               <h3
-                className="shrink-0 text-xs font-semibold uppercase tracking-[0.14em]"
+                className="shrink-0 text-xl font-extrabold   sm:text-xl"
                 style={{ color: primary }}
               >
                 About Analytics Avenue
@@ -207,7 +207,7 @@ const About = () => {
             <div id="approach" className="mt-7" style={reveal(280)}>
               <div className="mb-3 flex items-center gap-3">
                 <h3
-                  className="shrink-0 text-xs font-semibold uppercase tracking-[0.14em]"
+                  className="shrink-0 text-xl font-extrabold  sm:text-xl"
                   style={{ color: primary }}
                 >
                   Leadership Excellence
