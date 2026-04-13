@@ -2,11 +2,13 @@
 
 import {
   motion,
+  useMotionValue,
+  useMotionValueEvent,
   useReducedMotion,
-  useScroll,
   useTransform,
 } from "framer-motion";
 import type { MotionValue } from "framer-motion";
+import type { RefObject } from "react";
 import { useCallback, useId, useLayoutEffect, useRef, useState } from "react";
 
 const fontHeading = "font-[family-name:var(--font-heading)]";
@@ -24,6 +26,51 @@ const SEQUENTIAL_REVEAL_GAP = REVEAL_FADE + 0.018;
 const REVEAL_SCROLL_COMPRESSION = 0.82;
 /** Upper bound for path-based reveal thresholds so last node reaches full opacity before progress hits 1. */
 const REVEAL_AT_MAX = 1 - REVEAL_FADE - 0.02;
+
+/**
+ * Scroll progress 0→1 as the section crosses the viewport (standard “scroll-through”
+ * mapping). Works reliably on mobile; includes `visualViewport` for iOS URL bar /
+ * pinch-zoom. Replaces ad‑hoc start/end ratios that often kept progress ≈ 0 on phones.
+ */
+function useSectionViewportProgress(
+  sectionRef: RefObject<HTMLElement | null>,
+): MotionValue<number> {
+  const progress = useMotionValue(0);
+
+  useLayoutEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+
+    const measure = () => {
+      const rect = el.getBoundingClientRect();
+      const vh = window.innerHeight || 1;
+      const h = Math.max(rect.height, 1);
+      const p = (vh - rect.top) / (h + vh);
+      progress.set(Math.min(1, Math.max(0, p)));
+    };
+
+    measure();
+    const opts: AddEventListenerOptions = { passive: true };
+    window.addEventListener("scroll", measure, opts);
+    document.addEventListener("scroll", measure, opts);
+    window.addEventListener("resize", measure);
+    const vv = window.visualViewport;
+    vv?.addEventListener("scroll", measure);
+    vv?.addEventListener("resize", measure);
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    return () => {
+      window.removeEventListener("scroll", measure);
+      document.removeEventListener("scroll", measure);
+      window.removeEventListener("resize", measure);
+      vv?.removeEventListener("scroll", measure);
+      vv?.removeEventListener("resize", measure);
+      ro.disconnect();
+    };
+  }, [sectionRef]);
+
+  return progress;
+}
 
 /** Ensures each step’s reveal only after the previous step’s fade can finish. */
 function enforceSequentialRevealThresholds(
@@ -196,7 +243,9 @@ function useConnectorPath(count: number) {
   }, []);
 
   useLayoutEffect(() => {
+    let alive = true;
     const measure = () => {
+      if (!alive) return;
       const wrap = containerRef.current;
       if (!wrap) return;
 
@@ -224,10 +273,21 @@ function useConnectorPath(count: number) {
     };
 
     measure();
+    let rafOuter = 0;
+    let rafInner = 0;
+    rafOuter = requestAnimationFrame(() => {
+      rafInner = requestAnimationFrame(measure);
+    });
     const ro = new ResizeObserver(measure);
     if (containerRef.current) ro.observe(containerRef.current);
     window.addEventListener("resize", measure);
+    void document.fonts?.ready?.then(() => {
+      if (alive) measure();
+    });
     return () => {
+      alive = false;
+      cancelAnimationFrame(rafOuter);
+      cancelAnimationFrame(rafInner);
       ro.disconnect();
       window.removeEventListener("resize", measure);
     };
@@ -280,16 +340,29 @@ function CurvedTimelinePath({
     revealCbRef.current(scaled);
   }, [svg.d, pathLen, reduceMotion, svg.points]);
 
-  const dashOffset = useTransform(scrollYProgress, (v) => {
-    if (reduceMotion) return 0;
-    return (1 - v) * pathLen;
-  });
+  /** Plain `<path>` + attributes — `motion.path` often fails to apply animated `strokeDashoffset` in SVG. */
+  const applyProgressDash = useCallback(
+    (scroll01: number) => {
+      const el = pathRef.current;
+      if (!el || reduceMotion) return;
+      const len = el.getTotalLength();
+      if (len <= 0) return;
+      el.setAttribute("stroke-dasharray", `${len}`);
+      el.setAttribute("stroke-dashoffset", String((1 - scroll01) * len));
+    },
+    [reduceMotion],
+  );
+
+  useLayoutEffect(() => {
+    applyProgressDash(scrollYProgress.get());
+  }, [applyProgressDash, scrollYProgress, svg.d, pathLen]);
+
+  useMotionValueEvent(scrollYProgress, "change", applyProgressDash);
 
   if (svg.w <= 0 || !svg.d) return null;
 
   const trackStroke = 7;
   const progressStroke = 5;
-  const dashArray = pathLen > 0 ? pathLen : 1;
 
   return (
     <svg
@@ -299,7 +372,7 @@ function CurvedTimelinePath({
     >
       <defs>
         <linearGradient id={gradId} x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="var(--aa-primary)" stopOpacity="0.95" />
+          <stop offset="0%" stopColor="#1a73e8" stopOpacity="0.98" />
           <stop offset="100%" stopColor="#60a5fa" stopOpacity="0.85" />
         </linearGradient>
       </defs>
@@ -316,7 +389,7 @@ function CurvedTimelinePath({
         vectorEffect="non-scaling-stroke"
       />
 
-      {/* Scroll-revealed flowing curve */}
+      {/* Scroll-revealed curve — solid #1a73e8 so iOS/WebKit always paints; dash animates via ref */}
       {reduceMotion ? (
         <path
           ref={pathRef}
@@ -330,18 +403,15 @@ function CurvedTimelinePath({
           vectorEffect="non-scaling-stroke"
         />
       ) : (
-        <motion.path
+        <path
           ref={pathRef}
           d={svg.d}
           fill="none"
-          stroke={`url(#${gradId})`}
-          strokeWidth={progressStroke}
+          stroke="#1a73e8"
+          strokeWidth={Math.max(progressStroke + 1, 6)}
           strokeLinecap="round"
           strokeLinejoin="round"
-          strokeDasharray={dashArray}
-          strokeDashoffset={dashOffset}
-          className="drop-shadow-[0_0_14px_rgba(26,115,232,0.45)]"
-          vectorEffect="non-scaling-stroke"
+          className="drop-shadow-[0_0_12px_rgba(26,115,232,0.45)]"
         />
       )}
     </svg>
@@ -358,6 +428,7 @@ function FlowNode({
   scrollYProgress,
   revealAt,
   thresholdsReady,
+  layout = "snake",
 }: {
   index: number;
   text: string;
@@ -368,9 +439,12 @@ function FlowNode({
   scrollYProgress: MotionValue<number>;
   revealAt: number;
   thresholdsReady: boolean;
+  /** `snake`: centered column (grid cells). `stack`: dot rail left, text right (mobile). */
+  layout?: "snake" | "stack";
 }) {
   const Icon = ICONS[index % ICONS.length];
   const highlight = active;
+  const isStack = layout === "stack";
 
   const opacity = useTransform(scrollYProgress, (v) => {
     if (reduceMotion) return 1;
@@ -394,30 +468,46 @@ function FlowNode({
 
   const filter = useTransform(blurPx, (b) => `blur(${b}px)`);
 
+  /** Dot ref must sit on a non-transformed box so path geometry matches layout (scroll-driven `y` would skew `getBoundingClientRect`). */
+  const motionStyle = { opacity, y, filter };
+
   return (
-    <motion.div
-      style={{ opacity, y, filter }}
-      className="group relative z-[2] flex flex-col items-center text-center"
+    <div
+      className={
+        isStack
+          ? "group relative z-[2] flex w-full flex-row items-start gap-3 sm:gap-4"
+          : "group relative z-[2] flex flex-col items-center text-center"
+      }
       onMouseEnter={() => onHover(index)}
       onMouseLeave={() => onHover(null)}
     >
       <div
         ref={setDotRef(index)}
-        className={`relative flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-full border bg-white transition duration-300 sm:h-14 sm:w-14 ${
-          highlight
-            ? "border-[var(--aa-primary)] shadow-[0_10px_36px_-8px_color-mix(in_srgb,var(--aa-primary)_55%,transparent)]"
-            : "border-slate-200 shadow-sm group-hover:border-[var(--aa-primary)]/50 group-hover:shadow-[0_8px_28px_-10px_color-mix(in_srgb,var(--aa-primary)_40%,transparent)]"
-        }`}
+        className="relative flex h-[52px] w-[52px] shrink-0 items-center justify-center sm:h-14 sm:w-14"
         aria-hidden
       >
-        <Icon className="h-[22px] w-[22px] text-slate-900 transition group-hover:text-[var(--aa-primary)] sm:h-6 sm:w-6" />
+        <motion.div
+          style={motionStyle}
+          className={`flex h-full w-full items-center justify-center rounded-full border bg-white transition duration-300 ${
+            highlight
+              ? "border-[var(--aa-primary)] shadow-[0_10px_36px_-8px_color-mix(in_srgb,var(--aa-primary)_55%,transparent)]"
+              : "border-slate-200 shadow-sm group-hover:border-[var(--aa-primary)]/50 group-hover:shadow-[0_8px_28px_-10px_color-mix(in_srgb,var(--aa-primary)_40%,transparent)]"
+          }`}
+        >
+          <Icon className="h-[22px] w-[22px] text-slate-900 transition group-hover:text-[var(--aa-primary)] sm:h-6 sm:w-6" />
+        </motion.div>
       </div>
-      <p
-        className={`${fontHeading} mt-4 max-w-[18ch] text-[0.9375rem] font-bold leading-snug text-slate-900 transition group-hover:text-[var(--aa-primary)] sm:max-w-[22ch] sm:text-base`}
+      <motion.p
+        style={motionStyle}
+        className={`${fontHeading} text-[0.9375rem] font-bold leading-snug text-slate-900 transition group-hover:text-[var(--aa-primary)] sm:text-base ${
+          isStack
+            ? "min-w-0 flex-1 pt-2.5 text-left sm:pt-3"
+            : "mt-4 max-w-[18ch] text-center sm:max-w-[22ch]"
+        }`}
       >
         {text}
-      </p>
-    </motion.div>
+      </motion.p>
+    </div>
   );
 }
 
@@ -517,7 +607,7 @@ function ReasonsStackMobile({
   const thresholdsReady = revealThresholds.length === REASONS.length;
 
   return (
-    <div ref={containerRef} className="relative mx-auto max-w-md">
+    <div ref={containerRef} className="relative mx-auto w-full max-w-lg">
       <CurvedTimelinePath
         svg={svg}
         scrollYProgress={scrollYProgress}
@@ -525,10 +615,11 @@ function ReasonsStackMobile({
         onRevealThresholds={handleRevealThresholds}
       />
 
-      <div className="relative z-[1] flex flex-col gap-12 sm:gap-14">
+      <div className="relative z-[1] flex flex-col gap-10 sm:gap-12">
         {REASONS.map((text, index) => (
           <FlowNode
             key={`${index}-${text}`}
+            layout="stack"
             index={index}
             text={text}
             active={hovered === index}
@@ -548,12 +639,9 @@ function ReasonsStackMobile({
 const Reasons = () => {
   const reduceMotion = useReducedMotion() ?? false;
   const sectionRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start 0.78", "end 0.22"],
-  });
+  const sectionScroll = useSectionViewportProgress(sectionRef);
 
-  const revealProgress = useTransform(scrollYProgress, (v) =>
+  const revealProgress = useTransform(sectionScroll, (v) =>
     Math.min(1, v / REVEAL_SCROLL_COMPRESSION),
   );
 
@@ -562,7 +650,7 @@ const Reasons = () => {
       ref={sectionRef}
       id="reasons"
       aria-labelledby="reasons-title"
-      className="aa-section relative overflow-hidden bg-white"
+      className="aa-section relative overflow-x-hidden bg-white"
     >
       <div
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_90%_60%_at_50%_0%,color-mix(in_srgb,var(--aa-primary)_10%,transparent),transparent_50%)]"
@@ -589,13 +677,13 @@ const Reasons = () => {
         </motion.header>
 
         <div className="relative">
-          <div className="hidden md:block">
+          <div className="hidden lg:block">
             <ReasonsSnakeDesktop
               reduceMotion={reduceMotion}
               scrollYProgress={revealProgress}
             />
           </div>
-          <div className="md:hidden">
+          <div className="lg:hidden">
             <ReasonsStackMobile
               reduceMotion={reduceMotion}
               scrollYProgress={revealProgress}
