@@ -127,7 +127,7 @@ const SkillIcon = memo(({ type }: SkillIconProps) => {
 SkillIcon.displayName = "SkillIcon";
 
 const INNER_LAYER_ASSETS = {
-  digitalMarketing: "/assets/hero/inner-layer/instagram.svg",
+  digitalMarketing: "/assets/hero/inner-layer/digital-marketing.svg",
   crm: "/assets/hero/inner-layer/crm.svg",
   salesAutomation: "/assets/hero/inner-layer/sales-automation.svg",
 } as const;
@@ -193,7 +193,7 @@ const skillsConfig: SkillConfig[] = [
     size: 56,
     speed: 1,
     imageSrc: INNER_LAYER_ASSETS.digitalMarketing,
-    accentColor: "#E4405F",
+    accentColor: "#0082FB",
     phaseShift: 0,
     glowColor: "cyan",
     label: "Digital Marketing",
@@ -264,7 +264,7 @@ const skillsConfig: SkillConfig[] = [
     accentColor: "#6366f1",
     phaseShift: 2 * OUTER_PHASE_STEP,
     glowColor: "purple",
-    label: "Predictive Model",
+    label: "Predictive Models",
   },
   {
     id: "data-engineer-outer",

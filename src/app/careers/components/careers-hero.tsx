@@ -1,5 +1,5 @@
-import Image from "next/image";
 import { CAREERS_LINKEDIN_URL, CAREERS_YOUTUBE_URL } from "../data";
+import CareersHeroServicesCard from "./careers-hero-services-card";
 
 export default function CareersHero() {
   return (
@@ -39,18 +39,8 @@ export default function CareersHero() {
               </a>
             </div>
           </div>
-          <div className="relative mx-auto w-full max-w-lg lg:max-w-none">
-            <div className="relative overflow-hidden rounded-[1.5rem] border border-slate-200/80 bg-white shadow-[var(--aa-shadow-lg)]">
-              <Image
-                src="/assets/images/about/image.png"
-                alt="Analytics Avenue Team"
-                width={1073}
-                height={1284}
-                className="h-auto w-full object-cover"
-                sizes="(max-width: 1024px) 100vw, 480px"
-                priority
-              />
-            </div>
+          <div className="relative mx-auto w-full max-w-lg lg:mx-0 lg:max-w-none lg:justify-self-end">
+            <CareersHeroServicesCard />
           </div>
         </div>
       </div>
