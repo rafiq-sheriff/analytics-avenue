@@ -597,7 +597,7 @@ const Curriculam = () => {
                       className="flex flex-col items-center justify-center"
                     >
                       <p
-                        className={`text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-[2.75rem] ${fontHeading}`}
+                        className="font-[family-name:var(--font-sora)] text-4xl font-bold tracking-tight sm:text-5xl lg:text-[2.75rem]"
                       >
                         {row.figure}
                       </p>

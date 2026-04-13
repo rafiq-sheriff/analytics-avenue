@@ -96,7 +96,7 @@ function CountUpPercentRange({
   }, [target]);
 
   return (
-    <span className="tabular-nums tracking-tight">
+    <span className="tabular-nums font-extrabold tracking-tight">
       {a}–{b}%
     </span>
   );
@@ -113,7 +113,7 @@ function AnimatedPercentRange({
 
   if (reduceMotion) {
     return (
-      <span className="tabular-nums tracking-tight">
+      <span className="tabular-nums font-extrabold tracking-tight">
         {target[0]}–{target[1]}%
       </span>
     );
@@ -121,7 +121,7 @@ function AnimatedPercentRange({
 
   if (!active) {
     return (
-      <span className="tabular-nums tracking-tight">
+      <span className="tabular-nums font-extrabold tracking-tight">
         {target[0]}–{target[1]}%
       </span>
     );

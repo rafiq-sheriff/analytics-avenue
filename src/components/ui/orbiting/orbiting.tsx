@@ -135,6 +135,7 @@ const INNER_LAYER_ASSETS = {
 const OUTER_LAYER_ASSETS = {
   agenticAi: "/assets/hero/outer-layer/agentic-ai.svg",
   biSolution: "/assets/hero/outer-layer/bi-solution.svg",
+  predictiveModel: "/assets/hero/outer-layer/predictive-model.svg",
   dataEngineer: "/assets/hero/outer-layer/data-engineer.svg",
   placementPrograms: "/assets/hero/outer-layer/placement-programs.svg",
 } as const;
@@ -231,7 +232,7 @@ const skillsConfig: SkillConfig[] = [
     glowColor: "cyan",
     label: "Sales Automation",
   },
-  // Outer orbit — four hero SVGs + JavaScript (inline icon)
+  // Outer orbit — five hero SVGs
   {
     id: "agentic-ai-outer",
     orbitRadius: OUTER_RADIUS,
@@ -259,11 +260,11 @@ const skillsConfig: SkillConfig[] = [
     orbitRadius: OUTER_RADIUS,
     size: 56,
     speed: -0.6,
-    iconType: "javascript",
-    accentColor: iconComponents.javascript.color,
+    imageSrc: OUTER_LAYER_ASSETS.predictiveModel,
+    accentColor: "#6366f1",
     phaseShift: 2 * OUTER_PHASE_STEP,
     glowColor: "purple",
-    label: "javascript",
+    label: "Predictive Model",
   },
   {
     id: "data-engineer-outer",
@@ -404,7 +405,7 @@ export default function OrbitingSkills({ className }: OrbitingSkillsProps) {
     <div
       className={`relative flex w-full flex-col items-center justify-center overflow-visible bg-transparent ${className ?? ""}`}
       role="img"
-      aria-label="Lottie robot at center with orbiting icons: inner ring Digital Marketing, Web development, CRM Pipeline, Sales Automation; outer ring Ai Agents, BI Solutions, javascript, Data Engineering, Placement Programs"
+      aria-label="Lottie robot at center with orbiting icons: inner ring Digital Marketing, Web development, CRM Pipeline, Sales Automation; outer ring Ai Agents, BI Solutions, Predictive Model, Data Engineering, Placement Programs"
     >
       <div
         className="relative flex h-[min(calc(100vw-32px),500px)] w-[min(calc(100vw-32px),500px)] items-center justify-center sm:h-[580px] sm:w-[580px] md:h-[620px] md:w-[620px]"

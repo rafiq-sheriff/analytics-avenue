@@ -138,7 +138,7 @@ function InfoCard({ member }: { member: TeamMember }) {
       aria-label={`${member.name}, ${member.role}`}
     >
       <div className="flex min-h-0 flex-1 flex-col justify-center gap-1.5 sm:gap-2">
-        <p className="text-[10px] font-semibold uppercase leading-tight tracking-[0.12em] text-slate-900 sm:text-[11px] sm:tracking-[0.14em]">
+        <p className="text-[10px] font-bold uppercase  text-slate-900 sm:text-[11px] sm:tracking-[0.05em]">
           [ {formatRoleTag(member.role)} ]
         </p>
         <h3

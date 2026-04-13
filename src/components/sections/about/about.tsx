@@ -172,7 +172,7 @@ const About = () => {
             </div>
 
             <p
-              className="text-lg leading-relaxed text-slate-600 sm:text-[1.2rem] sm:leading-[1.3]"
+              className="text-lg leading-relaxed text-[#080808] sm:text-[1.2rem] sm:leading-[1.3]"
               style={reveal(180)}
             >
               At Analytics Avenue, we empower professionals and businesses
@@ -215,7 +215,7 @@ const About = () => {
                 <span className="h-px w-full bg-blue-200" />
               </div>
 
-              <ul className="space-y-2.5 text-base leading-relaxed text-slate-600">
+              <ul className="space-y-2.5 text-base leading-relaxed text-[#080808]">
                 <li className="flex items-start gap-2.5">
                   <span className="mt-1 text-sm font-bold text-[var(--aa-primary)]" aria-hidden>
                     ✓

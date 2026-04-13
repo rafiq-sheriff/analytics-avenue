@@ -63,14 +63,14 @@ const Navbar = () => {
       <div className="aa-container flex items-center justify-between px-4 py-3.5 sm:px-6 sm:py-4">
         <a
           href="/"
-          className="inline-flex items-center gap-2 text-lg font-extrabold tracking-tight text-slate-900 sm:text-xl"
+          className="inline-flex items-center gap-2 text-lg font-extrabold tracking-tight text-[#080808] sm:text-xl"
           aria-label="Analytics Avenue home"
         >
           <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-[var(--aa-primary)] text-sm font-bold text-white">
             AA
           </span>
           <span>
-            Analytics <span className="text-[var(--aa-primary)]">Avenue</span>
+            Analytics <span className="text-[#080808]">Avenue</span>
           </span>
         </a>
 
@@ -80,7 +80,7 @@ const Navbar = () => {
               <a
                 key={link.label}
                 href={resolvedHashHref(pathname, link.href)}
-                className="text-sm font-medium text-slate-600 transition hover:text-[var(--aa-primary)]"
+                className="text-sm font-medium text-[#080808] transition hover:text-[#080808]"
                 onClick={(e) => handleHashNavClick(e, link.href)}
               >
                 {link.label}
@@ -89,7 +89,7 @@ const Navbar = () => {
               <Link
                 key={link.label}
                 href={link.href}
-                className="text-sm font-medium text-slate-600 transition hover:text-[var(--aa-primary)]"
+                className="text-sm font-medium text-[#080808] transition hover:text-[#080808]"
               >
                 {link.label}
               </Link>
@@ -100,14 +100,14 @@ const Navbar = () => {
         <div className="hidden items-center gap-3 md:flex">
           <a
             href={resolvedHashHref(pathname, "#about")}
-            className="aa-btn-secondary px-4 py-2 text-sm"
+            className="aa-btn-secondary px-4 py-2 text-sm text-[#080808]"
             onClick={(e) => handleHashNavClick(e, "#about")}
           >
             EDTech Solutions
           </a>
           <Link
             href="/careers"
-            className="aa-btn-primary px-4 py-2 text-sm shadow-md shadow-blue-300/40"
+            className="aa-btn-primary px-4 py-2 text-sm text-[#080808] shadow-md shadow-blue-300/40"
           >
             Careers
           </Link>
@@ -115,7 +115,7 @@ const Navbar = () => {
 
         <button
           type="button"
-          className="inline-flex items-center justify-center rounded-lg border border-slate-200 p-2 text-slate-700 transition hover:bg-slate-100 md:hidden"
+          className="inline-flex items-center justify-center rounded-lg border border-slate-200 p-2 text-[#080808] transition hover:bg-slate-100 md:hidden"
           aria-controls="mobile-menu"
           aria-expanded={isMenuOpen}
           aria-label="Toggle menu"
@@ -156,7 +156,7 @@ const Navbar = () => {
                 <a
                   key={link.label}
                   href={resolvedHashHref(pathname, link.href)}
-                  className="text-sm font-medium text-slate-700 transition hover:text-[var(--aa-primary)]"
+                  className="text-sm font-medium text-[#080808] transition hover:text-[#080808]"
                   onClick={(e) => handleHashNavClick(e, link.href)}
                 >
                   {link.label}
@@ -165,7 +165,7 @@ const Navbar = () => {
                 <Link
                   key={link.label}
                   href={link.href}
-                  className="text-sm font-medium text-slate-700 transition hover:text-[var(--aa-primary)]"
+                  className="text-sm font-medium text-[#080808] transition hover:text-[#080808]"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {link.label}
@@ -176,13 +176,13 @@ const Navbar = () => {
               <a
                 href={resolvedHashHref(pathname, "#about")}
                 onClick={(e) => handleHashNavClick(e, "#about")}
-                className="aa-btn-secondary px-4 py-2 text-center text-sm"
+                className="aa-btn-secondary px-4 py-2 text-center text-sm text-[#080808]"
               >
                 EDTech Solutions
               </a>
               <Link
                 href="/careers"
-                className="aa-btn-primary px-4 py-2 text-center text-sm"
+                className="aa-btn-primary px-4 py-2 text-center text-sm text-[#080808]"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Careers
