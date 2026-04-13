@@ -9,9 +9,12 @@ import {
 import type { LucideIcon } from "lucide-react";
 import {
   CircleDollarSign,
+  Clock3,
+  Cpu,
   Gauge,
   Heart,
   LineChart,
+  RefreshCcw,
   ShieldAlert,
   Target,
 } from "lucide-react";
@@ -72,6 +75,27 @@ const IMPACT_ROWS: readonly ImpactRow[] = [
     description:
       "From pricing optimization, funnel analytics, and performance-driven decisioning.",
     Icon: CircleDollarSign,
+  },
+  {
+    range: [40, 55],
+    title: "Reduction in reporting turnaround time",
+    description:
+      "Enabled through dashboard automation, reusable semantic models, and scheduled data refresh workflows.",
+    Icon: Clock3,
+  },
+  {
+    range: [50, 65],
+    title: "Improvement in process automation coverage",
+    description:
+      "Achieved by integrating AI agents, workflow orchestration, and trigger-based operations across teams.",
+    Icon: Cpu,
+  },
+  {
+    range: [35, 50],
+    title: "Reduction in manual rework and duplicate efforts",
+    description:
+      "Driven by standardized pipelines, data quality checks, and centralized KPI definitions.",
+    Icon: RefreshCcw,
   },
 ] as const;
 

@@ -39,12 +39,12 @@ const challenges: ChallengeItem[] = [
   },
   {
     id: "supply-chain",
-    badgeLabel: "Supply Chain Analytics",
+    badgeLabel: "Supply Chain",
     headline: "Streamline Operations Efficiently.",
     description:
       "Optimize logistics, inventory, and demand planning with real-time data insights.",
     bullets: [
-      "Track inventory and logistics",
+      "Track inventory  and logistics",
       "Improve demand forecasting",
       "Reduce operational inefficiencies",
     ],

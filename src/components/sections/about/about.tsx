@@ -215,41 +215,53 @@ const About = () => {
                 <span className="h-px w-full bg-blue-200" />
               </div>
 
-              <ul className="space-y-2.5 text-base leading-relaxed text-[#080808]">
+              <ul className="space-y-2.5 text-lg font-medium leading-relaxed text-[#080808] sm:text-[1.2rem] sm:leading-[1.3]">
                 <li className="flex items-start gap-2.5">
-                  <span className="mt-1 text-sm font-bold text-[var(--aa-primary)]" aria-hidden>
+                  <span
+                    className="mt-[0.35em] shrink-0 font-bold leading-none text-[var(--aa-primary)]"
+                    aria-hidden
+                  >
                     ✓
                   </span>
                   <span>
-                  Worked with 15+ global brands, delivering data-driven
-                  strategies and intelligent solutions.
+                    Worked with 15+ global brands, delivering data-driven
+                    strategies and intelligent solutions.
                   </span>
                 </li>
                 <li className="flex items-start gap-2.5">
-                  <span className="mt-1 text-sm font-bold text-[var(--aa-primary)]" aria-hidden>
+                  <span
+                    className="mt-[0.35em] shrink-0 font-bold leading-none text-[var(--aa-primary)]"
+                    aria-hidden
+                  >
                     ✓
                   </span>
                   <span>
-                  Recognized as a leading AI speaker for contributions to AI
-                  education and industry adoption.
+                    Recognized as a leading AI speaker for contributions to AI
+                    education and industry adoption.
                   </span>
                 </li>
                 <li className="flex items-start gap-2.5">
-                  <span className="mt-1 text-sm font-bold text-[var(--aa-primary)]" aria-hidden>
+                  <span
+                    className="mt-[0.35em] shrink-0 font-bold leading-none text-[var(--aa-primary)]"
+                    aria-hidden
+                  >
                     ✓
                   </span>
                   <span>
-                  Empowered 1,000+ students through focused data and analytics
-                  initiatives.
+                    Empowered 1,000+ students through focused data and analytics
+                    initiatives.
                   </span>
                 </li>
                 <li className="flex items-start gap-2.5">
-                  <span className="mt-1 text-sm font-bold text-[var(--aa-primary)]" aria-hidden>
+                  <span
+                    className="mt-[0.35em] shrink-0 font-bold leading-none text-[var(--aa-primary)]"
+                    aria-hidden
+                  >
                     ✓
                   </span>
                   <span>
-                  Driving efforts to bridge academia and industry by building
-                  future-ready AI talent.
+                    Driving efforts to bridge academia and industry by building
+                    future-ready AI talent.
                   </span>
                 </li>
               </ul>

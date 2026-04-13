@@ -134,7 +134,7 @@ const INNER_LAYER_ASSETS = {
 
 const OUTER_LAYER_ASSETS = {
   agenticAi: "/assets/hero/outer-layer/agentic-ai.svg",
-  biSolution: "/assets/hero/outer-layer/bi-solution.svg",
+  biSolution: "/assets/hero/outer-layer/bi.svg",
   predictiveModel: "/assets/hero/outer-layer/predictive-model.svg",
   dataEngineer: "/assets/hero/outer-layer/data-engineer.svg",
   placementPrograms: "/assets/hero/outer-layer/placement-programs.svg",
@@ -307,6 +307,7 @@ const OrbitingSkill = memo(({ config, angle }: OrbitingSkillProps) => {
         transform: `translate(calc(${x}px - 50%), calc(${y}px - 50%))`,
         zIndex: isHovered ? 30 : 10,
       }}
+      aria-label={label}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -314,7 +315,7 @@ const OrbitingSkill = memo(({ config, angle }: OrbitingSkillProps) => {
         className={`
           relative flex h-full w-full cursor-pointer items-center justify-center overflow-hidden rounded-full
           border border-slate-200/90 bg-white p-2 shadow-md transition-all duration-300
-          ${isHovered ? "scale-125 shadow-2xl" : "hover:shadow-lg"}
+          ${isHovered ? "shadow-2xl" : "hover:shadow-lg"}
         `}
         style={{
           boxShadow: isHovered
@@ -329,14 +330,12 @@ const OrbitingSkill = memo(({ config, angle }: OrbitingSkillProps) => {
         />
       </div>
       {/* Outside overflow-hidden circle so label is not clipped (pill below icon) */}
-      {isHovered && (
-        <div
-          className="pointer-events-none absolute left-1/2 top-full z-[40] mt-2 -translate-x-1/2 whitespace-nowrap rounded-full bg-[#1a1c23] px-3 py-1.5 text-xs font-medium text-white shadow-lg sm:text-sm"
-          role="tooltip"
-        >
-          {label}
-        </div>
-      )}
+      <div
+        className="pointer-events-none absolute left-1/2 top-full z-[40] mt-2 -translate-x-1/2 whitespace-nowrap rounded-full bg-[#1a1c23] px-3 py-1.5 font-[family-name:var(--font-heading)] text-[11px] font-semibold leading-snug tracking-tight text-white/95 shadow-lg sm:text-[13px]"
+        aria-hidden
+      >
+        {label}
+      </div>
     </div>
   );
 });
@@ -408,7 +407,7 @@ export default function OrbitingSkills({ className }: OrbitingSkillsProps) {
       aria-label="Lottie robot at center with orbiting icons: inner ring Digital Marketing, Web development, CRM Pipeline, Sales Automation; outer ring Ai Agents, BI Solutions, Predictive Model, Data Engineering, Placement Programs"
     >
       <div
-        className="relative flex h-[min(calc(100vw-32px),500px)] w-[min(calc(100vw-32px),500px)] items-center justify-center sm:h-[580px] sm:w-[580px] md:h-[620px] md:w-[620px]"
+        className="relative flex h-[min(calc(100vw-32px),500px)] w-[min(calc(100vw-32px),500px)] items-center justify-center pb-12 sm:h-[580px] sm:w-[580px] md:h-[620px] md:w-[620px]"
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
       >

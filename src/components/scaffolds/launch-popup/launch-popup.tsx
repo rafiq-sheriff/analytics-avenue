@@ -54,7 +54,7 @@ export default function LaunchPopup() {
           </h2>
 
           <p
-            className={`${fontBody} mt-4 text-2xl font-extrabold text-[var(--aa-text-strong)] sm:text-3xl`}
+            className={`${fontBody} mt-4 text-2xl font-extrabold text-[var(--aa-text-strong)] sm:text-2xl`}
           >
             Only for Shortlisted 150 Aspirants
           </p>

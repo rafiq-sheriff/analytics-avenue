@@ -21,12 +21,6 @@ const rotatingAiCapabilities = [
   "GenAI Solutions",
 ];
 
-const heroValueChain = [
-  "Unify your data",
-  "Activate AI agents",
-  "One integrated platform",
-];
-
 const heroMatrix = [
   {
     value: "2000+",
@@ -66,12 +60,6 @@ const heroMatrix = [
   },
 ] as const;
 
-const heroTrustSignals = [
-  "No credit card to start",
-  "Guided onboarding included",
-  "Enterprise-grade security",
-];
-
 const Hero = () => {
   return (
     <section
@@ -107,98 +95,26 @@ const Hero = () => {
             So that your business runs like an enterprise.
           </p>
 
-          <div className="mt-8 flex flex-col gap-3 sm:mt-9 sm:flex-row sm:flex-wrap sm:items-center">
-            <a href="#cta" className="aa-btn-primary shadow-lg shadow-blue-300/40">
-              Get Started Free
-              <svg
-                viewBox="0 0 15 15"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-4 w-4"
-              >
-                <path
-                  d="M8.5 3.5L12 7.5L8.5 11.5M3 7.5H12"
-                  stroke="white"
-                  strokeWidth="1.75"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </a>
-
-            <a href="#services" className="aa-btn-secondary">
-              Explore Services
-              <svg
-                viewBox="0 0 15 15"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-4 w-4"
-              >
-                <path
-                  d="M8.5 3.5L12 7.5L8.5 11.5M3 7.5H12"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </a>
-          </div>
-
-          <div className="mt-9 space-y-8 sm:mt-10">
-            <p
-              className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[13px] leading-snug text-slate-600 sm:text-sm"
-              aria-label={heroValueChain.join(". ")}
-            >
-              {heroValueChain.map((phrase, index) => (
-                <span key={phrase} className="inline-flex items-center gap-x-2">
-                  {index > 0 && (
-                    <span className="text-slate-400" aria-hidden>
-                      &gt;
-                    </span>
-                  )}
-                  <span>{phrase}</span>
-                </span>
-              ))}
-            </p>
-
-            <div className="grid gap-6 sm:grid-cols-3 sm:gap-4">
-              {heroMatrix.map(({ value, title, sublabel, Icon }) => (
-                <div key={title} className="flex min-w-0 items-start gap-3">
-                  <div
-                    className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[color-mix(in_srgb,var(--aa-primary)_14%,transparent)] text-[var(--aa-primary)]"
-                    aria-hidden
-                  >
-                    <Icon className="h-5 w-5" strokeWidth={1.75} />
-                  </div>
-                  <div className="min-w-0">
-                    <p className="font-[family-name:var(--font-heading)] text-2xl font-extrabold tracking-tight text-slate-900 sm:text-[1.65rem]">
-                      {value}
-                    </p>
-                    <p className="mt-0.5 text-[13px] leading-snug text-slate-600 sm:text-sm">
-                      <span className="block">{title}</span>
-                      <span className="block text-slate-500">{sublabel}</span>
-                    </p>
-                  </div>
+          <div className="mt-9 grid gap-6 sm:mt-10 sm:grid-cols-3 sm:gap-4">
+            {heroMatrix.map(({ value, title, sublabel, Icon }) => (
+              <div key={title} className="flex min-w-0 items-start gap-3">
+                <div
+                  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[color-mix(in_srgb,var(--aa-primary)_14%,transparent)] text-[var(--aa-primary)]"
+                  aria-hidden
+                >
+                  <Icon className="h-5 w-5" strokeWidth={1.75} />
                 </div>
-              ))}
-            </div>
-
-            <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[13px] text-slate-600 sm:text-sm">
-              {heroTrustSignals.map((signal, index) => (
-                <span key={signal} className="inline-flex items-center gap-x-2">
-                  {index > 0 && (
-                    <span className="text-slate-300" aria-hidden>
-                      |
-                    </span>
-                  )}
-                  <span className="text-emerald-600" aria-hidden>
-                    ✓
-                  </span>
-                  <span>{signal}</span>
-                </span>
-              ))}
-            </p>
+                <div className="min-w-0">
+                  <p className="font-[family-name:var(--font-heading)] text-2xl font-extrabold tracking-tight text-slate-900 sm:text-[1.65rem]">
+                    {value}
+                  </p>
+                  <p className="mt-0.5 text-[13px] leading-snug text-slate-600 sm:text-sm">
+                    <span className="block">{title}</span>
+                    <span className="block text-slate-500">{sublabel}</span>
+                  </p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
 
