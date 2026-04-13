@@ -17,10 +17,12 @@ import Impact from "@/components/sections/impact/impact";
 import NewFaq from "@/components/sections/newfaq/newfaq";
 import NewReason from "@/components/sections/newreason/newreason";
 import Curriculam from "@/components/sections/curriculam/curriculam";
+import LaunchPopup from "@/components/scaffolds/launch-popup/launch-popup";
 
 export default function Home() {
   return (
     <div className="bg-white">
+      <LaunchPopup />
       <Navbar />
       <Hero />
       <Technology />  

@@ -29,7 +29,7 @@ const footerColumns = [
       { label: "Careers", href: "/careers" },
       { label: "Core Technology", href: "#challenges" },
       { label: "Client Testimonials", href: "#testimonial-title" },
-      { label: "FAQs", href: "#faq-title" },
+      { label: "Curriculum", href: "/#curriculum-heading" },
       { label: "Contact Us", href: "/contact" },
     ],
   },
