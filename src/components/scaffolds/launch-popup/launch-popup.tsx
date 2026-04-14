@@ -29,7 +29,7 @@ export default function LaunchPopup() {
 
   return (
     <div
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/55 px-4"
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 px-4"
       role="dialog"
       aria-modal="true"
       aria-label="Industry Ready GenAI program offer"
@@ -62,10 +62,12 @@ export default function LaunchPopup() {
           <Link
             href="/#curriculum-heading"
             className={`${fontBody} aa-btn-primary mt-7 min-w-44 px-8 py-3 text-base font-semibold`}
+            style={{ backgroundColor: "#1C3D76" }}
             onClick={() => setIsOpen(false)}
           >
             Enroll Now
           </Link>
+     
         </div>
       </div>
     </div>

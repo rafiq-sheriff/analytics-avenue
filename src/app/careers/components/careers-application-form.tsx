@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import { useCallback, useState } from "react";
 import {
   CAREER_PATHS,
@@ -197,7 +198,7 @@ export default function CareersApplicationForm({ onSubmitted, onRoleChange }: Ca
                     "flex cursor-pointer items-start gap-3 rounded-xl border px-3 py-2.5 text-sm transition",
                     selectedRole === roleTitle
                       ? "border-[var(--aa-primary)] bg-[color-mix(in_srgb,var(--aa-primary)_8%,white)] text-slate-900 shadow-[0_4px_14px_-8px_rgba(26,115,232,0.45)]"
-                      : "border-slate-200 bg-[var(--aa-surface-soft)] text-slate-800 hover:border-[var(--aa-primary)]/35",
+                      : "border-slate-200 bg-[var(--aa-surface-soft)] text-slate-700 hover:border-[var(--aa-primary)]/35",
                   ].join(" ")}
                 >
                   <input
@@ -277,7 +278,7 @@ export default function CareersApplicationForm({ onSubmitted, onRoleChange }: Ca
               Only Data analytics professionals fill the below area
             </h3>
 
-            <h4 className="mt-6 text-sm font-semibold text-slate-800">
+            <h4 className="mt-6 text-sm font-semibold text-slate-900">
               Models Based Evaluation: Specify the number of Projects
             </h4>
             <div className="mt-3 grid gap-4 sm:grid-cols-2">
@@ -319,7 +320,7 @@ export default function CareersApplicationForm({ onSubmitted, onRoleChange }: Ca
               </label>
             </div>
 
-            <h4 className="mt-8 text-sm font-semibold text-slate-800">
+            <h4 className="mt-8 text-sm font-semibold text-slate-900">
               Sectors Based Experience: Mark the number of projects worked
             </h4>
             <ol className="mt-3 grid gap-4 sm:grid-cols-2">
@@ -348,9 +349,9 @@ export default function CareersApplicationForm({ onSubmitted, onRoleChange }: Ca
       )}
 
       <div id={S.submit} className="scroll-mt-28 flex justify-center sm:justify-start">
-        <button type="submit" className="aa-btn-primary min-h-[3rem] px-8 text-base shadow-md shadow-blue-300/40">
+        <Button type="submit" variant="primary" className="min-h-[3rem] px-8 text-base">
           Submit Application
-        </button>
+        </Button>
       </div>
     </form>
   );

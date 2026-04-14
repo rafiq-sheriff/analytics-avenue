@@ -179,10 +179,7 @@ const Faq = () => {
                 enrolling.
               </p>
               <div className="mt-6 flex justify-start">
-                <a
-                  href="#cta"
-                  className="aa-btn-primary w-full shadow-lg shadow-blue-300/40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--aa-primary)]"
-                >
+                <a href="#cta" className="aa-btn-primary w-full">
                   Book a Free Call
                 </a>
               </div>

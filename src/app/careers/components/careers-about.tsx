@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { CAREERS_TEAM } from "../data";
 
@@ -179,12 +178,13 @@ export default function CareersAbout() {
           >
             <h2
               id="careers-about-title"
-              className="font-[family-name:var(--font-heading)] text-center text-2xl font-extrabold leading-tight tracking-tight text-slate-900 sm:text-3xl lg:text-[1.85rem] xl:text-4xl"
+              className="mb-2 text-center text-3xl font-extrabold leading-tight text-slate-900 sm:text-4xl"
             >
-              Where Data Meets{" "} <br />
+              Where Data Meets{" "}
+              <br />
               <span className="rounded-sm bg-[var(--aa-primary)] px-2 py-0.5 text-white">Real-World Impact</span>
             </h2>
-            <p className="mx-auto mt-2 max-w-xl text-center text-base leading-relaxed text-slate-600 sm:text-[1.05rem]">
+            <p className="mx-auto mt-2 max-w-xl text-center text-base font-semibold leading-relaxed text-[#080808] sm:text-lg">
               Analytics Avenue is where data meets intelligence—a team of scientists, engineers, and AI innovators
               shaping talent and enterprise BI, GenAI, and analytics platforms that deliver measurable outcomes.
             </p>
@@ -205,7 +205,7 @@ export default function CareersAbout() {
                 <h3 className="mt-3 font-[family-name:var(--font-heading)] text-base font-bold text-slate-900">
                   Confidentiality
                 </h3>
-                <p className="mt-2 text-sm leading-relaxed text-slate-600">
+                <p className="mt-2 text-sm font-semibold leading-relaxed text-slate-600">
                   Your profile, resume, and application details are handled with discretion—secure processes built for
                   trust at every step.
                 </p>
@@ -224,14 +224,14 @@ export default function CareersAbout() {
                 <h3 className="mt-3 font-[family-name:var(--font-heading)] text-base font-bold text-slate-900">
                   Accessibility
                 </h3>
-                <p className="mt-2 text-sm leading-relaxed text-slate-600">
+                <p className="mt-2 text-sm font-semibold leading-relaxed text-slate-600">
                   Hiring paths for interns, experienced hires, and returners—clear steps and support so more people can
                   grow with us.
                 </p>
               </div>
             </div>
 
-            <p className="mt-8 text-center font-[family-name:var(--font-heading)] text-sm font-bold text-slate-800 sm:text-base">
+            <p className="mt-8 text-center font-[family-name:var(--font-heading)] text-sm font-semibold text-slate-600 sm:text-base">
               *Smarter Teams *Stronger Systems *Scalable AI.
             </p>
           </div>

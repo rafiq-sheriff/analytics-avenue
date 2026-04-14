@@ -4,9 +4,6 @@ import { useEffect, useState, type FormEvent } from "react";
 
 const fontBody = "font-[family-name:var(--font-body)]";
 
-/** Matches former primary CTA: white fill, brand blue text, soft shadow. */
-const subscribeButtonClass = `${fontBody} inline-flex shrink-0 items-center justify-center rounded-xl bg-white px-6 py-3 text-sm font-semibold text-[var(--aa-primary)] shadow-lg shadow-white/30 transition hover:-translate-y-0.5 hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--aa-primary)]`;
-
 export default function NewsletterForm() {
   const [showThanks, setShowThanks] = useState(false);
 
@@ -48,7 +45,10 @@ export default function NewsletterForm() {
           placeholder="you@company.com"
           className={`${fontBody} min-h-[2.75rem] w-full flex-1 rounded-xl border border-white/40 bg-white/10 px-4 py-3 text-sm text-white placeholder:text-white/55 focus:border-white/70 focus:outline-none focus:ring-2 focus:ring-white/40`}
         />
-        <button type="submit" className={subscribeButtonClass}>
+        <button
+          type="submit"
+          className={`${fontBody} aa-btn-inverse shrink-0 transition hover:-translate-y-0.5`}
+        >
           Subscribe
         </button>
       </form>

@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import { useCallback, useState } from "react";
 
 /**
@@ -94,9 +95,13 @@ export default function ContactForm() {
       </div>
 
       <div className="pt-2">
-        <button type="submit" className="aa-btn-primary w-full px-6 py-3 text-sm sm:w-auto">
+        <Button
+          type="submit"
+          variant="primary"
+          className="w-full px-6 py-3 text-sm sm:w-auto"
+        >
           Send Message
-        </button>
+        </Button>
       </div>
     </form>
   );

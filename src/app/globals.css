@@ -5,6 +5,8 @@
   --foreground: #171717;
   --aa-primary: #1a73e8;
   --aa-primary-hover: #155ec1;
+  --aa-accent: #059669;
+  --aa-accent-hover: #047857;
   --aa-text-strong: #0f172a;
   --aa-text-muted: #475569;
   --aa-surface: #ffffff;
@@ -165,6 +167,58 @@ a {
 }
 
 .aa-btn-secondary:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--aa-primary);
+}
+
+.aa-btn-accent {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: var(--aa-radius-xl);
+  background: var(--aa-accent);
+  padding: 0.75rem 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #fff;
+  box-shadow: 0 12px 30px -16px rgba(5, 150, 105, 0.55);
+  transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.aa-btn-accent:hover {
+  background: var(--aa-accent-hover);
+}
+
+.aa-btn-accent:focus-visible {
+  outline: none;
+  box-shadow: 0 12px 30px -16px rgba(5, 150, 105, 0.55),
+    0 0 0 2px #fff, 0 0 0 4px var(--aa-accent);
+}
+
+/** Light button for saturated / dark brand backgrounds (e.g. CTA gradient). */
+.aa-btn-inverse {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: var(--aa-radius-xl);
+  background: #ffffff;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--aa-primary);
+  box-shadow: 0 12px 30px -16px rgba(255, 255, 255, 0.45);
+  transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.aa-btn-inverse:hover {
+  background: #f1f5f9;
+}
+
+.aa-btn-inverse:focus-visible {
   outline: none;
   box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--aa-primary);
 }

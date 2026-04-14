@@ -25,18 +25,19 @@ export function BrandLogoWithText({ variant, className }: BrandLogoWithTextProps
         className={
           isNav
             ? "h-8 w-auto shrink-0 object-contain sm:h-9"
-            : "h-11 w-auto shrink-0 object-contain sm:h-12"
+            : "h-12 w-auto shrink-0 object-contain sm:h-14"
         }
         priority={isNav}
       />
       <span
         className={
           isNav
-            ? "text-lg font-extrabold tracking-tight text-[#080808] sm:text-xl"
-            : `${fontHeading} text-3xl font-black text-[var(--aa-primary)] sm:text-4xl`
+            ? "text-lg font-extrabold tracking-tight sm:text-xl"
+            : `${fontHeading} text-3xl font-black sm:text-4xl`
         }
       >
-        Analytics Avenue
+        <span className="text-[#1C3D76]">Analytics</span>
+        <span className="text-[#080808]"> Avenue</span>
       </span>
     </span>
   );

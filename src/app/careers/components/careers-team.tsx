@@ -19,10 +19,10 @@ function TeamMemberTile({ member }: { member: (typeof CAREERS_TEAM)[number] }) {
           sizes="144px"
         />
       </div>
-      <h3 className="mt-4 font-[family-name:var(--font-heading)] text-base font-bold text-[var(--aa-primary)] sm:text-[17px]">
+      <h3 className="mt-4 font-[family-name:var(--font-heading)] text-sm font-bold leading-snug tracking-tight text-[var(--aa-primary)] sm:text-[1.05rem]">
         {member.name}
       </h3>
-      <p className="mt-1 text-sm leading-snug text-slate-800">{member.role}</p>
+      <p className="mt-1 text-sm leading-relaxed text-slate-600">{member.role}</p>
     </div>
   );
 }
@@ -36,7 +36,10 @@ export default function CareersTeam() {
       
     >
       <div className="aa-container relative px-4 sm:px-6">
-        <h2 id="careers-team-title" className="aa-title text-center">
+        <h2
+          id="careers-team-title"
+          className="mb-2 text-center text-3xl font-extrabold leading-tight text-slate-900 sm:text-4xl"
+        >
           Meet the{" "}
           <span className="rounded-sm bg-[var(--aa-primary)] px-2 py-0.5 text-white">Team</span>
         </h2>
@@ -54,7 +57,7 @@ export default function CareersTeam() {
           ))}
         </ul>
 
-        <p className="mx-auto mt-12 max-w-2xl text-center text-base leading-relaxed text-slate-700 sm:mt-14 lg:mt-16">
+        <p className="mx-auto mt-12 max-w-2xl text-center text-base leading-relaxed text-slate-600 sm:mt-14 sm:text-lg lg:mt-16">
           Meet the people behind Analytics Avenue. Our team of dedicated professionals works together to innovate, grow,
           and create meaningful impact.
         </p>
@@ -64,7 +67,7 @@ export default function CareersTeam() {
             href={CAREERS_LINKEDIN_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="aa-btn-primary px-8 text-sm shadow-md shadow-blue-300/40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--aa-primary)]"
+            className="aa-btn-primary px-8 text-sm"
           >
             LinkedIn Profile
           </a>

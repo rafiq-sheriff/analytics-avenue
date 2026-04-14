@@ -69,7 +69,7 @@ const Footer = ({ afterCta = false }: FooterProps) => {
               <div className="flex flex-wrap items-center">
                 <BrandLogoWithText variant="footer" />
               </div>
-              <p className={`${fontBody} mt-4 max-w-sm text-sm leading-relaxed text-slate-600`}>
+              <p className={`${fontBody} mt-4 max-w-sm text-sm font-semibold leading-relaxed text-slate-600`}>
                 AI Business Partner for Ed-Tech and enterprise teams - building
                 talent, systems, and solutions for measurable impact.
               </p>
@@ -86,7 +86,7 @@ const Footer = ({ afterCta = false }: FooterProps) => {
                       <li key={link.label}>
                         <a
                           href={link.href}
-                          className={`${fontBody} text-xs text-slate-500 transition hover:text-[var(--aa-primary)] sm:text-sm`}
+                          className={`${fontBody} text-xs font-semibold text-slate-500 transition hover:text-[var(--aa-primary)] sm:text-sm`}
                         >
                           {link.label}
                         </a>
@@ -100,7 +100,9 @@ const Footer = ({ afterCta = false }: FooterProps) => {
 
           <div className="relative mt-10 flex flex-col gap-3 border-t border-slate-200/80 pt-4 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between sm:text-sm">
             <p className={fontBody}>
-              © {new Date().getFullYear()} Analytics Avenue. All rights reserved.
+              © {new Date().getFullYear()}{" "}
+              <span className="text-[#1C3D76]">Analytics</span>
+              <span className="text-[#080808]"> Avenue</span>. All rights reserved.
             </p>
             <div className={`${fontBody} flex items-center gap-5`}>
               <a href="#" className="transition hover:text-[var(--aa-primary)]">

@@ -272,7 +272,7 @@ function ImpactCard({
             {row.title}
           </h3>
           <p
-            className={`${fontBody} mt-1.5 text-pretty text-xs leading-relaxed text-slate-600 sm:text-sm`}
+            className={`${fontBody} mt-1.5 text-pretty font-semibold text-xs leading-relaxed text-slate-600 sm:text-sm`}
           >
             {row.description}
           </p>

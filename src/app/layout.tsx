@@ -28,6 +28,9 @@ export const metadata: Metadata = {
   title: "Analytics Avenue — AI & Data Solutions",
   description:
     "AI business partner for EdTech and enterprise: data strategy, analytics, and workforce upskilling.",
+  icons: {
+    icon: [{ url: "/assets/logo/logo.svg", type: "image/svg+xml" }],
+  },
 };
 
 export default function RootLayout({

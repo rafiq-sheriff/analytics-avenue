@@ -76,7 +76,7 @@ const Navbar = () => {
               <a
                 key={link.label}
                 href={resolvedHashHref(pathname, link.href)}
-                className="text-sm font-medium text-[#080808] transition hover:text-[#080808]"
+                className="text-sm font-semibold text-[#080808] transition hover:text-[#080808]"
                 onClick={(e) => handleHashNavClick(e, link.href)}
               >
                 {link.label}
@@ -85,7 +85,7 @@ const Navbar = () => {
               <Link
                 key={link.label}
                 href={link.href}
-                className="text-sm font-medium text-[#080808] transition hover:text-[#080808]"
+                className="text-sm font-semibold text-[#080808] transition hover:text-[#080808]"
               >
                 {link.label}
               </Link>
@@ -96,14 +96,14 @@ const Navbar = () => {
         <div className="hidden items-center gap-3 md:flex">
           <a
             href={resolvedHashHref(pathname, "#about")}
-            className="aa-btn-secondary px-4 py-2 text-sm text-[#080808]"
+            className="aa-btn-secondary px-4 py-2 text-sm"
             onClick={(e) => handleHashNavClick(e, "#about")}
           >
             EDTech Solutions
           </a>
           <Link
             href="/careers"
-            className="aa-btn-primary px-4 py-2 text-sm text-[#080808] shadow-md shadow-blue-300/40"
+            className="aa-btn-primary px-4 py-2 text-sm"
           >
             Careers
           </Link>
@@ -152,7 +152,7 @@ const Navbar = () => {
                 <a
                   key={link.label}
                   href={resolvedHashHref(pathname, link.href)}
-                  className="text-sm font-medium text-[#080808] transition hover:text-[#080808]"
+                  className="text-sm font-semibold text-[#080808] transition hover:text-[#080808]"
                   onClick={(e) => handleHashNavClick(e, link.href)}
                 >
                   {link.label}
@@ -161,7 +161,7 @@ const Navbar = () => {
                 <Link
                   key={link.label}
                   href={link.href}
-                  className="text-sm font-medium text-[#080808] transition hover:text-[#080808]"
+                  className="text-sm font-semibold text-[#080808] transition hover:text-[#080808]"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {link.label}
@@ -172,13 +172,13 @@ const Navbar = () => {
               <a
                 href={resolvedHashHref(pathname, "#about")}
                 onClick={(e) => handleHashNavClick(e, "#about")}
-                className="aa-btn-secondary px-4 py-2 text-center text-sm text-[#080808]"
+                className="aa-btn-secondary px-4 py-2 text-center text-sm"
               >
                 EDTech Solutions
               </a>
               <Link
                 href="/careers"
-                className="aa-btn-primary px-4 py-2 text-center text-sm text-[#080808]"
+                className="aa-btn-primary px-4 py-2 text-center text-sm"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Careers

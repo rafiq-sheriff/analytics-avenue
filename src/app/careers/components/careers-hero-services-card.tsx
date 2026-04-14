@@ -56,7 +56,7 @@ export default function CareersHeroServicesCard() {
       <div className="relative" style={outerStyle}>
         <div className="px-5 pb-8 pt-7 sm:px-7 sm:pb-9 sm:pt-8" style={innerStyle}>
           <h2
-            className="text-center font-[family-name:var(--font-heading)] text-lg font-bold uppercase tracking-[0.14em] text-black sm:text-xl"
+            className="text-center font-[family-name:var(--font-heading)] text-lg font-bold uppercase tracking-[0.14em] text-slate-900 sm:text-xl"
             style={{ textShadow: "0 1px 2px rgba(0,0,0,0.12)" }}
           >
             Our services
@@ -64,14 +64,14 @@ export default function CareersHeroServicesCard() {
 
           <ul className="mt-7 space-y-5 sm:mt-8 sm:space-y-6">
             {services.map(({ title, icon }) => (
-              <li key={title} className="flex gap-3.5 sm:gap-4">
+              <li key={title} className="flex gap-3.5 items-center sm:gap-4">
                 <span
                   className="mt-0.5 flex h-11 w-11 shrink-0 items-center justify-center sm:h-12 sm:w-12"
                   aria-hidden
                 >
                   {icon}
                 </span>
-                <span className="font-[family-name:var(--font-body)] text-sm font-bold leading-snug text-black sm:text-[0.95rem]">
+                <span className="font-[family-name:var(--font-body)] text-sm font-bold leading-snug text-slate-900 sm:text-[0.95rem]">
                   {title}
                 </span>
               </li>

@@ -129,7 +129,7 @@ const ChallengeCard = forwardRef<HTMLElement, ChallengeCardProps>(
           <div>
             <a
               href="#cta"
-              className={`${fontBody} aa-btn-primary group min-h-[48px] cursor-pointer rounded-lg px-4 py-2 text-[14px] font-bold shadow-lg shadow-blue-300/40 outline-none hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--aa-primary)] focus-visible:ring-offset-2 sm:text-[16px]`}
+              className={`${fontBody} aa-btn-primary group min-h-[48px] cursor-pointer rounded-lg px-4 py-2 text-[14px] font-bold hover:opacity-95 sm:text-[16px]`}
             >
               Get Started
               <svg

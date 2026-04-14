@@ -1,5 +1,6 @@
 "use client";
 
+import { BlueCirclePattern } from "@/components/patterns/blue-circle-pattern";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import {
@@ -248,7 +249,7 @@ const CURRICULUM_TABS: readonly CurriculumTab[] = [
   },
 ] as const;
 
-/** Blue matrix strip (clipped banner) below hero — global program metrics */
+/** Stats strip below hero — same saturated blue + circle pattern as CTA */
 const CURRICULUM_MATRIX_STATS: readonly { figure: string; caption: string }[] =
   [
     { figure: "2,000", caption: "Nationwide Consultations" },
@@ -386,19 +387,17 @@ const FAQ_BOX_CLASS =
 function LearnAccordionChevron({ open }: { open: boolean }) {
   return (
     <span
-      className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-slate-200 text-slate-400"
+      className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-slate-200 text-slate-400 sm:h-10 sm:w-10"
       aria-hidden
     >
       <svg
-        width="16"
-        height="16"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
-        className={`transition-transform duration-200 ${open ? "" : "rotate-180"}`}
+        className={`h-[18px] w-[18px] shrink-0 transition-transform duration-200 sm:h-5 sm:w-5 ${open ? "" : "rotate-180"}`}
       >
         <path d="M6 15l6-6 6 6" />
       </svg>
@@ -438,16 +437,16 @@ function CurriculumLearnAccordion({
           onClick={onToggle}
         >
           {variant === "core" ? (
-            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[color-mix(in_srgb,var(--aa-primary)_14%,white)] text-[var(--aa-primary)] ring-1 ring-[color-mix(in_srgb,var(--aa-primary)_28%,transparent)]">
-              <IconCoreCurriculum className="h-[1.125rem] w-[1.125rem] sm:h-5 sm:w-5" />
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[color-mix(in_srgb,var(--aa-primary)_14%,white)] text-[var(--aa-primary)] ring-1 ring-[color-mix(in_srgb,var(--aa-primary)_28%,transparent)] sm:h-11 sm:w-11">
+              <IconCoreCurriculum className="h-5 w-5 sm:h-[1.375rem] sm:w-[1.375rem]" />
             </span>
           ) : (
-            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-purple-100 text-purple-700 ring-1 ring-purple-200/80">
-              <IconMarketTrend className="h-[1.125rem] w-[1.125rem] sm:h-5 sm:w-5" />
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-purple-100 text-purple-700 ring-1 ring-purple-200/80 sm:h-11 sm:w-11">
+              <IconMarketTrend className="h-5 w-5 sm:h-[1.375rem] sm:w-[1.375rem]" />
             </span>
           )}
           <span
-            className={`min-w-0 flex-1 text-[13px] font-bold leading-snug text-slate-900 sm:text-[15px] md:text-base ${fontHeading}`}
+            className={`min-w-0 flex-1 text-[15px] font-bold leading-snug text-slate-900 sm:text-[16px] md:text-[1.125rem] ${fontHeading}`}
           >
             {title}
           </span>
@@ -566,29 +565,25 @@ const Curriculam = () => {
               <div
                 className="relative overflow-hidden px-5 py-10 sm:px-8 sm:py-12 lg:px-10 lg:py-10"
                 style={{
-                  backgroundColor: "var(--aa-primary)",
                   clipPath:
                     "polygon(2rem 0%, 100% 0%, 100% calc(100% - 2rem), calc(100% - 2rem) 100%, 0% 100%, 0% 2rem)",
                 }}
               >
-                <div className="pointer-events-none absolute inset-0" aria-hidden>
-                  <div
-                    className="absolute -bottom-24 -left-20 h-80 w-80 rounded-full opacity-[0.14]"
-                    style={{
-                      background:
-                        "radial-gradient(circle at center, rgba(255,255,255,0.5) 0%, transparent 68%)",
-                    }}
-                  />
-                  <div
-                    className="absolute -right-16 -top-24 h-72 w-72 rounded-full opacity-[0.12]"
-                    style={{
-                      background:
-                        "radial-gradient(circle at center, rgba(255,255,255,0.45) 0%, transparent 65%)",
-                    }}
-                  />
-                </div>
                 <div
-                  className="relative grid grid-cols-1 gap-0 divide-y divide-white/20 text-center text-white sm:grid-cols-2 sm:divide-y-0 lg:grid-cols-4 lg:divide-x lg:divide-white/20"
+                  className="pointer-events-none absolute inset-0 bg-gradient-to-br from-[#1A73E8] via-[#1d63e8] to-[#1557c7]"
+                  aria-hidden
+                />
+                <div
+                  className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_55%_at_50%_-10%,rgba(255,255,255,0.18),transparent_55%)]"
+                  aria-hidden
+                />
+                <BlueCirclePattern minHeightClass="min-h-[220px]" />
+                <div
+                  className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/[0.12] via-transparent to-transparent"
+                  aria-hidden
+                />
+                <div
+                  className="relative z-10 grid grid-cols-1 gap-0 divide-y divide-white/20 text-center text-white sm:grid-cols-2 sm:divide-y-0 lg:grid-cols-4 lg:divide-x lg:divide-white/20"
                   role="group"
                   aria-label="Program impact at a glance"
                 >
@@ -737,12 +732,12 @@ const Curriculam = () => {
                               <span>{metaLevel}</span>
                             </li>
                           </ul>
-                          <p className="text-[0.9375rem] leading-relaxed text-[var(--aa-text-muted)] sm:text-base">
+                          <p className="text-[0.9375rem] font-semibold text-[#475569] sm:text-base">
                             {active.description}
                           </p>
                           <div>
                             <p
-                              className={`text-[0.6875rem] font-semibold uppercase tracking-[0.14em] text-slate-400 ${fontHeading}`}
+                              className={`text-[0.6875rem] font-semibold uppercase  text-slate-400 ${fontHeading}`}
                             >
                               Career outcomes
                             </p>
@@ -774,7 +769,7 @@ const Curriculam = () => {
                                   >
                                     {stat.value}
                                   </p>
-                                  <p className="mt-1 text-[0.65rem] font-medium leading-tight text-slate-500 sm:text-xs">
+                                  <p className="mt-1 text-[0.65rem] font-medium leading-tight text-slate-500 sm:text-sm">
                                     {stat.label}
                                   </p>
                                 </div>
@@ -783,7 +778,7 @@ const Curriculam = () => {
                           </div>
                           <a
                             href="#cta"
-                            className="aa-btn-primary flex w-full items-center justify-center py-3.5 text-center text-base font-semibold shadow-lg shadow-blue-300/35 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--aa-primary)] sm:py-4"
+                            className="aa-btn-primary flex w-full items-center justify-center py-3.5 text-center text-base font-semibold sm:py-4"
                           >
                             Enroll Now — Under Shortlisted Aspirants
                           </a>
@@ -845,7 +840,7 @@ const Curriculam = () => {
                             {active.learn.map((item) => (
                               <li
                                 key={item}
-                                className="flex gap-3 text-[0.9375rem] leading-snug text-slate-700"
+                                className="flex gap-3 text-[0.9375rem] font-semibold  text-slate-700"
                               >
                                 <span
                                   className="mt-[0.45rem] h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--aa-primary)] ring-2 ring-white"
@@ -871,7 +866,7 @@ const Curriculam = () => {
                             {active.trendsItems.map((item) => (
                               <li
                                 key={item}
-                                className="flex gap-3 text-[0.9375rem] leading-snug text-slate-700"
+                                className="flex gap-3 text-[0.9375rem] font-semibold leading-snug text-slate-700"
                               >
                                 <span
                                   className="mt-[0.45rem] h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--aa-primary)] ring-2 ring-white"
@@ -932,7 +927,7 @@ const Curriculam = () => {
                     </p>
                     <a
                       href="#cta"
-                      className="inline-flex min-w-[12rem] items-center justify-center rounded-xl bg-[#1a73e8] px-8 py-3 text-sm font-semibold text-white shadow-md "
+                      className="aa-btn-primary inline-flex min-w-[12rem] items-center justify-center px-8 py-3 text-sm font-semibold"
                     >
                       Start Learning Today
                     </a>

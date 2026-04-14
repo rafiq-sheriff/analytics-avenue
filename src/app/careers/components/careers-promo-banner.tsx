@@ -9,12 +9,12 @@ export default function CareersPromoBanner() {
       
     >
       <div className="aa-container flex flex-col items-center justify-between gap-3 px-4 py-3 text-center sm:flex-row sm:text-left">
-        <p className="max-w-3xl text-sm font-medium leading-snug text-slate-800 sm:text-[15px]">
+        <p className="max-w-3xl text-sm font-semibold leading-snug text-[#080808] sm:text-base">
           Industry Ready GenAI program for Data Aspirants (Only for Shortlisted 150 Aspirants)
         </p>
         <Link
           href="/#curriculum-heading"
-          className="aa-btn-primary shrink-0 px-5 py-2 text-sm shadow-md shadow-blue-300/35"
+          className="aa-btn-primary shrink-0 px-5 py-2 text-sm"
         >
           Enroll Now
         </Link>

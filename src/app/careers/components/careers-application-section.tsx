@@ -75,8 +75,12 @@ export default function CareersApplicationSection() {
       aria-labelledby="careers-application-title"
     >
       <div className="aa-container px-4 sm:px-6">
-        <h2 id="careers-application-title" className="aa-title text-center">
-          Fill the <span className="rounded-sm bg-[var(--aa-primary)] px-2 py-0.5 text-white">Application</span>
+        <h2
+          id="careers-application-title"
+          className="mb-2 text-center text-3xl font-extrabold leading-tight text-slate-900 sm:text-4xl"
+        >
+          Fill the{" "}
+          <span className="rounded-sm bg-[var(--aa-primary)] px-2 py-0.5 text-white">Application</span>
         </h2>
 
         <div

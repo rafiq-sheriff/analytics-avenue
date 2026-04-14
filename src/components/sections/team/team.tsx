@@ -147,7 +147,7 @@ function InfoCard({ member }: { member: TeamMember }) {
         >
           {member.name}
         </h3>
-        <p className="line-clamp-4 text-xs leading-relaxed text-slate-600 sm:line-clamp-none sm:text-sm">
+        <p className="line-clamp-4 text-xs font-semibold leading-relaxed text-slate-600 sm:line-clamp-none sm:text-sm">
           {member.bio}
         </p>
       </div>

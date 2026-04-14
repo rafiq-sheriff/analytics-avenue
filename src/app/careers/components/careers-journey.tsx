@@ -3,8 +3,6 @@
 import { useEffect, useRef, useState } from "react";
 import { CAREERS_JOURNEY } from "../data";
 
-const accent = "var(--aa-primary)";
-
 function useSectionReveal() {
   const ref = useRef<HTMLElement | null>(null);
   const [visible, setVisible] = useState(false);
@@ -86,7 +84,7 @@ export default function CareersJourney() {
 
             <h2
               id="careers-journey-title"
-              className="text-center text-3xl font-extrabold leading-tight tracking-tight text-slate-900 sm:text-4xl lg:text-left lg:text-5xl"
+              className="text-center text-3xl font-extrabold leading-tight text-slate-900 sm:text-4xl lg:text-left"
             >
               Where are you in your <br className="hidden lg:block" />
               <span className="text-[var(--aa-primary)] lg:rounded-sm lg:bg-[var(--aa-primary)] lg:px-2 lg:py-0.5 lg:text-white">
@@ -120,7 +118,7 @@ export default function CareersJourney() {
                         })
                       }
                     >
-                      <span className="min-w-0 flex-1 text-[15px] font-bold leading-snug text-slate-900 sm:text-base">
+                      <span className="min-w-0 flex-1 text-xl font-semibold leading-snug text-slate-900">
                         {item.title}
                       </span>
                       <span
@@ -157,7 +155,7 @@ export default function CareersJourney() {
                     className={open ? "block" : "hidden"}
                   >
                     <div className="border-t border-slate-100 px-5 pb-5 pt-0 sm:px-6 sm:pb-6">
-                      <p className="text-sm leading-relaxed text-slate-600 sm:text-[15px]">{item.body}</p>
+                      <p className="text-sm font-semibold leading-relaxed text-slate-600 sm:text-base">{item.body}</p>
                     </div>
                   </div>
                 </div>
@@ -166,7 +164,7 @@ export default function CareersJourney() {
           </div>
         </div>
 
-        <p className="mt-10 text-center text-sm font-medium text-[var(--aa-primary)] lg:hidden">Career Journey</p>
+        <p className="aa-kicker mt-10 text-center lg:hidden">Career Journey</p>
       </div>
     </section>
   );

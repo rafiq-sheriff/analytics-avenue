@@ -223,8 +223,10 @@ const About = () => {
 
             <div className="mt-6" style={reveal(230)}>
               <a
-                href="#approach"
-            className="aa-btn-primary shadow-lg shadow-blue-300/40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--aa-primary)]"
+                href="https://www.linkedin.com/in/subramani-arumugam-14100b169/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="aa-btn-primary"
               >
                 Visit Linkedin
                 <svg
