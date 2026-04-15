@@ -109,7 +109,7 @@ function useColumnSizes(): ColumnSizes {
     const update = () => {
       const vw = window.innerWidth;
       if (vw < 480) {
-        setSizes({ width: 216, height: 298, gap: 13 });
+        setSizes({ width: 216, height: 326, gap: 13 });
       } else if (vw < 640) {
         setSizes({ width: 232, height: 332, gap: 14 });
       } else if (vw < 1024) {
@@ -147,7 +147,7 @@ function InfoCard({ member }: { member: TeamMember }) {
         >
           {member.name}
         </h3>
-        <p className="line-clamp-4 text-xs font-semibold leading-relaxed text-slate-600 sm:line-clamp-none sm:text-sm">
+        <p className="line-clamp-none text-xs font-semibold leading-relaxed text-slate-600 sm:text-sm">
           {member.bio}
         </p>
       </div>
@@ -188,6 +188,9 @@ function MemberColumn({
   sizes: ColumnSizes;
 }) {
   const imageFirst = index % 2 === 0;
+  const isMobileColumn = sizes.width <= 232;
+  const imageFirstRows = isMobileColumn ? "60fr 40fr" : "65fr 35fr";
+  const infoFirstRows = isMobileColumn ? "40fr 60fr" : "35fr 65fr";
 
   return (
     <div
@@ -196,7 +199,7 @@ function MemberColumn({
         {
           width: sizes.width,
           height: sizes.height,
-          gridTemplateRows: imageFirst ? "65fr 35fr" : "35fr 65fr",
+          gridTemplateRows: imageFirst ? imageFirstRows : infoFirstRows,
           gap: sizes.gap,
         } as CSSProperties
       }

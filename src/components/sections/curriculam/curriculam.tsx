@@ -539,7 +539,7 @@ const Curriculam = () => {
       </div>
 
       <div className="aa-container relative">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-6xl  sm:px-6 lg:px-8">
           <div className="relative overflow-hidden rounded-[1.75rem] bg-white/82 p-6 shadow-[0_24px_60px_-40px_rgba(15,23,42,0.1)] backdrop-blur-md sm:rounded-[2rem] sm:p-8 lg:p-10">
             <header className="mx-auto  text-center">
               <h2
