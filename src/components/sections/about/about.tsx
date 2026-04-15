@@ -78,9 +78,10 @@ const About = () => {
         </h2>
 
         <div
-          className="flex flex-col gap-5 rounded-3xl border border-slate-100 bg-[#f7fbff] p-4 shadow-[0_18px_55px_-30px_rgba(15,23,42,0.35)] sm:p-6 lg:flex-row lg:items-start lg:p-8"
+          className="flex flex-col gap-5 rounded-3xl border border-slate-100 bg-[#f7fbff] p-4 shadow-[0_18px_55px_-30px_rgba(15,23,42,0.35)] sm:p-6 lg:flex-col lg:items-start lg:p-8"
           style={reveal(90)}
         >
+          <div className="flex flex-row gap-5">
           <div className="relative min-w-0 shrink-0 lg:flex-[2] lg:self-start">
             <div
               className={`relative w-full overflow-hidden rounded-[1.4rem] ${
@@ -156,7 +157,6 @@ const About = () => {
               )}
             </div>
           </div>
-
           <div className="min-w-0 rounded-[1.4rem] bg-white p-5 shadow-[0_10px_30px_-18px_rgba(15,23,42,0.28)] sm:p-7 lg:flex-[3]">
             <div
               className="mb-3 flex items-center gap-3"
@@ -172,7 +172,7 @@ const About = () => {
             </div>
 
             <div
-              className="space-y-4 text-lg leading-relaxed text-[#080808] sm:text-[1.2rem] sm:leading-[1.3]"
+              className="space-y-4 text-lg leading-relaxed text-[#080808] sm:text-[1.1rem] sm:leading-[1.3]"
               style={reveal(180)}
             >
               <p>
@@ -247,82 +247,15 @@ const About = () => {
               </a>
             </div>
 
-            <div id="approach" className="mt-7" style={reveal(280)}>
-              <div className="mb-3 flex items-center gap-3">
-                <h3
-                  className="shrink-0 text-xl font-extrabold sm:text-xl"
-                  style={{ color: primary }}
-                >
-                  Leadership Excellence
-                </h3>
-                <span className="h-px w-full bg-blue-200" />
-              </div>
-
-              <ul className="space-y-2.5 text-lg font-medium leading-relaxed text-[#080808] sm:text-[1.2rem] sm:leading-[1.3]">
-                <li className="flex items-start gap-2.5">
-                  <span
-                    className="mt-[0.35em] shrink-0 font-bold leading-none text-[var(--aa-primary)]"
-                    aria-hidden
-                  >
-                    ✓
-                  </span>
-                  <span>
-                    <strong className="font-bold">
-                      Collaborated with 15+ Global Brands
-                    </strong>
-                    , delivering high-impact data strategies and intelligent
-                    AI-driven solutions
-                  </span>
-                </li>
-                <li className="flex items-start gap-2.5">
-                  <span
-                    className="mt-[0.35em] shrink-0 font-bold leading-none text-[var(--aa-primary)]"
-                    aria-hidden
-                  >
-                    ✓
-                  </span>
-                  <span>
-                    <strong className="font-bold">
-                      Recognized AI Thought Leader
-                    </strong>
-                    , driving innovation in AI education and accelerating
-                    industry adoption
-                  </span>
-                </li>
-                <li className="flex items-start gap-2.5">
-                  <span
-                    className="mt-[0.35em] shrink-0 font-bold leading-none text-[var(--aa-primary)]"
-                    aria-hidden
-                  >
-                    ✓
-                  </span>
-                  <span>
-                    <strong className="font-bold">
-                      Empowered 1,000+ Professionals
-                    </strong>
-                    , transforming careers through focused data analytics
-                    initiatives
-                  </span>
-                </li>
-                <li className="flex items-start gap-2.5">
-                  <span
-                    className="mt-[0.35em] shrink-0 font-bold leading-none text-[var(--aa-primary)]"
-                    aria-hidden
-                  >
-                    ✓
-                  </span>
-                  <span>
-                    <strong className="font-bold">
-                      Founder of #UpSkillIndia Movement
-                    </strong>
-                    , empowering talent across the nation to build future-ready
-                    data and AI careers
-                  </span>
-                </li>
-              </ul>
-            </div>
+            
             
           </div>
+
+          </div>
+          <div id="approach" className="w-full min-w-0 rounded-[1.4rem] bg-white p-5 shadow-[0_10px_30px_-18px_rgba(15,23,42,0.28)] sm:p-7 " style={reveal(280)}> <div className="mb-3 flex items-center gap-3 "> <h3 className="shrink-0 text-xl font-extrabold sm:text-xl" style={{ color: primary }} > Leadership Excellence </h3> <span className="h-px w-full bg-blue-200" /> </div> <ul className="space-y-2.5 text-lg font-medium leading-relaxed text-[#080808] sm:text-[1.1rem] sm:leading-[1.3]"> <li className="flex items-start gap-2.5"> <span className="mt-[0.35em] shrink-0 font-bold leading-none text-[var(--aa-primary)]" aria-hidden > ✓ </span> <span> <strong className="font-bold"> Collaborated with 15+ Global Brands </strong> , delivering high-impact data strategies and intelligent AI-driven solutions </span> </li> <li className="flex items-start gap-2.5"> <span className="mt-[0.35em] shrink-0 font-bold leading-none text-[var(--aa-primary)]" aria-hidden > ✓ </span> <span> <strong className="font-bold"> Recognized AI Thought Leader </strong> , driving innovation in AI education and accelerating industry adoption </span> </li> <li className="flex items-start gap-2.5"> <span className="mt-[0.35em] shrink-0 font-bold leading-none text-[var(--aa-primary)]" aria-hidden > ✓ </span> <span> <strong className="font-bold"> Empowered 1,000+ Professionals </strong> , transforming careers through focused data analytics initiatives </span> </li> <li className="flex items-start gap-2.5"> <span className="mt-[0.35em] shrink-0 font-bold leading-none text-[var(--aa-primary)]" aria-hidden > ✓ </span> <span> <strong className="font-bold"> Founder of #UpSkillIndia Movement </strong> , empowering talent across the nation to build future-ready data and AI careers </span> </li> </ul> </div>
+          
+
+          
         </div>
       </div>
     </section>
