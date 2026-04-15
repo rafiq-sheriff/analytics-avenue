@@ -140,7 +140,7 @@ const REASONS = [
   {
     title: "End-to-End Business Automation",
     description: (
-      <>Reduce manual workload by {metricBold("60–80%")}</>
+      <>Reduce manual workload by {metricBold("80–90%")}</>
     ),
   },
   {
@@ -187,11 +187,71 @@ const REASONS = [
 }>;
 
 const ICONS = [
-  function IconFlow({ className }: { className?: string }) {
+  function IconGlobeCode({ className }: { className?: string }) {
     return (
       <svg viewBox="0 0 24 24" fill="none" className={className} aria-hidden>
         <path
-          d="M4 12h4l2-6 4 12 2-6h4"
+          d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Z"
+          stroke="currentColor"
+          strokeWidth="2"
+        />
+        <path
+          d="M3 12h18M12 3a13 13 0 0 1 0 18M12 3a13 13 0 0 0 0 18"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+        />
+      </svg>
+    );
+  },
+  function IconMegaphone({ className }: { className?: string }) {
+    return (
+      <svg viewBox="0 0 24 24" fill="none" className={className} aria-hidden>
+        <path
+          d="M4 12v-2a1 1 0 0 1 1-1h4l8-4v14l-8-4H5a1 1 0 0 1-1-1v-2Z"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M9 15v3a2 2 0 0 0 2 2h1"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+        />
+      </svg>
+    );
+  },
+  function IconRoiTrend({ className }: { className?: string }) {
+    return (
+      <svg viewBox="0 0 24 24" fill="none" className={className} aria-hidden>
+        <path
+          d="M4 19h16M6 16l4-4 3 3 5-6"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M15 9h3v3"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+        />
+      </svg>
+    );
+  },
+  function IconWorkflow({ className }: { className?: string }) {
+    return (
+      <svg viewBox="0 0 24 24" fill="none" className={className} aria-hidden>
+        <path
+          d="M6 4h4v4H6V4Zm8 0h4v4h-4V4ZM6 16h4v4H6v-4Zm8 0h4v4h-4v-4Z"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M10 6h4M8 8v8M16 8v8M10 18h4"
           stroke="currentColor"
           strokeWidth="2"
           strokeLinecap="round"
@@ -200,11 +260,54 @@ const ICONS = [
       </svg>
     );
   },
-  function IconChart({ className }: { className?: string }) {
+  function IconRetention({ className }: { className?: string }) {
     return (
       <svg viewBox="0 0 24 24" fill="none" className={className} aria-hidden>
         <path
-          d="M4 19V5M9 19v-6M14 19V9M19 19v-9"
+          d="M12 21s-7-4.35-7-10a4 4 0 0 1 7-2.65A4 4 0 0 1 19 11c0 5.65-7 10-7 10Z"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M9.5 12.5 11.2 14 14.5 10.5"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    );
+  },
+  function IconAutomationGear({ className }: { className?: string }) {
+    return (
+      <svg viewBox="0 0 24 24" fill="none" className={className} aria-hidden>
+        <path
+          d="M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Z"
+          stroke="currentColor"
+          strokeWidth="2"
+        />
+        <path
+          d="m19 12 1.7 1-1.7 3-2-.3a7.4 7.4 0 0 1-1.3 1.3l.3 2h-3l-1-1.7-1 1.7H8l.3-2A7.4 7.4 0 0 1 7 15.7l-2 .3-1.7-3L5 12l-1.7-1 1.7-3 2 .3a7.4 7.4 0 0 1 1.3-1.3L8 5h3l1 1.7L13 5h3l-.3 2a7.4 7.4 0 0 1 1.3 1.3l2-.3L20.7 11 19 12Z"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    );
+  },
+  function IconPipeline({ className }: { className?: string }) {
+    return (
+      <svg viewBox="0 0 24 24" fill="none" className={className} aria-hidden>
+        <path
+          d="M3 7h6v4H3V7Zm12 0h6v4h-6V7ZM9 13h6v4H9v-4Z"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M9 9h2.5M12 9v4M15 9h0"
           stroke="currentColor"
           strokeWidth="2"
           strokeLinecap="round"
@@ -212,11 +315,11 @@ const ICONS = [
       </svg>
     );
   },
-  function IconShield({ className }: { className?: string }) {
+  function IconBrain({ className }: { className?: string }) {
     return (
       <svg viewBox="0 0 24 24" fill="none" className={className} aria-hidden>
         <path
-          d="M12 3 5 6v5c0 5 3.5 9 7 10 3.5-1 7-5 7-10V6l-7-3Z"
+          d="M9 5a3 3 0 0 0-3 3v.5A2.5 2.5 0 0 0 4 11v1a2.5 2.5 0 0 0 2 2.45V16a3 3 0 0 0 3 3h1V5H9Zm6 0h-1v14h1a3 3 0 0 0 3-3v-1.55A2.5 2.5 0 0 0 20 12v-1a2.5 2.5 0 0 0-2-2.5V8a3 3 0 0 0-3-3Z"
           stroke="currentColor"
           strokeWidth="2"
           strokeLinejoin="round"
@@ -224,16 +327,54 @@ const ICONS = [
       </svg>
     );
   },
-  function IconSpark({ className }: { className?: string }) {
+  function IconDashboard({ className }: { className?: string }) {
     return (
       <svg viewBox="0 0 24 24" fill="none" className={className} aria-hidden>
         <path
-          d="M12 2v3M12 19v3M4.93 4.93l2.12 2.12M16.95 16.95l2.12 2.12M2 12h3M19 12h3M4.93 19.07l2.12-2.12M16.95 7.05l2.12-2.12"
+          d="M4 4h16v16H4V4Zm0 6h16M10 10v10"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M13 15h5M13 18h3M6 14h2M6 17h2"
           stroke="currentColor"
           strokeWidth="2"
           strokeLinecap="round"
         />
-        <circle cx="12" cy="12" r="3" stroke="currentColor" strokeWidth="2" />
+      </svg>
+    );
+  },
+  function IconPulse({ className }: { className?: string }) {
+    return (
+      <svg viewBox="0 0 24 24" fill="none" className={className} aria-hidden>
+        <path
+          d="M3 12h4l2-4 4 8 2-4h6"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="2" />
+      </svg>
+    );
+  },
+  function IconDecision({ className }: { className?: string }) {
+    return (
+      <svg viewBox="0 0 24 24" fill="none" className={className} aria-hidden>
+        <path
+          d="M4 6h16M12 6v12M12 18l-3-3m3 3 3-3"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M7 10h3M14 10h3"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+        />
       </svg>
     );
   },
@@ -527,7 +668,7 @@ function FlowNode({
   /** `snake`: centered column (grid cells). `stack`: dot rail left, text right (mobile). */
   layout?: "snake" | "stack";
 }) {
-  const Icon = ICONS[index % ICONS.length];
+  const Icon = ICONS[index] ?? ICONS[0];
   const highlight = active;
   const isStack = layout === "stack";
 

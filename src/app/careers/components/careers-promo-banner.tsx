@@ -13,7 +13,7 @@ export default function CareersPromoBanner() {
           Industry Ready GenAI program for Data Aspirants (Only for Shortlisted 150 Aspirants)
         </p>
         <Link
-          href="/#curriculum-heading"
+          href="/#curriculum-section"
           className="aa-btn-primary shrink-0 px-5 py-2 text-sm"
         >
           Enroll Now

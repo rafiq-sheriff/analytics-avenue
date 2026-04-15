@@ -16,6 +16,7 @@ const navLinks: NavLink[] = [
   { label: "Challenges", href: "#challenges" },
   { label: "Team", href: "#team-heading" },
   { label: "AI Program", href: "#curriculum-heading" },
+  { label: "Careers", href: "/careers" },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -96,17 +97,12 @@ const Navbar = () => {
         <div className="hidden items-center gap-3 md:flex">
           <a
             href={resolvedHashHref(pathname, "#about")}
-            className="aa-btn-secondary px-4 py-2 text-sm"
+            className="aa-btn-primary px-4 py-2 text-sm"
             onClick={(e) => handleHashNavClick(e, "#about")}
           >
             EDTech Solutions
           </a>
-          <Link
-            href="/careers"
-            className="aa-btn-primary px-4 py-2 text-sm"
-          >
-            Careers
-          </Link>
+          
         </div>
 
         <button

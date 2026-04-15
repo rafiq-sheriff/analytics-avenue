@@ -403,12 +403,12 @@ const Architecture = () => {
         { icon: Target, label: 'Anomaly Detection', color: PRIMARY },
     ]
     const aiSolutions3 = [
-        { icon: Sparkles, label: 'AI Personalization & Recommendation Agents', color: PRIMARY },
-        { icon: Bot, label: 'Smart Production Scheduling & Autonomous Agents', color: PRIMARY },
-        { icon: BookOpen, label: 'Customer Negotiation & Contract Optimization Agents', color: PRIMARY },
-        { icon: Repeat, label: 'End-To-End Business Automation Agents', color: PRIMARY },
-        { icon: FileCheck, label: 'Clinical Documentation & Coding Agent', color: PRIMARY },
-        { icon: ShieldCheck, label: 'DataShield AI & Privacy Protection Agents', color: PRIMARY },
+        { icon: Sparkles, label: 'AI Personalization & Recommendation', color: PRIMARY },
+        { icon: Bot, label: 'Smart Production Scheduling & Autonomous', color: PRIMARY },
+        { icon: BookOpen, label: 'Negotiation & Contract Optimization', color: PRIMARY },
+        { icon: Repeat, label: 'End-To-End Business Automation', color: PRIMARY },
+        { icon: FileCheck, label: 'Clinical Documentation & Coding', color: PRIMARY },
+        { icon: ShieldCheck, label: 'DataShield AI & Privacy Protection', color: PRIMARY },
     ]
 
     /* ── Section 02 warehouse tools ── */

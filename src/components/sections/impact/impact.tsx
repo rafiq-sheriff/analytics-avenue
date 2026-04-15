@@ -42,14 +42,14 @@ const IMPACT_ROWS: readonly ImpactRow[] = [
     Icon: Heart,
   },
   {
-    range: [70, 80],
+    range: [95, 100],
     title: "Faster delivery of business insights",
     description:
       "Achieved through automated pipelines, BI self-service, and reduced manual reporting cycles.",
     Icon: Gauge,
   },
   {
-    range: [80, 90],
+    range: [85, 95],
     title: "Improvement in sales forecasting accuracy",
     description:
       "Typical for time-series models, demand forecasting, and scenario-based planning.",
@@ -77,21 +77,21 @@ const IMPACT_ROWS: readonly ImpactRow[] = [
     Icon: CircleDollarSign,
   },
   {
-    range: [40, 55],
+    range: [95, 100],
     title: "Reduction in reporting turnaround time",
     description:
       "Enabled through dashboard automation, reusable semantic models, and scheduled data refresh workflows.",
     Icon: Clock3,
   },
   {
-    range: [50, 65],
+    range: [85, 95],
     title: "Improvement in process automation coverage",
     description:
       "Achieved by integrating AI agents, workflow orchestration, and trigger-based operations across teams.",
     Icon: Cpu,
   },
   {
-    range: [35, 50],
+    range: [90, 100],
     title: "Reduction in manual rework and duplicate efforts",
     description:
       "Driven by standardized pipelines, data quality checks, and centralized KPI definitions.",

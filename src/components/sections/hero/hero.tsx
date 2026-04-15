@@ -33,19 +33,19 @@ const heroMatrix = [
     value: "100+",
     title: "High-Performance ML Models",
     sublabel:
-      "Delivering Production-Ready Accuracy & Reliability",
+      "Production-ready, highly accurate models",
     Icon: Brain,
   },
   {
     value: "15+",
-    title: "AI Agents",
+    title: "Smart AI Automation",
     sublabel:
-      "To Transform Your Workflow Designed to Streamline, Automate, and Accelerate Your Business",
+      "Streamline and automate workflows",
     Icon: Bot,
   },
   {
     value: "1000+",
-    title: "Rural Aspirants",
+    title: "Empowering Rural Talent",
     sublabel: "Empowered with Data Analytics Skills",
     Icon: GraduationCap,
   },
@@ -53,13 +53,13 @@ const heroMatrix = [
     value: "500+",
     title: "Nationwide Professionals",
     sublabel:
-      "Completed Industry-Ready Projects for Successful Career Transitions",
+      "Industry-ready projects for careers",
     Icon: Briefcase,
   },
   {
     value: "50+",
     title: "Guest Lectures and MOUs",
-    sublabel: "Bridging Academia with Industry Excellence",
+    sublabel: "Bridging academia with industry excellence",
     Icon: Presentation,
   },
 ] as const;
@@ -68,7 +68,7 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="aa-section relative overflow-hidden bg-[var(--aa-surface-soft)]"
+      className="px-10 py-10  relative overflow-hidden bg-[var(--aa-surface-soft)]"
     >
       <div className="pointer-events-none absolute inset-0 -z-0">
         <div className="absolute -left-24 top-[-140px] h-[360px] w-[360px] rounded-full bg-[radial-gradient(circle_at_center,rgba(26,115,232,0.28),rgba(26,115,232,0))] blur-3xl" />
@@ -84,7 +84,7 @@ const Hero = () => {
             Sales and Marketing
           </h1>
 
-          <h2 className="font-[family-name:var(--font-heading)] mt-8 flex flex-col gap-1 text-2xl font-bold leading-snug text-slate-900 sm:mt-12 sm:flex-row sm:flex-wrap sm:items-baseline sm:gap-x-2 sm:text-3xl">
+          <h2 className="font-[family-name:var(--font-heading)] mt-8 flex flex-col gap-1 text-2xl font-bold leading-snug text-slate-900 sm:mt-12 sm:flex-row sm:flex-wrap sm:items-baseline sm:gap-x-2 sm:text-2xl">
             <span className="text-balance">We Build your</span>
             <RotatingText
               text={buildYourSystemsCapabilities}
@@ -96,10 +96,7 @@ const Hero = () => {
             <span className="text-balance">Systems</span>
           </h2>
 
-          <p className="mt-5 max-w-lg text-base leading-7 text-slate-600 sm:mt-6 sm:leading-8 sm:text-xl">
-          We Build Your Intelligent Business Ecosystem
-
-          </p>
+          
 
           <div className="mt-9 grid gap-6 sm:mt-10 sm:grid-cols-3 sm:gap-4">
             {heroMatrix.map(({ value, title, sublabel, Icon }) => (

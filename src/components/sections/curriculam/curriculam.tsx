@@ -252,10 +252,10 @@ const CURRICULUM_TABS: readonly CurriculumTab[] = [
 /** Stats strip below hero — same saturated blue + circle pattern as CTA */
 const CURRICULUM_MATRIX_STATS: readonly { figure: string; caption: string }[] =
   [
-    { figure: "2,000", caption: "Nationwide Consultations" },
-    { figure: "10", caption: "AI Career Opportunities" },
-    { figure: "15", caption: "Data Experts across Nation" },
-    { figure: "50", caption: "Industrial POCs" },
+    { figure: "2,000+", caption: "Nationwide Consultations" },
+    { figure: "10+", caption: "AI Career Opportunities" },
+    { figure: "15+", caption: "Data Experts across Nation" },
+    { figure: "50+", caption: "Industrial POCs" },
   ];
 
 function splitCurriculumMeta(meta: string): readonly [string, string, string] {
@@ -524,6 +524,7 @@ const Curriculam = () => {
 
   return (
     <section
+      id="curriculum-section"
       aria-labelledby="curriculum-heading"
       className={`aa-section relative overflow-hidden bg-gradient-to-b from-[#e8eefc] via-[color-mix(in_srgb,var(--aa-primary)_9%,#f4f7fd)] to-[var(--aa-surface-soft)] py-14 sm:py-16 ${fontBody}`}
     >
