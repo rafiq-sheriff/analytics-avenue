@@ -19,16 +19,14 @@ const IconWrapper = ({
   <div
     className={`
         backdrop-blur-xl rounded-2xl flex items-center justify-center transition-all duration-300 border
-        ${
-          isHighlighted
-            ? "dark:bg-gray-700/50 bg-gray-100/80 border-blue-400/50 dark:shadow-blue-500/20 shadow-blue-400/30 shadow-2xl animate-breathing-glow"
-            : `dark:bg-white/5 bg-white/60 dark:border-white/20 border-gray-300/60 ${!isHovered && "animate-float"}`
-        }
-        ${
-          isHovered
-            ? "dark:bg-gray-600/50 bg-gray-200/80 border-blue-400/60 scale-110 dark:shadow-blue-400/30 shadow-blue-400/40 shadow-2xl"
-            : "dark:hover:bg-white/10 hover:bg-gray-100/80 dark:hover:border-white/20 hover:border-gray-300/60"
-        }
+        ${isHighlighted
+        ? "dark:bg-gray-700/50 bg-gray-100/80 border-blue-400/50 dark:shadow-blue-500/20 shadow-blue-400/30 shadow-2xl animate-breathing-glow"
+        : `dark:bg-white/5 bg-white/60 dark:border-white/20 border-gray-300/60 ${!isHovered && "animate-float"}`
+      }
+        ${isHovered
+        ? "dark:bg-gray-600/50 bg-gray-200/80 border-blue-400/60 scale-110 dark:shadow-blue-400/30 shadow-blue-400/40 shadow-2xl"
+        : "dark:hover:bg-white/10 hover:bg-gray-100/80 dark:hover:border-white/20 hover:border-gray-300/60"
+      }
         ${className}
     `}
     style={{ animationDelay: `${animationDelay}s` }}
@@ -42,25 +40,25 @@ const IconGrid = () => {
   const [hoveredId, setHoveredId] = useState<number | null>(null);
 
   const outerIcons = [
-    { id: 1, component: <Image src="/assets/careers/graduation-cap.svg" alt="Graduation Cap" width={40} height={40} className="object-contain" /> },
-    { id: 2, component: <Image src="/assets/hero/inner-layer/digital-marketing.svg" alt="Digital Marketing" width={40} height={40} className="object-contain" /> },
-    { id: 3, component: <Image src="/assets/hero/outer-layer/agentic-ai.svg" alt="Agentic AI" width={40} height={40} className="object-contain" /> },
-    { id: 4, component: <Image src="/assets/hero/outer-layer/bi-solution.svg" alt="BI Solution" width={40} height={40} className="object-contain" /> },
-    { id: 5, component: <Image src="/assets/hero/outer-layer/data-engineer.svg" alt="Data Engineer" width={40} height={40} className="object-contain" /> },
+    { id: 1, label: "Nationwide Data Analytics / AI Programs",        component: <Image src="/assets/careers/graduation-cap.svg" alt="Graduation Cap" width={52} height={52} className="object-contain" /> },
+    { id: 2, label: "AI Enhanced Digital Marketing Solutions",        component: <Image src="/assets/hero/inner-layer/digital-marketing.svg" alt="Digital Marketing" width={52} height={52} className="object-contain" /> },
+    { id: 3, label: "End to End GenAI Automation",                   component: <Image src="/assets/hero/outer-layer/agentic-ai.svg" alt="Agentic AI" width={52} height={52} className="object-contain" /> },
+    { id: 4, label: "Predictive Dashboards and CRM Pipeline Designs", component: <Image src="/assets/hero/outer-layer/bi-solution.svg" alt="BI Solution" width={52} height={52} className="object-contain" /> },
+    { id: 5, label: "Data Engineering & Data Analytics",             component: <Image src="/assets/hero/outer-layer/data-engineer.svg" alt="Data Engineer" width={52} height={52} className="object-contain" /> },
   ];
 
   // Constants for layout calculation
-  const radius = 160;
-  const centralIconRadius = 48; // w-24 is 96px, radius is 48px
-  const outerIconRadius = 32; // w-16 is 64px, radius is 32px
-  const svgSize = 400;
+  const radius = 210;
+  const centralIconRadius = 56; // w-28 is 112px, radius is 56px
+  const outerIconRadius = 40; // w-20 is 80px, radius is 40px
+  const svgSize = 520;
   const svgCenter = svgSize / 2;
 
   return (
     // Use scale to make the entire component responsive
-    <div className="relative w-[400px] h-[400px] scale-75 md:scale-90 lg:scale-100">
+    <div className="relative w-[520px] h-[520px] scale-75 md:scale-90 lg:scale-100">
       {/* SVG container for all connecting lines, drawn underneath the icons */}
-      <svg width={svgSize} height={svgSize} className="absolute top-0 left-0">
+      <svg width={svgSize} height={svgSize} className="absolute top-0 left-0" viewBox={`0 0 ${svgSize} ${svgSize}`}>
         <defs>
           <filter id="glow">
             <feGaussianBlur stdDeviation="2" result="coloredBlur" />
@@ -147,15 +145,15 @@ const IconGrid = () => {
         {/* Center Icon */}
         <div className="absolute -translate-x-1/2 -translate-y-1/2 z-10">
           <IconWrapper
-            className="w-24 h-24 p-2"
+            className="w-28 h-28 p-2"
             isHighlighted={true}
             animationDelay={0}
           >
             <Image
               src="/assets/logo/logo.svg"
               alt="Analytics Avenue Logo"
-              width={44}
-              height={44}
+              width={56}
+              height={56}
               className="object-contain block mx-auto"
             />
           </IconWrapper>
@@ -188,12 +186,20 @@ const IconGrid = () => {
                 ></div>
 
                 <IconWrapper
-                  className="w-16 h-16"
+                  className="w-20 h-20"
                   isHovered={isHovered}
                   animationDelay={i * 0.15}
                 >
                   {icon.component}
                 </IconWrapper>
+
+                {/* Label pill — same style as orbiting component */}
+                <div
+                  className="pointer-events-none absolute left-1/2 top-full z-[40] mt-2 -translate-x-1/2 whitespace-nowrap rounded-full bg-[#1a1c23] px-3 py-1.5 font-[family-name:var(--font-heading)] text-[10px] font-semibold leading-snug tracking-tight text-white/95 shadow-lg"
+                  aria-hidden
+                >
+                  {icon.label}
+                </div>
               </div>
             </div>
           );
