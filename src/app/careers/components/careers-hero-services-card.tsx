@@ -19,7 +19,10 @@ const IconWrapper = ({
   <div
     className={`
         backdrop-blur-xl rounded-2xl flex items-center justify-center transition-all duration-300 border
-              }
+        ${isHighlighted
+        ? "dark:bg-gray-700/50 bg-gray-100/80 border-blue-400/50 dark:shadow-blue-500/20 shadow-blue-400/30 shadow-2xl animate-breathing-glow"
+        : `  ${!isHovered && "animate-float"}`
+      }
         ${isHovered
         ? "dark:bg-gray-600/50 bg-gray-200/80 border-blue-400/60 scale-110 dark:shadow-blue-400/30 shadow-blue-400/40 shadow-2xl"
         : "dark:hover:bg-white/10 hover:bg-gray-100/80 dark:hover:border-white/20 hover:border-gray-300/60"
@@ -209,7 +212,7 @@ const IconGrid = () => {
 // The main App component that brings everything together
 export default function CareersHeroServicesCard() {
   return (
-    <div className="w-full flex items-center justify-center font-sans p-4 sm:p-8 overflow-hidden">
+    <div className="w-full flex items-center justify-center font-sans px-2 py-6 sm:px-4 sm:py-8">
       {/* Style block to define the animations. */}
       <style>
         {`
